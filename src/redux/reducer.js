@@ -1,5 +1,5 @@
 const initialState = {
-  theme: 'dark'
+  theme: 'light'
 }
 
 const reducer = (state = initialState, actions) => {

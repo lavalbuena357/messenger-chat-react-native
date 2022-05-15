@@ -4,10 +4,12 @@ import SplashScreen from 'react-native-splash-screen'
 import { useFocusEffect } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import logo from '../../assets/letsconn_logo.png'
-import styles from './Splash.styles'
+import useStyles from './Splash.styles'
 
 const Splash = ({navigation}) => {
   let count = 0
+
+  const styles = useStyles()
 
   useFocusEffect(
     useCallback(() => {

@@ -1,13 +1,15 @@
+import { useMemo } from 'react';
 import { StyleSheet, Dimensions } from 'react-native'
-import { color } from '../../colors/colors'
+import { useSelector } from 'react-redux';
+import Theme, { vars } from '../../colors/colors'
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
-export default StyleSheet.create({
+const getStyles = ({colors}) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: color.primary,
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'space-evenly'
   },
@@ -16,3 +18,14 @@ export default StyleSheet.create({
     height: deviceHeight
   }
 })
+
+const useStyles = () => {
+  const theme = useSelector(state => state.theme)
+  const { colors } = Theme[theme]
+
+  const styles = useMemo(() => getStyles({colors}), [colors])
+
+  return styles
+}
+
+export default useStyles
