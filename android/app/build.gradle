@@ -273,6 +273,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation project(':react-native-splash-screen')
     implementation project(':react-native-audio-recorder-player')
+    implementation project(':react-native-vector-icons')
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
