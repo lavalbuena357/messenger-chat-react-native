@@ -29,7 +29,7 @@ const Login = ({ navigation }) => {
           Iniciar sesión con Google
         </Text>
       </TouchableOpacity>
-      {isLoading && <Loader color={colors.primary} size={60} />}
+      {isLoading && <Loader color={styles.loading.color} size={60} />}
     </View>
   )
 }

@@ -9,6 +9,6 @@ export default StyleSheet.create({
     zIndex: 200,
     height: deviceHeight,
     width: deviceWidth,
-    backgroundColor: '#00000050'
+    backgroundColor: '#00000060'
   }
 })

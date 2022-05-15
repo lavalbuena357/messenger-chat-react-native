@@ -35,6 +35,9 @@ const getStyles = ({colors}) => StyleSheet.create({
     marginRight: 5,
     textTransform: 'uppercase',
     fontSize: 13
+  },
+  loading: {
+    color: colors.loading
   }
 })
 
