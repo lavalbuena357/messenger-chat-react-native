@@ -271,6 +271,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation project(':react-native-splash-screen')
     implementation project(':react-native-audio-recorder-player')
 
     //noinspection GradleDynamicVersion
