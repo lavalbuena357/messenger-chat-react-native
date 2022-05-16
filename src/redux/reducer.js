@@ -8,7 +8,7 @@ const reducer = (state = initialState, actions) => {
     case 'THEME':
       return {...state, theme: actions.payload}
     case 'GET_CURRENT_USER': 
-      return {...state, currentUser: action.payload}
+      return {...state, currentUser: actions.payload}
     default:
       return state
   }
