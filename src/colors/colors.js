@@ -1,17 +1,20 @@
 const Theme = {
   light: {
     colors: {
-      primary: '#ff8400',
-      primaryLight: '#ff902c',
-      secondary: '#ffffff',
-      background: '#e5e5ea',
+      primary: '#e5e5ea',
+      primaryLight: '#f4f4f4',
+      secondary: '#20252e',
+      background: '#ededed',
+      button: '#ff8400',
       google: '#F44646',
-      text: '#242424',
-      textInverse: '#ffffff99',
+      text: '#ffffff',
+      textBody: '#242424',
       whiteTransparent: '#ffffff99',
       white: '#ffffff',
       google: '#F44646',
       shadow: '#242424',
+      notification: '#CE2020',
+      logo: '#ff8400'
     }
   },
   dark: {
@@ -20,13 +23,16 @@ const Theme = {
       primaryLight: '#333942',
       secondary: '#ff8400',
       background: '#282f36',
+      button: '#ff8400',
       google: '#F44646',
-      text: '#ffffff99',
-      textInverse: '#242424',
+      text: '#ffffff',
+      textBody: '#ffffff99',
       whiteTransparent: '#ffffff99',
       white: '#ffffff',
       google: '#F44646',
       shadow: '#e5e5ea',
+      notification: '#CE2020',
+      logo: '#e5e5ea'
     }
   }
 }
