@@ -12,7 +12,7 @@ import photoURL from '../../assets/avatar.png'
 const Header = () => {
   const styles = useStyles()
 
-  const theme = useSelector(state => state.theme)
+  const {theme, currentUser} = useSelector(state => state)
   const dispatch = useDispatch()
 
   const handleSettings = () => {
@@ -32,8 +32,8 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <View style={styles.left}>
-        <Image source={photoURL} style={styles.photoURL} />
-        <Text style={styles.title}>Let's Conn</Text>
+        <Image source={{uri:currentUser.photoURL}} style={styles.photoURL} />
+        <Text style={styles.title}>Let'sConn</Text>
       </View>
       <View style={styles.rightCn}>
         <TouchableOpacity onPress={handleTheme} style={{padding:5, marginRight:15}}>
