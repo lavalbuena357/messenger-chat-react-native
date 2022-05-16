@@ -61,3 +61,4 @@ google-services.json
 /ios/Pods/
 /vendor/bundle/
 .env
+env.js
