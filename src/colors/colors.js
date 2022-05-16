@@ -36,7 +36,7 @@ const Theme = {
       notification: '#CE2020',
       logo: '#e5e5ea',
       online: '#6DBA08',
-      offline: '#ced4da'
+      offline: '#6c757d'
     }
   }
 }
