@@ -87,3 +87,34 @@ export const getCurrentUser = () => {
     } catch (error) {console.warn(error)}
   }
 }
+
+/******************************************************
+ *++++++++++++++++++++ CONTACTOS +++++++++++++++++++++*
+******************************************************/
+//AGREGAR UN CONTACTO
+export const addContact = async(uid, contactEmail) => {
+  try {
+    const fixEmail = contactEmail.toLocaleLowerCase().split(' ').join('')
+    //verifica que no se agregue a si mismo
+    if(fixEmail === auth().currentUser.email) {
+      return {status: 400, message: 'No puede agregarse usted mismo'}
+    }
+    //verifica que sea un usuario registrado en la base de datos
+    const usersRef = database().ref('users')
+    const usersSnap = await usersRef.once('value')
+    let contact = null
+    for(let user in usersSnap.val()) {
+      if(usersSnap.val()[user].email === fixEmail) {
+        contact = usersSnap.val()[user]
+        break
+      }
+    }
+    if(!contact) {
+      return {status: 400, message: 'Usuario no registrado'}
+    } else {
+      const contactsRef = database().ref(`contacts/${uid}/${contact.uid}`)
+      await contactsRef.set(true)
+      return {status: 200, message: 'Contacto agregado correctamente'}
+    }
+  } catch (error) {console.warn(error)}
+}
