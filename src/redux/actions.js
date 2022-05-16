@@ -1,6 +1,8 @@
 import auth from '@react-native-firebase/auth'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import database from '@react-native-firebase/database'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { webClientId } from '../../env'
 
 /******************************************************
  *+++++++++++++++++++++++ THEME ++++++++++++++++++++++*
@@ -17,7 +19,7 @@ export const getTheme = (theme) => {
 /******************************************************
  *+++++++++++++++++++ AUTENTICACION +++++++++++++++++++*
  ******************************************************/
-const webClientId = process.env.REACT_APP_WEB_CLIENT_ID
+
 
  export const login = async() => {
   try {
