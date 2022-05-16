@@ -14,9 +14,10 @@ const getStyles = ({colors}) => StyleSheet.create({
   logo: {
     width: 170,
     height: 170,
+    tintColor: colors.logo
   },
   btnLogin: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.button,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
