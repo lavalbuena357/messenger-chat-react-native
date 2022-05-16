@@ -10,6 +10,11 @@ const getStyles = ({colors}) => StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
+  content: {
+    flex: 1, 
+    justifyContent: 'flex-end',
+    backgroundColor: colors.primary
+  },
   loading: {
     color: colors.white
   }

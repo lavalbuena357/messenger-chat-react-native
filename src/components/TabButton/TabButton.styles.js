@@ -22,7 +22,7 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   tabTitle: {
     fontSize: 9,
-    color: colors.textBody,
+    color: colors.secondary,
     marginTop: 3,
     marginBottom: 3,
    },
@@ -57,7 +57,7 @@ const getStyles = ({colors}) => StyleSheet.create({
   badge: {
     fontFamily: 'Montserrat-Medium',
     fontSize: 12,
-    color: colors.text,
+    color: colors.white,
   }
 })
 
