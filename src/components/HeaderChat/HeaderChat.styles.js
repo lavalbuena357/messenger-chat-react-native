@@ -9,10 +9,11 @@ const getStyles = ({colors}) => StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: colors.primary,
-    borderBottomColor: colors.primaryLight,
-    borderBottomWidth: 0.3,
     paddingVertical: 5,
-    height: 60
+    elevation: 4,
+    shadowColor: colors.shadow,
+    height: 60,
+    zIndex:100
   },
   left: {
     flexDirection: 'row',
