@@ -1,5 +1,5 @@
-import { StatusBar } from 'react-native'
-import React, { useEffect } from 'react'
+import { StatusBar, AppState } from 'react-native'
+import React, { useEffect, useRef } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -10,14 +10,15 @@ import Login from './src/screens/Login/Login'
 import Main from './src/screens/Main/Main'
 import Rooms from './src/screens/Rooms/Rooms'
 import Contacts from './src/screens/Contacts/Contacts'
-import { getTheme } from './src/redux/actions'
+import { getTheme, userOffline } from './src/redux/actions'
 
 const Stack = createNativeStackNavigator()
 
 const App = () => {
 
+  const appState = useRef(AppState.currentState)
   const dispatch = useDispatch()
-  const theme = useSelector(state => state.theme)
+  const {theme, currentUser} = useSelector(state => state)
 
   useEffect(() => {
     (async() => {
@@ -27,6 +28,23 @@ const App = () => {
       }
     })()
   }, [])
+
+  useEffect(() => {
+    if(currentUser) {
+      const subscription = AppState.addEventListener('change', 
+      (nextAppState ) => {
+        if(appState.current.match(/inactive|background/) && nextAppState === 'active') {
+          userOffline(currentUser.uid, true)
+        } else {
+          userOffline(currentUser.uid, false)
+        }
+        appState.current = nextAppState
+      })
+      return () => {
+        subscription.remove()
+      }
+    }
+  }, [currentUser])
 
   return (
     <NavigationContainer theme={theme === 'dark' ? Theme.dark : Theme.light}>
