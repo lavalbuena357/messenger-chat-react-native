@@ -13,8 +13,9 @@ const getStyles = ({colors}) => StyleSheet.create({
     paddingRight: 15,
     position: 'relative',
     backgroundColor: colors.primary,
-    borderBottomColor: colors.primaryLight,
-    borderBottomWidth: 0.5
+    elevation: 4,
+    shadowColor: colors.shadow,
+    zIndex: 100
   },
   left: {
     flexDirection: 'row',
