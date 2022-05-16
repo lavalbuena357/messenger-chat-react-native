@@ -10,8 +10,6 @@ const getStyles = ({colors}) => StyleSheet.create({
     height: 70,
     justifyContent: 'center',
     alignItems: 'center',
-    borderTopColor: colors.primaryLight,
-    borderTopWidth: 0.5
   }
 })
 
