@@ -1,17 +1,25 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Loader from '../../components/Loader/Loader'
 import logo from '../../assets/logo.png'
 import useStyles from './Login.styles'
+import { login } from '../../redux/actions'
 
 const Login = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false)
   const styles = useStyles()
 
   const handleLogin = async() => {
-    navigation.pop()
-    navigation.push('Main')
+    setIsLoading(true)
+    const res = await login()
+    setIsLoading(false)
+    if(res.status === 200) {
+      navigation.pop()
+      navigation.push('Main')
+    } else {
+      Alert.alert('Error', 'No se pudo iniciar sesión.\nIntente de nuevo.')
+    }
   }
 
   return (
