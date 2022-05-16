@@ -11,9 +11,7 @@ const getStyles = ({colors}) => StyleSheet.create({
     alignItems: 'center',
     maxHeight: 200,
     paddingHorizontal: 5,
-    backgroundColor: colors.primary,
     paddingBottom: 5,
-    // marginBottom: 5
   },
   messageInput: {
     flexDirection: 'row',
@@ -22,7 +20,8 @@ const getStyles = ({colors}) => StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 5,
     marginHorizontal: 5,
-    backgroundColor: colors.primaryLight,
+    marginVertical: 5,
+    backgroundColor: colors.primary,
     width: deviceWidth * 0.8
   },
   iconButton: {
@@ -39,7 +38,8 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   micButton: {
     paddingHorizontal: 5,
-    backgroundColor: colors.primaryLight,
+    marginVertical: 5,
+    backgroundColor: colors.primary,
     width: deviceWidth * 0.13,
     height: 48,
     borderRadius: 10,

@@ -13,7 +13,7 @@ const getStyles = ({colors}) => StyleSheet.create({
   content: {
     flex: 1, 
     justifyContent: 'flex-end',
-    backgroundColor: colors.primary
+    backgroundColor: colors.background
   },
   loading: {
     color: colors.white
