@@ -17,7 +17,8 @@ const getStyles = ({colors}) => StyleSheet.create({
     justifyContent: 'flex-end',
     backgroundColor: colors.button,
     borderRadius: 10,
-    elevation: 3
+    elevation: 3,
+    shadowColor: colors.shadow
   },
   tabTitle: {
     fontSize: 9,
