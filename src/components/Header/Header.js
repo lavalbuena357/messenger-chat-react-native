@@ -35,7 +35,7 @@ const Header = () => {
       </View>
       <View style={styles.rightCn}>
         <TouchableOpacity onPress={handleTheme} style={{padding:5, marginRight:15}}>
-          <Icon name={theme === 'dark' ? 'sunny' : 'cloudy-night-outline'} size={24} color={styles.icons.color}/>
+          <Icon name={theme === 'dark' ? 'sunny' : 'cloudy-night'} size={24} color={styles.icons.color}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleSettings}>
           <MatIcon name='dots-vertical' size={24} color={styles.icons.color} style={{padding:5}}/>

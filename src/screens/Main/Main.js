@@ -26,7 +26,7 @@ const Main = () => {
         component={Rooms}
         options={{
           headerShown: false,
-          tabBarIcon: 'chatbubble-outline',
+          tabBarIcon: 'chatbubble',
           tabBarLabel:'Rooms',
           tabBarBadge: 2,
         }} />
@@ -35,7 +35,7 @@ const Main = () => {
         component={Contacts}
         options={{
           headerShown: false,
-          tabBarIcon: 'md-people-outline',
+          tabBarIcon: 'md-people',
           tabBarLabel:'Contactos',
           tabBarBadge: 0,
         }} />
