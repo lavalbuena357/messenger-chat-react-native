@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getTheme } from '../../redux/actions'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import photoURL from '../../assets/avatar.png'
-
 const Header = () => {
   const styles = useStyles()
 
