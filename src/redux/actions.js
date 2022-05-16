@@ -67,3 +67,23 @@ export const detectOffline = (uid) => {
     })
   } catch (error) {console.warn(error)}
 }
+
+/******************************************************
+ *++++++++++++++++++++ USUARIOS ++++++++++++++++++++++*
+ ******************************************************/
+//OBTENER USUARIO ACTUAL
+export const getCurrentUser = () => {
+  return (dispatch) => {
+    try {
+      auth().onAuthStateChanged(async(user) => {
+        if(user !== null) {
+          detectOffline(user.uid)
+          database().ref(`users/${user.uid}`)
+          .on('value', snap => {
+            dispatch({type: 'GET_CURRENT_USER', payload: snap.val()})
+          })
+        }
+      })
+    } catch (error) {console.warn(error)}
+  }
+}
