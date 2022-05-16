@@ -7,6 +7,6 @@
   <ImageView 
     android:layout_width="match_parent" 
     android:layout_height="match_parent" 
-    android:src="@drawable/logo_fullscreen" 
+    android:src="@drawable/fullscreen_logo" 
     android:scaleType="centerCrop" />
 </RelativeLayout>
