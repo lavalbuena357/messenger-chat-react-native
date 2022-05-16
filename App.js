@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <NavigationContainer theme={theme === 'dark' ? Theme.dark : Theme.light}>
-      <StatusBar backgroundColor={Theme[theme].colors.primary} />
+      <StatusBar backgroundColor={Theme[theme].colors.primary} barStyle={theme === 'light' ? 'dark-content': 'light-content'}  />
       <Stack.Navigator initialRouteName='Splash'>
         <Stack.Screen
           name='Splash'
