@@ -19,9 +19,8 @@ export const getTheme = (theme) => {
 /******************************************************
  *+++++++++++++++++++ AUTENTICACION +++++++++++++++++++*
  ******************************************************/
-
-
- export const login = async() => {
+//AUTENTICACION
+export const login = async() => {
   try {
     GoogleSignin.configure({
       webClientId: webClientId
@@ -37,4 +36,34 @@ export const getTheme = (theme) => {
   } catch (error) {
     return {status: 400, message: error}
   }
+}
+
+//CERRAR SESION
+export const logout = async () => {
+  try {
+    await AsyncStorage.removeItem('googleToken')
+    await auth().signOut()
+    return {status: 200, message: 'Se cerró sesión correctamente'}
+  } catch (error) {console.warn(error)}
+}
+
+//CAMBIAR A OFFLINE - INACTIVO - APP EN SEGUNDO PLANO
+export const userOffline = async(uid, status) => {
+  const usersRefOnline = database().ref(`users/${uid}/online`)
+  await usersRefOnline.set(status)
+}
+
+//DETECTAR OFFLINE
+export const detectOffline = (uid) => {
+  try {
+    const usersRefOnline = database().ref(`users/${uid}/online`)
+    const isOffline = false
+    const isOnline = true
+    const connectRef = database().ref('.info/connected')
+    connectRef.on('value', async(snap) => {
+      if(snap.val() === false) return
+      await usersRefOnline.onDisconnect().set(isOffline)
+      await usersRefOnline.set(isOnline)
+    })
+  } catch (error) {console.warn(error)}
 }
