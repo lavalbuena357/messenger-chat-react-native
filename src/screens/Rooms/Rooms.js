@@ -19,7 +19,7 @@ const Rooms = ({navigation}) => {
   }, [currentUser])  
 
   return (
-    <View>
+    <View style={styles.container}>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <Header />
       }

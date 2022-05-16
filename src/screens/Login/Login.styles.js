@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { useTheme } from '@react-navigation/native'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import Theme from '../../colors/colors'
 

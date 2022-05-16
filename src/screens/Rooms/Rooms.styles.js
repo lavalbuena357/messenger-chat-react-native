@@ -1,12 +1,14 @@
-import { StyleSheet } from 'react-native'
-import { useTheme } from '@react-navigation/native'
-import React, { useMemo } from 'react'
+import { StyleSheet, Dimensions } from 'react-native'
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import Theme from '../../colors/colors'
 
+const deviceHeight = Dimensions.get('window').height;
+
 const getStyles = ({colors}) => StyleSheet.create({
   container: {
-   
+    position: 'relative',
+    height: deviceHeight - 70
   },
   loading: {
     color: colors.white
