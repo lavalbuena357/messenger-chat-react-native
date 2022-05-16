@@ -9,14 +9,14 @@ const getStyles = ({colors}) => StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.statusBar,
+    backgroundColor: colors.primary,
   },
   logo: {
     width: 170,
     height: 170,
   },
   btnLogin: {
-    backgroundColor: colors.loginButton,
+    backgroundColor: colors.background,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
@@ -37,7 +37,7 @@ const getStyles = ({colors}) => StyleSheet.create({
     fontSize: 13
   },
   loading: {
-    color: colors.loading
+    color: colors.white
   }
 })
 

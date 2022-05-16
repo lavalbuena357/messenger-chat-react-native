@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { StyleSheet, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux';
-import Theme, { vars } from '../../colors/colors'
+import Theme from '../../colors/colors'
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
