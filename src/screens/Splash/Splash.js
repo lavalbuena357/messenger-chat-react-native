@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { useFocusEffect } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import logo from '../../assets/fullscreen_logo.png'
+import logo from '../../assets/logo_fullscreen.png'
 import useStyles from './Splash.styles'
 
 const Splash = ({navigation}) => {
