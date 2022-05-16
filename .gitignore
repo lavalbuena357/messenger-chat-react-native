@@ -60,3 +60,4 @@ google-services.json
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+.env
