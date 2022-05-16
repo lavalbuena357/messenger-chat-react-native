@@ -14,7 +14,9 @@ const Theme = {
       google: '#F44646',
       shadow: '#242424',
       notification: '#CE2020',
-      logo: '#ff8400'
+      logo: '#ff8400',
+      online: '#6DBA08',
+      offline: '#6c757d'
     }
   },
   dark: {
@@ -32,7 +34,9 @@ const Theme = {
       google: '#F44646',
       shadow: '#e5e5ea',
       notification: '#CE2020',
-      logo: '#e5e5ea'
+      logo: '#e5e5ea',
+      online: '#6DBA08',
+      offline: '#ced4da'
     }
   }
 }
