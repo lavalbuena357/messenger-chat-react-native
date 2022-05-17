@@ -20,7 +20,8 @@ const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) 
   const styles = useStyles()
 
   const handleEditContact = () => {
-
+    setShowActionsModal(false)
+    navigation.navigate('Contact', {contactUid: uidSelected})
   }
 
   const handleBlockContact = () => {
