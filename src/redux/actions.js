@@ -118,3 +118,32 @@ export const addContact = async(uid, contactEmail) => {
     }
   } catch (error) {console.warn(error)}
 }
+
+//OBTENER CONTACTOS
+export const contactsList = (uid) => {
+  return async(dispatch) => {
+    try {
+      const contactsRef = database().ref(`contacts/${uid}`)
+      contactsRef.on('value', (snap) => {
+        let contacts = {}
+        let contactsBlocked = {}
+        for(let contact in snap.val()){
+          const contactRef = database().ref(`users/${contact}`)
+          contactRef.on('value', contactSnap => {
+            if(snap.val()[contact]) {contacts = {...contacts, [contact]: contactSnap.val()}} 
+            else {contactsBlocked = {...contactsBlocked, [contact]: contactSnap.val()}}
+            const snapKeys = Object.keys(snap.val())
+            const contactsKeys = Object.keys(contacts)
+            const contactsBlokedKeys = Object.keys(contactsBlocked)
+            if(snapKeys.length === (contactsKeys.length + contactsBlokedKeys.length)) {
+              dispatch({
+                type: 'CONTACTS_LIST',
+                payload: {contacts, contactsBlocked}
+              })
+            }
+          })
+        }
+      })
+    } catch (error) {console.warn(error)}
+  }
+}
