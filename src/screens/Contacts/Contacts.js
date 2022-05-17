@@ -31,7 +31,9 @@ const Contacts = () => {
         <ScrollView>
           {Object.values(contacts).map(el => (
             <ContactItem
-              key={el.uid} />
+              key={el.uid}
+              contact={el}
+              myUid={currentUser.uid} />
           ))}
         </ScrollView>
         :
