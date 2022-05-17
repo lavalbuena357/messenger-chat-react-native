@@ -4,18 +4,25 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import TabBar from '../../components/TabBar/TabBar'
 import Rooms from '../Rooms/Rooms'
 import Contacts from '../Contacts/Contacts'
-import { useDispatch } from 'react-redux'
-import { getCurrentUser } from '../../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { contactsList, getCurrentUser } from '../../redux/actions'
 
 const Tab = createBottomTabNavigator()
 
 const Main = () => {
 
   const dispatch = useDispatch()
+  const {currentUser} = useSelector(state => state)
 
   useEffect(() => {
     dispatch(getCurrentUser())
   }, [])
+
+  useEffect(() => {
+    if(currentUser !== null) {
+      dispatch(contactsList(currentUser.uid))
+    }
+  }, [currentUser])
 
   return (
     <Tab.Navigator
