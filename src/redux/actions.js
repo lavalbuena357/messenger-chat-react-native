@@ -125,22 +125,29 @@ export const contactsList = (uid) => {
     try {
       const contactsRef = database().ref(`contacts/${uid}`)
       contactsRef.on('value', (snap) => {
-        let contacts = {}
-        let contactsBlocked = {}
-        for(let contact in snap.val()){
-          const contactRef = database().ref(`users/${contact}`)
-          contactRef.on('value', contactSnap => {
-            if(snap.val()[contact]) {contacts = {...contacts, [contact]: contactSnap.val()}} 
-            else {contactsBlocked = {...contactsBlocked, [contact]: contactSnap.val()}}
-            const snapKeys = Object.keys(snap.val())
-            const contactsKeys = Object.keys(contacts)
-            const contactsBlokedKeys = Object.keys(contactsBlocked)
-            if(snapKeys.length === (contactsKeys.length + contactsBlokedKeys.length)) {
-              dispatch({
-                type: 'CONTACTS_LIST',
-                payload: {contacts, contactsBlocked}
-              })
-            }
+        if(snap.val() !== null) {
+          let contacts = {}
+          let contactsBlocked = {}
+          for(let contact in snap.val()){
+            const contactRef = database().ref(`users/${contact}`)
+            contactRef.on('value', contactSnap => {
+              if(snap.val()[contact]) {contacts = {...contacts, [contact]: contactSnap.val()}} 
+              else {contactsBlocked = {...contactsBlocked, [contact]: contactSnap.val()}}
+              const snapKeys = Object.keys(snap.val())
+              const contactsKeys = Object.keys(contacts)
+              const contactsBlokedKeys = Object.keys(contactsBlocked)
+              if(snapKeys.length === (contactsKeys.length + contactsBlokedKeys.length)) {
+                dispatch({
+                  type: 'CONTACTS_LIST',
+                  payload: {contacts, contactsBlocked}
+                })
+              }
+            })
+          }
+        } else {
+          dispatch({
+            type: 'CONTACTS_LIST',
+            payload: {contacts: {}, contactsBlocked: {}}
           })
         }
       })
