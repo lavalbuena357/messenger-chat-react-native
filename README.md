@@ -1,1 +1,3 @@
-# messenger-chat-react-native
+# Let'sConn Realtime Chat
+
+`En desarrollo...`
