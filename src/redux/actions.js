@@ -147,3 +147,11 @@ export const contactsList = (uid) => {
     } catch (error) {console.warn(error)}
   }
 }
+
+//EDITAR UN CONTACTO
+export const editContact = async(uid, contactUid, newName) => {
+  try {
+    const contactRef = database().ref(`users/${contactUid}/nickname/${uid}`)
+    await contactRef.set(newName)
+  } catch (error) {console.warn(error)}
+}
