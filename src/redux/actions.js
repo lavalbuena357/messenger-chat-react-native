@@ -155,3 +155,11 @@ export const editContact = async(uid, contactUid, newName) => {
     await contactRef.set(newName)
   } catch (error) {console.warn(error)}
 }
+
+//ELIMINAR UN CONTACTO
+export const removeContact = async(uid, contactUid) => {
+  try {
+    const contactRef = database().ref(`contacts/${uid}/${contactUid}`)
+    await contactRef.remove()
+  } catch (error) {console.warn(error)}
+}
