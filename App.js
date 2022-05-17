@@ -55,31 +55,31 @@ const App = () => {
         <Stack.Screen
           name='Splash'
           component={Splash}
-          options={{headerShown: false}} />
+          options={{headerShown: false, animation:'none'}} />
         <Stack.Screen
           name='Login'
           component={Login}
-          options={{headerShown: false}} />
+          options={{headerShown: false, animation:'none'}} />
         <Stack.Screen
           name='Main'
           component={Main}
-          options={{headerShown: false}} />
+          options={{headerShown: false, animation:'none'}} />
         <Stack.Screen
           name='Rooms'
           component={Rooms}
-          options={{headerShown: false}} />
+          options={{headerShown: false, animation:'none'}} />
         <Stack.Screen
           name='Contacts'
           component={Contacts}
-          options={{headerShown: false}} />
+          options={{headerShown: false, animation:'none'}} />
         <Stack.Screen 
           name="Contact" 
           component={ContactDetail}
-          options={{headerShown: false}} />
+          options={{headerShown: false, animation:'none'}} />
         <Stack.Screen
           name='Chat'
           component={ChatScreen}
-          options={{headerShown: false}} />
+          options={{headerShown: false, animation:'none'}} />
       </Stack.Navigator>
       
     </NavigationContainer>
