@@ -8,7 +8,7 @@ const getStyles = ({colors}) => StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.violet,
     paddingVertical: 5,
     elevation: 4,
     shadowColor: colors.shadow,
@@ -31,7 +31,7 @@ const getStyles = ({colors}) => StyleSheet.create({
   name: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: colors.textBody
+    color: colors.light
   },
   online: {
     fontSize: 12,
@@ -42,7 +42,7 @@ const getStyles = ({colors}) => StyleSheet.create({
     color: colors.offline
   },
   icons: {
-    color: colors.secondary
+    color: colors.light
   }
 })
 

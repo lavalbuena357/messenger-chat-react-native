@@ -16,7 +16,9 @@ const Theme = {
       notification: '#CE2020',
       logo: '#37294d',
       online: '#6DBA08',
-      offline: '#6c757d'
+      offline: '#6c757d',
+      violet: '#1a1428',
+      light: '#ededed',
     }
   },
   dark: {
@@ -36,7 +38,9 @@ const Theme = {
       notification: '#CE2020',
       logo: '#ededed',
       online: '#6DBA08',
-      offline: '#6c757d'
+      offline: '#6c757d',
+      violet: '#1a1428',
+      light: '#ededed',
     }
   }
 }
