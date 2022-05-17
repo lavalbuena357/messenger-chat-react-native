@@ -34,7 +34,7 @@ const Main = () => {
         options={{
           headerShown: false,
           tabBarIcon: 'chatbubble',
-          tabBarLabel:'Rooms',
+          tabBarLabel:'Chats',
           tabBarBadge: 2,
         }} />
       <Tab.Screen
