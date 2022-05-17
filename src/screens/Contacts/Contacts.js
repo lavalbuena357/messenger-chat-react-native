@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, TouchableOpacity, BackHandler, Vibration } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Loader from '../../components/Loader/Loader'
@@ -7,10 +7,14 @@ import Header from '../../components/Header/Header'
 import ContactItem from '../../components/ContactItem/ContactItem'
 import ModalAddContact from '../../components/ModalAddContact/ModalAddContact'
 import useStyles from './Contacts.styles'
+import ModalMenuActions from '../../components/ModalMenuActions/ModalMenuActions'
+import { useFocusEffect } from '@react-navigation/native'
 
-const Contacts = () => {
+const Contacts = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [showAddModal, setShowAddModal] = useState(false)
+  const [showActionsModal, setShowActionsModal] = useState(false)
+  const [uidSelected, setUidSelected] = useState('')
 
   const styles = useStyles()
   const {currentUser, contacts} = useSelector(state => state)
@@ -21,6 +25,35 @@ const Contacts = () => {
       setIsLoading(false)
     }
   }, [currentUser])
+
+  useEffect(() => {
+    if(!showActionsModal) {setUidSelected('')}
+  }, [contacts, showActionsModal])
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('tabPress', () => setUidSelected(''))
+    return unsubscribe
+  }, [navigation])
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBack = () => {
+        if(uidSelected.length) {
+          setUidSelected('')
+          return true
+        } return false
+      }
+      BackHandler.addEventListener('hardwareBackPress', onBack)
+      return BackHandler.removeEventListener('hardwareBackPress', onBack)
+    }, [setUidSelected, uidSelected])
+  )
+
+  const handleSelected = (contactUid) => {
+    Vibration.vibrate(100, false)
+    if(uidSelected.length) {setUidSelected('')} 
+    else {setUidSelected(contactUid)}
+    setShowActionsModal(true)
+  }
 
   return (
     <View>
@@ -33,7 +66,9 @@ const Contacts = () => {
             <ContactItem
               key={el.uid}
               contact={el}
-              myUid={currentUser.uid} />
+              myUid={currentUser.uid}
+              uidSelected={uidSelected}
+              handleSelected={handleSelected} />
           ))}
         </ScrollView>
         :
@@ -51,6 +86,11 @@ const Contacts = () => {
       <ModalAddContact
         showAddModal={showAddModal}
         setShowAddModal={setShowAddModal} />
+      {/* MODAL MENU ACTIONS */}
+      <ModalMenuActions
+        showActionsModal={showActionsModal}
+        setShowActionsModal={setShowActionsModal}
+        uidSelected={uidSelected} />
     </View>
   )
 }
