@@ -8,7 +8,8 @@ const deviceHeight = Dimensions.get('window').height;
 const getStyles = ({colors}) => StyleSheet.create({
   container: {
     position: 'relative',
-    height: deviceHeight - 70
+    height: deviceHeight - 70,
+    backgroundColor: colors.background
   },
   loading: {
     color: colors.white

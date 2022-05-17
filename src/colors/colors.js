@@ -4,7 +4,7 @@ const Theme = {
       primary: '#e5e5ea',
       primaryLight: '#ededed',
       secondary: '#37294d',
-      background: '#ededed',
+      background: '#D5D5D8',
       button: '#37294d',
       google: '#F44646',
       text: '#ededed',
