@@ -163,3 +163,19 @@ export const removeContact = async(uid, contactUid) => {
     await contactRef.remove()
   } catch (error) {console.warn(error)}
 }
+
+//BLOQUEAR A UN CONTACTO
+export const blockContact = async(uid, contactUid) => {
+  try {
+    const usersRef = database().ref(`contacts/${uid}/${contactUid}`)
+    await usersRef.set(false)
+  } catch (error) {console.warn(error)}
+}
+
+//DESBLOQUEAR A UN CONTACTO
+export const unblockContact = async(uid, contactUid) => {
+  try {
+    const usersRef = database().ref(`contacts/${uid}/${contactUid}`)
+    await usersRef.set(true)
+  } catch (error) {console.warn(error)}
+}
