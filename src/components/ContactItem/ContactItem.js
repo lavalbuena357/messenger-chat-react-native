@@ -15,7 +15,11 @@ const ContactItem = ({contact, myUid}) => {
         <Image source={{uri:photoURL}} style={styles.photoURL} />
         <View style={styles.info}>
           <Text style={styles.name}>
-            {contact.nickname && contact.nickname[myUid] ? contact.nickname[myUid] : displayName}
+            {contact.nickname && contact.nickname[myUid] ? 
+            `${contact.nickname[myUid].slice(0, 35)} ${contact.nickname[myUid].length > 35 ? '...': ''}` 
+            : 
+            `${displayName.slice(0, 35)} ${displayName.length > 35 ? '...' : ''}`
+            }
             </Text>
           <Text style={styles.mail}>{email}</Text>
         </View>

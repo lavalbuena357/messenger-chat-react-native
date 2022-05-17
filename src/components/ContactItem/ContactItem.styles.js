@@ -9,6 +9,7 @@ const getStyles = ({colors}) => StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
     position: 'relative',
+    marginTop: 5
   },
   //containerSelected: {},
   left: {
@@ -44,7 +45,7 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   name: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 15,
     marginBottom: 3,
     color: colors.textBody
   },
