@@ -2,14 +2,16 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import useStyles from './ContactItem.styles'
 
-const ContactItem = ({contact, myUid}) => {
+const ContactItem = ({contact, myUid, handleSelected, uidSelected}) => {
 
   const { email, photoURL, displayName, uid, online } = contact
   const styles = useStyles()
 
   return (
     <TouchableOpacity
-      style={styles.container} >
+      delayLongPress={400}
+      onLongPress={() => handleSelected(uid)}
+      style={uidSelected === uid ? styles.containerSelected : styles.container} >
       <View style={styles.left}>
         <View style={online ? styles.online : styles.offline}></View>
         <Image source={{uri:photoURL}} style={styles.photoURL} />
