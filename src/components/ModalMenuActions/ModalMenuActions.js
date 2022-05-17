@@ -6,6 +6,8 @@ import IconMat from 'react-native-vector-icons/MaterialCommunityIcons'
 import useStyles from './ModalMenuActions.styles'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
+import { blockContact, removeContact } from '../../redux/actions'
+import Loader from '../Loader/Loader'
 
 const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -26,8 +28,25 @@ const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) 
     setModalConfirm(true)
   }
 
-  const handleDeleteContact = () => {
+  const confirmBlock = async() => {
+    setIsLoading(true)
+    await blockContact(currentUser.uid, uidSelected)
+    setModalConfirm(false)
+    setShowActionsModal(false)
+    setIsLoading(false)
+  }
 
+  const handleDeleteContact = () => {
+    setAction('Eliminar')
+    setModalConfirm(true)
+  }
+
+  const confirmDelete = async() => {
+    setIsLoading(true)
+    await removeContact(currentUser.uid, uidSelected)
+    setModalConfirm(false)
+    setShowActionsModal(false)
+    setIsLoading(false)
   }
 
   return (
@@ -69,6 +88,35 @@ const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) 
             </TouchableOpacity>
           </View>
         </View>
+      </Modal>
+      {/* MODAL DE CONFIRMACION */}
+      <Modal
+        isVisible={modalConfirm}
+        onBackdropPress={() => setModalConfirm(false)}
+        onBackButtonPress={() => setModalConfirm(false)}
+        onSwipeComplete={() => setModalConfirm(false)}
+        backdropTransitionInTiming={1}
+        backdropTransitionOutTiming={1}
+        animationIn='zoomIn'
+        animationOutTiming={1}
+        style={{alignItems: 'center'}} >
+        <View>
+          <Text style={{fontSize:17, fontWeight:'bold', textAlign: 'center'}}>{`¿${action} este contacto?`}</Text>
+          {action === 'Bloquear' &&
+          <Text style={{fontSize:13, textAlign: 'center'}}>{'\nSe moverá a la lista de contactos bloqueados.'}</Text>
+          }
+          <View style={{flexDirection:'row', marginTop:20, justifyContent:'space-around'}}>
+            <TouchableOpacity 
+              style={{padding:15}} 
+              onPress={action === 'Bloquear' ? confirmBlock : action === 'Eliminar' && confirmDelete}>
+              <Text style={{fontSize:18}}>Si</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{padding:15}} onPress={() => setModalConfirm(false)}>
+              <Text style={{fontSize:18}}>No</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        {isLoading && <Loader color={styles.loader.color} size={60} />}
       </Modal>
     </View>
   )
