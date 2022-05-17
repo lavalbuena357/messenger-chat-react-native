@@ -12,6 +12,7 @@ import Rooms from './src/screens/Rooms/Rooms'
 import Contacts from './src/screens/Contacts/Contacts'
 import { getTheme, userOffline } from './src/redux/actions'
 import ChatScreen from './src/screens/ChatScreen/ChatScreen'
+import ContactDetail from './src/screens/ContactDetail/ContactDetail'
 
 const Stack = createNativeStackNavigator()
 
@@ -70,6 +71,10 @@ const App = () => {
         <Stack.Screen
           name='Contacts'
           component={Contacts}
+          options={{headerShown: false}} />
+        <Stack.Screen 
+          name="Contact" 
+          component={ContactDetail}
           options={{headerShown: false}} />
         <Stack.Screen
           name='Chat'
