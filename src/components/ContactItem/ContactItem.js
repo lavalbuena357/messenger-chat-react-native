@@ -1,11 +1,26 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+import useStyles from './ContactItem.styles'
 
-const ContactItem = () => {
+const ContactItem = ({contact, myUid}) => {
+
+  const { email, photoURL, displayName, uid, online } = contact
+  const styles = useStyles()
+
   return (
-    <View>
-      <Text>ContactItem</Text>
-    </View>
+    <TouchableOpacity
+      style={styles.container} >
+      <View style={styles.left}>
+        <View style={online ? styles.online : styles.offline}></View>
+        <Image source={{uri:photoURL}} style={styles.photoURL} />
+        <View style={styles.info}>
+          <Text style={styles.name}>
+            {contact.nickname && contact.nickname[myUid] ? contact.nickname[myUid] : displayName}
+            </Text>
+          <Text style={styles.mail}>{email}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   )
 }
 
