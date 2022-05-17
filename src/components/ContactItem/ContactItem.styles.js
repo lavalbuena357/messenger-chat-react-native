@@ -11,7 +11,15 @@ const getStyles = ({colors}) => StyleSheet.create({
     position: 'relative',
     marginTop: 5
   },
-  //containerSelected: {},
+  containerSelected: {
+    flexDirection: 'row' ,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 13,
+    paddingHorizontal: 10,
+    backgroundColor: colors.primary,
+    position: 'relative'
+  },
   left: {
     flexDirection: 'row',
     position: 'relative'
