@@ -65,11 +65,13 @@ const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) 
       <ModalTemplate
         modalVisible={modalConfirm}
         setModalVisible={setModalConfirm}
-        swipeDistance={1}
+        swipeDistance={280}
         titleIcon='hand-left'
         title={`¿${action} este contacto?`} >
         <Text style={{textAlign: 'center', marginVertical: 10, color: styles.placeholder.color}}>
-          {action === 'Bloquear' ? '\nSe moverá a la lista de contactos bloqueados.' : '\nSe borrará permanentemente.'}
+          {action === 'Bloquear' ? 
+          '\nSe moverá a la lista de contactos bloqueados y las conversaciones serán archivadas.' : 
+          '\nSe borrará permanentemente este contacto, pero se conservarán las conversaciones actuales.'}
         </Text>
         <ModalTouchableCustom iconName='check' buttonName='Si' handleFunction={action === 'Bloquear' ? confirmBlock : confirmDelete} />
         <ModalTouchableCustom iconName='reply' buttonName='No' handleFunction={() => setModalConfirm(false)} />
