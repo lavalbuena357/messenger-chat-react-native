@@ -55,6 +55,10 @@ const Contacts = ({navigation}) => {
     setShowActionsModal(true)
   }
 
+  const handleGoToContactChat = (myUid, uid) => {
+    navigation.navigate('Chat', {myUid: myUid, contactUid: uid})
+  }
+
   return (
     <View>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
@@ -68,7 +72,8 @@ const Contacts = ({navigation}) => {
               contact={el}
               myUid={currentUser.uid}
               uidSelected={uidSelected}
-              handleSelected={handleSelected} />
+              handleSelected={handleSelected}
+              handleGoToContactChat={handleGoToContactChat} />
           ))}
         </ScrollView>
         :
