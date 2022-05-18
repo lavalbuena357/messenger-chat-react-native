@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import useStyles from './ContactItem.styles'
 
-const ContactItem = ({contact, myUid, handleSelected, uidSelected}) => {
+const ContactItem = ({contact, myUid, handleSelected, uidSelected, handleGoToContactChat}) => {
 
   const { email, photoURL, displayName, uid, online } = contact
   const styles = useStyles()
@@ -11,6 +11,7 @@ const ContactItem = ({contact, myUid, handleSelected, uidSelected}) => {
     <TouchableOpacity
       delayLongPress={400}
       onLongPress={() => handleSelected(uid)}
+      onPress={() => handleGoToContactChat(myUid, uid)}
       style={uidSelected === uid ? styles.containerSelected : styles.container} >
       <View style={styles.left}>
         <View style={online ? styles.online : styles.offline}></View>
