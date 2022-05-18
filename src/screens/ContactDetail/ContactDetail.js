@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import Header from '../../components/Header/Header'
 import Loader from '../../components/Loader/Loader'
 import useStyles from './ContactDetail.styles'
+import ModalEditContact from '../../components/ModalEditContact/ModalEditContact'
 
 const ContactDetail = ({route}) => {
   const [showInput, setShowInput] = useState(false)
@@ -24,7 +25,7 @@ const ContactDetail = ({route}) => {
   }, [contact])
 
   const handleShowInputEdit = () => {
-
+    setShowInput(true)
   }
 
   return (
@@ -46,6 +47,9 @@ const ContactDetail = ({route}) => {
         <Text selectable style={styles.email}>{contact.email}</Text>
         <View style={contact.online ? styles.online : styles.offline}></View>
       </View>
+      }
+      {showInput &&
+      <ModalEditContact contact={contact} setShowInput={setShowInput} showInput={showInput} />
       }
     </View>
   )
