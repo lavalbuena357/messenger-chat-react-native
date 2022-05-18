@@ -16,7 +16,6 @@ const getStyles = ({colors}) => StyleSheet.create({
   logo: {
     width: deviceWidth,
     height: deviceHeight,
-    tintColor: colors.logo
   }
 })
 

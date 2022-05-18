@@ -11,9 +11,8 @@ const getStyles = ({colors}) => StyleSheet.create({
     backgroundColor: colors.primary,
   },
   logo: {
-    width: 170,
-    height: 170,
-    tintColor: colors.logo
+    width: 150,
+    height: 150,
   },
   btnLogin: {
     backgroundColor: colors.button,

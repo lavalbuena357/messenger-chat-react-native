@@ -3,12 +3,16 @@ import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Loader from '../../components/Loader/Loader'
 import logo from '../../assets/logo.png'
+import logoLight from '../../assets/logo_light.png'
 import useStyles from './Login.styles'
 import { login } from '../../redux/actions'
+import { useSelector } from 'react-redux'
 
 const Login = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false)
   const styles = useStyles()
+
+  const theme = useSelector(state => state.theme)
 
   const handleLogin = async() => {
     setIsLoading(true)
@@ -25,7 +29,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Image source={logo} style={styles.logo} />
+        <Image source={theme === 'dark' ? logo : logoLight} style={styles.logo} />
       </View>
       <TouchableOpacity style={styles.btnLogin} onPress={handleLogin}>
         <Icon

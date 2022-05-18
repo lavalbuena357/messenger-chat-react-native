@@ -3,11 +3,15 @@ import React, { useCallback, useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { useFocusEffect } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import logo from '../../assets/logo_fullscreen.png'
+import logo from '../../assets/fullscreen_logo.png'
+import logoLight from '../../assets/fullscreen_logo_light.png'
 import useStyles from './Splash.styles'
+import { useSelector } from 'react-redux'
 
 const Splash = ({navigation}) => {
   let count = 0
+
+  const theme = useSelector(state => state.theme)
 
   const styles = useStyles()
 
@@ -38,7 +42,7 @@ const Splash = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Image source={logo} style={styles.logo} />
+      <Image source={theme === 'dark' ? logo : logoLight} style={styles.logo} />
     </View>
   )
 }
