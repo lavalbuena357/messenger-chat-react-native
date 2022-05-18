@@ -5,10 +5,12 @@ import IconMat from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
 import Modal from 'react-native-modal'
 import useStyles from './ModalSettings.styles'
+import { useNavigation } from '@react-navigation/native'
 
 const ModalSettings = ({setShowModalSettings, showModalSettings}) => {
 
   const styles = useStyles()
+  const navigation = useNavigation()
 
   return (
     <Modal

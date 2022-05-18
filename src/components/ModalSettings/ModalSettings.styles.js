@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux';
 import Theme from '../../colors/colors'
 
