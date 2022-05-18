@@ -12,8 +12,15 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   content: {
     flex: 1, 
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     backgroundColor: colors.background
+  },
+  emptyChatContainer: {
+    padding: 10,
+    backgroundColor: colors.primaryLight,
+  },
+  emptyChat: {
+    color: colors.textBody
   },
   loading: {
     color: colors.white
