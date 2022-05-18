@@ -3,8 +3,6 @@ import { StyleSheet, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux';
 import Theme from '../../colors/colors'
 
-const deviceWidth = Dimensions.get('window').width;
-
 const getStyles = ({colors}) => StyleSheet.create({
   modalContentView: {
     justifyContent: 'flex-end',
