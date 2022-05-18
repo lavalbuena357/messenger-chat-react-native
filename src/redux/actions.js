@@ -88,6 +88,16 @@ export const getCurrentUser = () => {
   }
 }
 
+//CAMBIAR NOMBRE DEL USUARIO
+export const changeName = async(uid, name) => {
+  try {
+    const nameRef = database().ref(`users/${uid}/displayName`)
+    await nameRef.set(name)
+  } catch (error) {
+    
+  }
+}
+
 //CAMBIAR ESTADO PARA MOSTRAR
 export const changeStatus = async(uid, status) => {
   try {
