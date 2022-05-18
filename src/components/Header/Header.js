@@ -1,20 +1,24 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/Ionicons'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import useStyles from './Header.styles'
-import { useDispatch, useSelector } from 'react-redux'
 import { getTheme } from '../../redux/actions'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import ModalSettings from '../ModalSettings/ModalSettings'
+import useStyles from './Header.styles'
+
 
 const Header = () => {
+  const [showModalSettings, setShowModalSettings] = useState(false)
+
   const styles = useStyles()
 
   const {theme, currentUser} = useSelector(state => state)
   const dispatch = useDispatch()
 
   const handleSettings = () => {
-
+    setShowModalSettings(true)
   }
 
   const handleTheme = () => {
@@ -41,6 +45,7 @@ const Header = () => {
           <MatIcon name='dots-vertical' size={24} color={styles.icons.color} style={{padding:5}}/>
         </TouchableOpacity>
       </View>
+      <ModalSettings showModalSettings={showModalSettings} setShowModalSettings={setShowModalSettings} />
     </View>
   )
 }
