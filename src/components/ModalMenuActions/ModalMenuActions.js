@@ -1,13 +1,12 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text } from 'react-native'
 import React, { useState } from 'react'
-import Modal from 'react-native-modal'
-import Icon from 'react-native-vector-icons/Ionicons'
-import IconMat from 'react-native-vector-icons/MaterialCommunityIcons'
-import useStyles from './ModalMenuActions.styles'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { blockContact, removeContact } from '../../redux/actions'
 import Loader from '../Loader/Loader'
+import ModalTemplate from '../ModalTemplate/ModalTemplate'
+import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
+import useStyles from '../ModalTemplate/ModalTemplate.styles'
 
 const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -52,73 +51,30 @@ const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) 
 
   return (
     <View>
-      <Modal
-        isVisible={showActionsModal}
-        onBackButtonPress={() => setShowActionsModal(false)}
-        onBackdropPress={() => setShowActionsModal(false)}
-        onSwipeComplete={() => setShowActionsModal(false)}
-        backdropTransitionInTiming={1}
-        backdropTransitionOutTiming={1}
-        swipeThreshold={280}
-        animationInTiming={1}
-        animationOutTiming={1}
-        swipeDirection="down"
-        style={styles.modalContentView}>
-        <View style={styles.contentModal}>
-          <View style={styles.upLine}></View>
-          <View style={styles.titleBox}>
-            <IconMat name='account-alert' color={styles.icon.color} size={16} style={styles.icon}/>
-            <Text style={styles.contentModalTitle}>Opciones de contacto</Text>
-          </View>
-          <View style={styles.boxButtons}>
-            <TouchableOpacity style={styles.button} onPress={handleEditContact}>
-              <Icon name='create' size={24} color={styles.buttonText.color} />
-              <Text style={styles.buttonText}>Editar contacto</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleBlockContact}>
-              <IconMat name='block-helper' size={20} color={styles.buttonText.color} />
-              <Text style={styles.buttonText}>Bloquear contacto</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleDeleteContact}>
-              <Icon name='trash' size={24} color={styles.buttonText.color} />
-              <Text style={styles.buttonText}>Eliminar contacto</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => setShowActionsModal(false)}>
-              <IconMat name='close-outline' size={20} color={styles.buttonClose.color} />
-              <Text style={styles.buttonClose}>Cerrar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+      <ModalTemplate
+        modalVisible={showActionsModal}
+        setModalVisible={setShowActionsModal}
+        swipeDistance={250}
+        titleIcon='people'
+        title='Opciones de contacto' >
+        <ModalTouchableCustom handleFunction={handleEditContact} iconName='user-edit' buttonName='Ediar contacto' />
+        <ModalTouchableCustom handleFunction={handleBlockContact} iconName='user-slash' buttonName='Bloquear contacto' />
+        <ModalTouchableCustom handleFunction={handleDeleteContact} iconName='trash' buttonName='Eliminar contacto' />
+      </ModalTemplate>
       {/* MODAL DE CONFIRMACION */}
-      <Modal
-        isVisible={modalConfirm}
-        onBackdropPress={() => setModalConfirm(false)}
-        onBackButtonPress={() => setModalConfirm(false)}
-        onSwipeComplete={() => setModalConfirm(false)}
-        backdropTransitionInTiming={1}
-        backdropTransitionOutTiming={1}
-        animationIn='zoomIn'
-        animationOutTiming={1}
-        style={{alignItems: 'center'}} >
-        <View>
-          <Text style={{fontSize:17, fontWeight:'bold', textAlign: 'center'}}>{`¿${action} este contacto?`}</Text>
-          {action === 'Bloquear' &&
-          <Text style={{fontSize:13, textAlign: 'center'}}>{'\nSe moverá a la lista de contactos bloqueados.'}</Text>
-          }
-          <View style={{flexDirection:'row', marginTop:20, justifyContent:'space-around'}}>
-            <TouchableOpacity 
-              style={{padding:15}} 
-              onPress={action === 'Bloquear' ? confirmBlock : action === 'Eliminar' && confirmDelete}>
-              <Text style={{fontSize:18}}>Si</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{padding:15}} onPress={() => setModalConfirm(false)}>
-              <Text style={{fontSize:18}}>No</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        {isLoading && <Loader color={styles.loader.color} size={60} />}
-      </Modal>
+      <ModalTemplate
+        modalVisible={modalConfirm}
+        setModalVisible={setModalConfirm}
+        swipeDistance={1}
+        titleIcon='hand-left'
+        title={`¿${action} este contacto?`} >
+        <Text style={{textAlign: 'center', marginVertical: 10, color: styles.placeholder.color}}>
+          {action === 'Bloquear' ? '\nSe moverá a la lista de contactos bloqueados.' : '\nSe borrará permanentemente.'}
+        </Text>
+        <ModalTouchableCustom iconName='check' buttonName='Si' handleFunction={action === 'Bloquear' ? confirmBlock : confirmDelete} />
+        <ModalTouchableCustom iconName='reply' buttonName='No' handleFunction={() => setModalConfirm(false)} />
+      </ModalTemplate>
+      {isLoading && <Loader color={styles.loader.color} size={60} />}
     </View>
   )
 }
