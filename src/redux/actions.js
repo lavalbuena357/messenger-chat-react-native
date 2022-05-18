@@ -31,7 +31,7 @@ export const login = async() => {
     const signin = await auth().signInWithCredential(googleCredential)
     const {uid, displayName, email, photoURL} = signin.user
     const userRef = database().ref(`users/${uid}`)
-    await userRef.set({uid, displayName, email, photoURL, online: true})
+    await userRef.set({uid, displayName, email, photoURL, online: true, status: 'Disponible'})
     return {status: 200, message: 'Inicio de sesión correcto'}
   } catch (error) {
     return {status: 400, message: error}
@@ -85,6 +85,16 @@ export const getCurrentUser = () => {
         }
       })
     } catch (error) {console.warn(error)}
+  }
+}
+
+//CAMBIAR ESTADO PARA MOSTRAR
+export const changeStatus = async(uid, status) => {
+  try {
+    const statusRef = database().ref(`users/${uid}/status`)
+    await statusRef.set(status)
+  } catch (error) {
+    
   }
 }
 
