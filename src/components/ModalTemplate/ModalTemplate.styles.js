@@ -50,7 +50,7 @@ const getStyles = ({colors}) => StyleSheet.create({
     color: colors.white
   },
 
-  
+
   input: {
     borderColor: colors.secondary,
     borderWidth: 0.5,
@@ -76,6 +76,17 @@ const getStyles = ({colors}) => StyleSheet.create({
     textTransform: 'uppercase',
     color: colors.text,
     fontWeight: 'bold'
+  },
+  iconButton: {
+    marginHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 7,
+    marginBottom: 10,
+  },
+  iconButtonText: {
+    color: colors.textBody,
+    marginLeft: 10,
   },
 })
 
