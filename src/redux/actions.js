@@ -199,7 +199,7 @@ export const getChatContact = (uid, uidContact) => {
         dispatch({
           type: 'GET_CHAT_CONTACT',
           payload: snap.val() === null ? {} : snap.val()
-       })
+        })
       })
     } catch (error) {console.warn(error)}
   }
