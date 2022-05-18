@@ -13,6 +13,11 @@ import Contacts from './src/screens/Contacts/Contacts'
 import { getTheme, userOffline } from './src/redux/actions'
 import ChatScreen from './src/screens/ChatScreen/ChatScreen'
 import ContactDetail from './src/screens/ContactDetail/ContactDetail'
+import MyProfile from './src/screens/MyProfile/MyProfile'
+import Privacity from './src/screens/Privacity/Privacity'
+import SoundsNotifications from './src/screens/SoundsNotifications/SoundsNotifications'
+import ContactsManager from './src/screens/ContactsManager/ContactsManager'
+import About from './src/screens/About/About'
 
 const Stack = createNativeStackNavigator()
 
@@ -79,6 +84,26 @@ const App = () => {
         <Stack.Screen
           name='Chat'
           component={ChatScreen}
+          options={{headerShown: false, animation:'none'}} />
+        <Stack.Screen
+          name='Profile'
+          component={MyProfile}
+          options={{headerShown: false, animation:'none'}} />
+        <Stack.Screen
+          name='Privacity'
+          component={Privacity}
+          options={{headerShown: false, animation:'none'}} />
+        <Stack.Screen
+          name='SoundsNotifications'
+          component={SoundsNotifications}
+          options={{headerShown: false, animation:'none'}} />
+        <Stack.Screen
+          name='ContactsManager'
+          component={ContactsManager}
+          options={{headerShown: false, animation:'none'}} />
+        <Stack.Screen
+          name='About'
+          component={About}
           options={{headerShown: false, animation:'none'}} />
       </Stack.Navigator>
       
