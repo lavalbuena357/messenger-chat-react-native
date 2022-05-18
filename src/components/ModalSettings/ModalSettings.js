@@ -1,60 +1,33 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
-import IconMat from 'react-native-vector-icons/MaterialCommunityIcons'
-import IconFAw from 'react-native-vector-icons/FontAwesome5'
-import Modal from 'react-native-modal'
-import useStyles from './ModalSettings.styles'
 import { useNavigation } from '@react-navigation/native'
+import ModalTemplate from '../ModalTemplate/ModalTemplate'
+import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
 
 const ModalSettings = ({setShowModalSettings, showModalSettings}) => {
 
-  const styles = useStyles()
   const navigation = useNavigation()
 
+  const goToScreen = (screen) => {
+    setShowModalSettings(false)
+    navigation.navigate(screen)
+  }
+
   return (
-    <Modal
-      isVisible={showModalSettings}
-      onBackButtonPress={() => setShowModalSettings(false)}
-        onBackdropPress={() => setShowModalSettings(false)}
-        onSwipeComplete={() => setShowModalSettings(false)}
-        backdropTransitionInTiming={1}
-        backdropTransitionOutTiming={1}
-        swipeThreshold={300}
-        animationInTiming={1}
-        animationOutTiming={1}
-        swipeDirection="down"
-        style={styles.modalContentView} >
-      <View style={styles.contentModal}>
-        <View style={styles.upLine}></View>
-        <View style={styles.titleBox}>
-          <Icon name='settings-sharp' color={styles.icon.color} size={16} style={styles.icon}/>
-          <Text style={styles.contentModalTitle}>Configuración</Text>
-        </View>
-        <View style={styles.boxButtons}>
-          <TouchableOpacity style={styles.button}>
-            <Icon name='md-person-circle' size={28} color={styles.buttonText.color} />
-            <Text style={styles.buttonText}>Mi perfil</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <IconFAw name='user-secret' size={22} color={styles.buttonText.color} />
-            <Text style={styles.buttonText}>Privacidad</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Icon name='notifications-circle' size={28} color={styles.buttonText.color} />
-            <Text style={styles.buttonText}>Sonidos y notificaciones</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <IconFAw name='user-lock' size={20} color={styles.buttonText.color} />
-            <Text style={styles.buttonText}>Administrar contactos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Icon name='information-circle' size={28} color={styles.buttonText.color} />
-            <Text style={styles.buttonText}>Acerca de Let's Conn</Text>
-          </TouchableOpacity>
-        </View>
+    <ModalTemplate
+      modalVisible={showModalSettings}
+      setModalVisible={setShowModalSettings}
+      swipeDistance={300}
+      titleIcon='settings-sharp'
+      title='Contiguración' >
+      <View>
+        <ModalTouchableCustom handleFunction={() => goToScreen('Profile')} iconName='user-astronaut' buttonName='Mi perfil' />
+        <ModalTouchableCustom handleFunction={() => goToScreen('Privacity')} iconName='user-secret' buttonName='Privacidad' />
+        <ModalTouchableCustom handleFunction={() => goToScreen('SoundsNotifications')} iconName='bell' buttonName='Sonidos y notificaciones' />
+        <ModalTouchableCustom handleFunction={() => goToScreen('ContactsManager')} iconName='users-cog' buttonName='Administrar contactos' />
+        <ModalTouchableCustom handleFunction={() => goToScreen('About')} iconName='info-circle' buttonName="Acerca de Let's Conn" />
       </View>
-    </Modal>
+    </ModalTemplate>
   )
 }
 
