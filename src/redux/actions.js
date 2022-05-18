@@ -186,3 +186,21 @@ export const unblockContact = async(uid, contactUid) => {
     await usersRef.set(true)
   } catch (error) {console.warn(error)}
 }
+
+/******************************************************
+ *++++++++++++++++++++++ CHATS +++++++++++++++++++++++*
+ ******************************************************/
+//OBTENER CHAT POR ID
+export const getChatContact = (uid, uidContact) => {
+  return async (dispatch) => {
+    try {
+      const chatRef = database().ref(`chats/${uid}/${uidContact}`)
+      chatRef.on('value', snap => {
+        dispatch({
+          type: 'GET_CHAT_CONTACT',
+          payload: snap.val() === null ? {} : snap.val()
+       })
+      })
+    } catch (error) {console.warn(error)}
+  }
+ }
