@@ -1,11 +1,11 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { TextInput } from 'react-native'
 import React, { useState } from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
-import Modal from 'react-native-modal'
-import useStyles from './ModalAddContact.styles'
 import Loader from '../Loader/Loader'
 import { addContact } from '../../redux/actions'
 import { useSelector } from 'react-redux'
+import ModalTemplate from '../ModalTemplate/ModalTemplate'
+import useStyles from '../ModalTemplate/ModalTemplate.styles'
+import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
 
 const ModalAddContact = ({setShowAddModal, showAddModal}) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -41,40 +41,24 @@ const ModalAddContact = ({setShowAddModal, showAddModal}) => {
   }
 
   return (
-    <Modal
-      isVisible={showAddModal}
-      backdropOpacity={0.7}
-      onBackButtonPress={() => setShowAddModal(false)}
-      onBackdropPress={() => setShowAddModal(false)}
-      onSwipeComplete={() => setShowAddModal(false)}
-      backdropTransitionInTiming={1}
-      backdropTransitionOutTiming={1}
-      swipeThreshold={200}
-      animationInTiming={1}
-      animationOutTiming={1}
-      swipeDirection='down'
-      style={styles.modelContentView} >
-      <View style={styles.contentModal}>
-        <View style={styles.upLine}></View>
-        <View style={styles.titleBox}>
-          <Icon name='ios-person-add-sharp' color={styles.icon.color} size={16} style={styles.icon} />
-          <Text style={styles.contentModalTitle}>Agregar un contacto</Text>
-        </View>
-        <TextInput
-          autoComplete='email'
-          keyboardType='email-address'
-          textContentType='emailAddress'
-          onChangeText={handleChange}
-          defaultValue={mail}
-          placeholderTextColor={styles.input.color}
-          placeholder={isError.error ? isError.message: 'Ingrese un email válido'}
-          style={styles.input} />
-        <TouchableOpacity style={styles.addButton} onPress={handleAddContact}>
-          <Text style={styles.addButtonText}>Agregar</Text>
-        </TouchableOpacity>
-      </View>
+    <ModalTemplate
+      modalVisible={showAddModal}
+      setModalVisible={setShowAddModal}
+      swipeDistance={200}
+      titleIcon='ios-person-add-sharp'
+      title='Agregar un contacto' >
+      <TextInput
+        autoComplete='email'
+        keyboardType='email-address'
+        textContentType='emailAddress'
+        onChangeText={handleChange}
+        defaultValue={mail}
+        placeholderTextColor={styles.placeholder.color}
+        placeholder={isError.error ? isError.message: 'Ingrese un email válido'}
+        style={styles.input} />
+      <ModalTouchableCustom handleFunction={handleAddContact} buttonName='Agregar' type='text' />
       {isLoading && <Loader color={styles.loader.color} size={60} />}
-    </Modal>
+    </ModalTemplate>
   )
 }
 

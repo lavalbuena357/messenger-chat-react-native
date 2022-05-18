@@ -1,11 +1,11 @@
-import { View, TextInput, TouchableOpacity, Text } from 'react-native'
+import { TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Modal from 'react-native-modal'
-import Icon from 'react-native-vector-icons/Ionicons'
 import { editContact } from '../../redux/actions'
-import useStyles from '../ModalAddContact/ModalAddContact.styles'
 import Loader from '../Loader/Loader'
+import useStyles from '../ModalTemplate/ModalTemplate.styles'
+import ModalTemplate from '../ModalTemplate/ModalTemplate'
+import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
 
 const ModalEditContact = ({setShowInput, showInput, contact}) => {
   const [username, setUsername] = useState('')
@@ -43,36 +43,24 @@ const ModalEditContact = ({setShowInput, showInput, contact}) => {
   }
 
   return (
-    <Modal
-      isVisible={showInput}
-      onBackdropPress={() => setShowInput(false)}
-      onBackButtonPress={() => setShowInput(false)}
-      onSwipeComplete={() => setShowInput(false)}
-      animationIn='slideInUp'
-      animationOut='slideOutDown'
-      swipeDirection="down"
-      style={styles.modelContentView} >
-      <View style={styles.contentModal}>
-        <View style={styles.upLine}></View>
-        <View style={styles.titleBox}>
-            <Icon name='create' color={styles.icon.color} size={16} style={styles.icon} />
-            <Text style={styles.contentModalTitle}>Editar nombre de contacto</Text>
-        </View>
-        <TextInput 
-          autoComplete='name'
-          keyboardType='default'
-          textContentType='name'
-          onChangeText={handleChange} 
-          defaultValue={username}
-          placeholderTextColor={styles.icon.color}
-          placeholder={isError.error ? isError.message : 'Ingrese un nuevo nombre'} 
-          style={styles.input} />
-        <TouchableOpacity style={styles.addButton} onPress={handleEditContact}>
-          <Text style={styles.addButtonText}>Actualizar</Text>
-        </TouchableOpacity>
-      </View>
+    <ModalTemplate
+      modalVisible={showInput}
+      setModalVisible={setShowInput}
+      swipeDistance={200}
+      titleIcon='create'
+      title='Editar nombre de contacto' >
+      <TextInput 
+        autoComplete='name'
+        keyboardType='default'
+        textContentType='name'
+        onChangeText={handleChange} 
+        defaultValue={username}
+        placeholderTextColor={styles.placeholder.color}
+        placeholder={isError.error ? isError.message : 'Ingrese un nuevo nombre'} 
+        style={styles.input} />
+      <ModalTouchableCustom handleFunction={handleEditContact} buttonName='Actualizar' type='text' />
       {isLoading && <Loader color={styles.loader.color} size={60} />}
-    </Modal>
+    </ModalTemplate>
   )
 }
 
