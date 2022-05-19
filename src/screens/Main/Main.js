@@ -5,7 +5,7 @@ import TabBar from '../../components/TabBar/TabBar'
 import Rooms from '../Rooms/Rooms'
 import Contacts from '../Contacts/Contacts'
 import { useDispatch, useSelector } from 'react-redux'
-import { contactsList, getCurrentUser } from '../../redux/actions'
+import { chatsList, contactsList, getCurrentUser } from '../../redux/actions'
 
 const Tab = createBottomTabNavigator()
 
@@ -21,6 +21,7 @@ const Main = () => {
   useEffect(() => {
     if(currentUser !== null) {
       dispatch(contactsList(currentUser.uid))
+      dispatch(chatsList(currentUser.uid))
     }
   }, [currentUser])
 
