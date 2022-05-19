@@ -33,6 +33,9 @@ const ChatScreen = ({route}) => {
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <View style={styles.container}>
         <HeaderChat contact={contact} uid={currentUser.uid} />
+        <View style={styles.statusContainer}>
+          <Text style={styles.status}>{contact.status}</Text>
+        </View>
         <KeyboardAvoidingView
           behavior={null}
           keyboardVerticalOffset={70}

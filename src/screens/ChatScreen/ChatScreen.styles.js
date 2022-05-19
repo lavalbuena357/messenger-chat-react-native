@@ -10,6 +10,14 @@ const getStyles = ({colors}) => StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
+  statusContainer: {
+    alignItems: 'center',
+    backgroundColor: colors.placeholder,
+    padding: 5,
+  },
+  status: {
+    color: colors.textBody
+  },
   content: {
     flex: 1, 
     justifyContent: 'flex-start',
