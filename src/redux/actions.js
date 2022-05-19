@@ -31,7 +31,10 @@ export const login = async() => {
     const signin = await auth().signInWithCredential(googleCredential)
     const {uid, displayName, email, photoURL} = signin.user
     const userRef = database().ref(`users/${uid}`)
-    await userRef.set({uid, displayName, email, photoURL, online: true, status: 'Disponible'})
+    const isUser = await userRef.once('value')
+    if(isUser === null) {
+      await userRef.set({uid, displayName, email, photoURL, online: true, status: 'Disponible'})
+    }
     return {status: 200, message: 'Inicio de sesión correcto'}
   } catch (error) {
     return {status: 400, message: error}
@@ -93,6 +96,16 @@ export const changeName = async(uid, name) => {
   try {
     const nameRef = database().ref(`users/${uid}/displayName`)
     await nameRef.set(name)
+  } catch (error) {
+    
+  }
+}
+
+//CAMBIAR FOTO DE USUARIO
+export const changProfilePic = async(uid, photo) => {
+  try {
+    const photoRef = database().ref(`users/${uid}/photoURL`)
+    await photoRef.set(photo)
   } catch (error) {
     
   }
