@@ -28,9 +28,9 @@ const HeaderChat = ({contact, uid}) => {
         <View>
           <Text style={styles.name}>
             {contact.nickname && contact.nickname[uid] ? 
-            `${contact.nickname[uid].slice(0, 35)} ${contact.nickname[uid].length > 35 ? '...': ''}` 
+            `${contact.nickname[uid].slice(0, 22)}${contact.nickname[uid].length > 22 ? '...': ''}` 
             : 
-            `${contact.displayName.slice(0, 35)} ${contact.displayName.length > 35 ? '...' : ''}`
+            `${contact.displayName.slice(0, 22)}${contact.displayName.length > 22 ? '...' : ''}`
             }
           </Text>
           <Text style={contact.online ? styles.online: styles.offline}>{contact.online ? 'En línea' : 'Desconectado'}</Text>
