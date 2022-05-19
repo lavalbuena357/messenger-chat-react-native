@@ -19,7 +19,8 @@ const Theme = {
       offline: '#6c757d',
       violet: '#1a1428',
       light: '#ededed',
-      placeholder: '#37294d50'
+      placeholder: '#37294d50',
+      orange: '#ff8400'
     }
   },
   dark: {
@@ -42,7 +43,8 @@ const Theme = {
       offline: '#6c757d',
       violet: '#1a1428',
       light: '#ededed',
-      placeholder: '#ededed50'
+      placeholder: '#ededed50',
+      orange: '#ff8e15'
     }
   }
 }
