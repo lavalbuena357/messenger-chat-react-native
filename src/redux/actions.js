@@ -223,10 +223,11 @@ export const submitChat = (uid, contactUid, message, cate) => {
     // const date = database.ServerValue.TIMESTAMP
     const date = new Date().getTime()
     const obj = {chatId: date, from: uid, contactUid, message, cate, createdAt: date}
+    const objContact = {chatId: date, from: uid, contactUid: uid, message, cate, createdAt: date}
     const chatRef = database().ref(`chats/${uid}/${contactUid}/${date}`)
     const chatContactRef = database().ref(`chats/${contactUid}/${uid}/${date}`)
     chatRef.set(obj)
-    chatContactRef.set(obj)    
+    chatContactRef.set(objContact)    
     return {status: 200, message: 'Chat Agregado correctamente'}
   } catch (error) {console.warn(error)}
 }
@@ -241,7 +242,6 @@ export const chatsList = (uid) => {
         const obj = snap.val()
         for(let item in obj) {
           const keys = Object.keys(obj[item]).sort((a,b) => b-a)
-          console.log(keys)
           chats = {...chats, [item]: obj[item][keys[0]]}
         }
         const sortChats = (x, y) => {
