@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
 import Icon from 'react-native-vector-icons/Ionicons'
 import useStyles from './MyProfile.styles'
-import Header from '../../components/Header/Header'
 import ModalTemplate from '../../components/ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../../components/ModalTouchableCustom/ModalTouchableCustom'
 import Loader from '../../components/Loader/Loader'
@@ -14,8 +13,10 @@ const MyProfile = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false)
   const [modalChangeName, setModalChangeName] = useState(false)
   const [modalChangeStatus, setModalChangeStatus] = useState(false)
+  const [modalChangePhoto, setModalChangePhoto] = useState(false)
   const [name, setName] = useState('')
   const [status, setStatus] = useState('')
+  const [photo, setPhoto] = useState('')
   const [isError, setIsError] = useState({error: false, message: ''})
 
   const styles = useStyles()
@@ -29,11 +30,11 @@ const MyProfile = ({navigation}) => {
   const openModal = (action) => {
     setIsError({error: false, message: ''})
     if(action === 'estado') {
-      setModalChangeName(false)
       setModalChangeStatus(true)
-    } else {
-      setModalChangeStatus(false)
+    } else if(action === 'nombre') {
       setModalChangeName(true)
+    } else {
+      setModalChangePhoto(true)
     }
   }
 
@@ -80,7 +81,7 @@ const MyProfile = ({navigation}) => {
       </View>
       <View style={styles.infoContainer}>
         <View style={styles.statusContainer}>
-          <Text style={styles.email}>Estado para mostrar:</Text>
+          <Text style={styles.email}>Estado para mostrar</Text>
           <TouchableOpacity style={styles.nameContainer} onPress={() => openModal('estado')}>
             <Text style={styles.name}>{currentUser.status}</Text>
             <IconFAw name='pen' size={14} color={styles.name.color} />
@@ -88,7 +89,7 @@ const MyProfile = ({navigation}) => {
         </View>
         <View style={styles.imageContainer}>
           <Image source={{uri: currentUser.photoURL}} style={styles.photoURL} />
-          <TouchableOpacity style={styles.cameraContainer}>
+          <TouchableOpacity style={styles.cameraContainer} onPress={() => openModal('foto')}>
             <IconFAw name='camera' size={18} style={styles.cameraIcon} />
           </TouchableOpacity>
         </View>
@@ -104,7 +105,7 @@ const MyProfile = ({navigation}) => {
       <ModalTemplate
         modalVisible={modalChangeStatus}
         setModalVisible={setModalChangeStatus}
-        swipeDistance={200}
+        swipeDistance={180}
         titleIcon='pencil'
         title='Actualizar estado para mostrar' >
         <TextInput
@@ -119,7 +120,7 @@ const MyProfile = ({navigation}) => {
       <ModalTemplate
         modalVisible={modalChangeName}
         setModalVisible={setModalChangeName}
-        swipeDistance={200}
+        swipeDistance={180}
         titleIcon='pencil'
         title='Actualizar mi nombre' >
         <TextInput
@@ -129,6 +130,28 @@ const MyProfile = ({navigation}) => {
           onChangeText={handleChangeName}
           style={styles.input} />
         <ModalTouchableCustom handleFunction={handleConfirmName} buttonName='Actualizar' type='text' />
+      </ModalTemplate>
+      {/* MODAL PARA FOTO */}
+      <ModalTemplate
+        modalVisible={modalChangePhoto}
+        setModalVisible={setModalChangePhoto}
+        swipeDistance={180}
+        titleIcon='person'
+        title='Cambiar foto de perfil' >
+        <View style={styles.photoButtonsContainer}>
+          <View>
+            <TouchableOpacity style={styles.itemPhoto}>
+              <Icon name='image' size={32} color={styles.itemPhoto.color} />
+            </TouchableOpacity>
+            <Text style={styles.itemText}>Galería</Text>
+          </View>
+          <View>
+            <TouchableOpacity style={styles.itemPhoto}>
+              <Icon name='camera' size={32} color={styles.itemPhoto.color} />
+            </TouchableOpacity>
+            <Text style={styles.itemText}>Tomar foto</Text>
+          </View>
+        </View>
       </ModalTemplate>
       {isLoading && <Loader color={styles.loader.color} size={60} />}
     </View>

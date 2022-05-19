@@ -61,7 +61,8 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   email: {
     color: colors.textBody,
-    marginVertical: 10
+    marginVertical: 10,
+    textAlign: 'center'
   },
   loader: {
     color: colors.white
@@ -79,6 +80,28 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   placeholder: {
     color: colors.placeholder
+  },
+  photoButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginVertical: 30
+  },
+  itemPhoto: {
+    backgroundColor: colors.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 80,
+    color: colors.text,
+    elevation: 3,
+    shadowColor: colors.shadow
+  },
+  itemText: {
+    color: colors.textBody,
+    textAlign: 'center',
+    marginTop: 5,
+    fontSize: 12
   }
 })
 
