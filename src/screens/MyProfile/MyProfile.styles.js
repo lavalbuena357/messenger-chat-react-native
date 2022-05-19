@@ -5,14 +5,61 @@ import Theme from '../../colors/colors'
 
 const getStyles = ({colors}) => StyleSheet.create({
   container: {
-    
+    flex: 1,
   },
-  icon: {
-    color: colors.text,
-    marginLeft: 15,
-    padding: 5,
+  header: {
+    height: 70,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.primary
+  },
+  backButton: {
+    padding: 5
+  },
+  headerTitle: {
+    color: colors.textBody,
+    marginLeft: 10,
+    fontSize: 18
+  }, 
+  infoContainer: {
+    alignItems: 'center',
+    marginTop: 30
+  },
+  imageContainer: {},
+  photoURL: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginVertical: 15,
+  },
+  cameraContainer: {
+    position: 'absolute',
+    bottom: 15,
+    right: 0,
+    padding: 10,
     backgroundColor: colors.secondary,
-    borderRadius: 5
+    borderRadius: 40
+  },
+  cameraIcon: {
+    color: colors.primary
+  },
+  nameContainer : {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    padding: 10,
+    elevation: 3,
+    shadowColor: colors.shadow
+  },
+  name: {
+    color: colors.textBody,
+    fontSize: 16,
+    marginRight: 10
+  },
+  email: {
+    color: colors.textBody,
+    marginVertical: 10
   },
   loader: {
     color: colors.white
