@@ -11,7 +11,9 @@ const getStyles = ({colors}) => StyleSheet.create({
     height: 70,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.primary
+    backgroundColor: colors.primary,
+    elevation: 3,
+    shadowColor: colors.shadow
   },
   backButton: {
     padding: 5
@@ -63,6 +65,20 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   loader: {
     color: colors.white
+  },
+  input: {
+    borderColor: colors.secondary,
+    borderWidth: 0.5,
+    marginHorizontal: 15,
+    marginTop: 30,
+    minWidth: '90%',
+    marginBottom: 20,
+    padding: 10,
+    borderRadius: 5,
+    color: colors.textBody,
+  },
+  placeholder: {
+    color: colors.placeholder
   }
 })
 
