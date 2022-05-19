@@ -1,5 +1,5 @@
-import { View, Text, KeyboardAvoidingView, ScrollView } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { View, Text, KeyboardAvoidingView, ScrollView, BackHandler } from 'react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useStyles from './ChatScreen.styles'
 import HeaderChat from '../../components/HeaderChat/HeaderChat'
@@ -8,6 +8,7 @@ import MessageItem from '../../components/MessageItem/MessageItem'
 import Loader from '../../components/Loader/Loader'
 
 import { getChatContact } from '../../redux/actions'
+import { useFocusEffect } from '@react-navigation/native'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -19,7 +20,7 @@ const ChatScreen = ({route}) => {
   const contact = contacts[route.params.contactUid]
 
   useEffect(() => {
-    dispatch(getChatContact(currentUser.uid, route.params.contactUid))
+    dispatch(getChatContact(currentUser.uid, contact.uid))
   }, [])
 
   useEffect(() => {
@@ -27,6 +28,19 @@ const ChatScreen = ({route}) => {
       setIsLoading(false)
     }
   }, [contactChat])
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBack = () => {
+        if(contactChat) {
+          dispatch(getChatContact(null, null))
+          return false
+        } return false
+      }
+      BackHandler.addEventListener('hardwareBackPress', onBack)
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBack)
+    }, [contactChat])
+  )
 
   return (
     <View style={styles.container}>
@@ -56,7 +70,7 @@ const ChatScreen = ({route}) => {
             </ScrollView>
           </View>
         </KeyboardAvoidingView>
-        <ChatInputMessage />
+        <ChatInputMessage uid={currentUser.uid} contactUid={contact.uid} />
       </View>
       }
     </View>
