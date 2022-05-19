@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 import useStyles from './ChatInputMessage.styles'
+import { submitChat } from '../../redux/actions'
 
-const ChatInputMessage = () => {
-  const [text, setText] = useState('')
+const ChatInputMessage = ({uid, contactUid}) => {
+  const [messageText, setMessageText] = useState('')
 
   const styles = useStyles()
 
@@ -13,12 +14,13 @@ const ChatInputMessage = () => {
   const emoSelectIcon = false
   const micSelected = false
 
-  const handleChange = () => {
-
+  const handleChange = (text) => {
+    setMessageText(text)
   }
 
   const handleSendMessage = () => {
-
+    setMessageText('')
+    submitChat(uid, contactUid, messageText, 'text')
   }
 
   return (
@@ -32,8 +34,8 @@ const ChatInputMessage = () => {
             placeholder='Mensaje'
             placeholderTextColor={styles.iconColor.color}
             multiline
-            defaultValue={text}
-            onChange={handleChange}
+            defaultValue={messageText}
+            onChangeText={handleChange}
             style={styles.text}  />
         
         <View style={{flexDirection: 'row'}}>
@@ -45,8 +47,8 @@ const ChatInputMessage = () => {
           </TouchableOpacity>
         </View>
       </View>
-      {text.length ? 
-      <TouchableOpacity style={styles.micButton}>
+      {messageText.length ? 
+      <TouchableOpacity style={styles.micButton} onPress={handleSendMessage}>
         <MatIcon name='send' size={22} color={styles.iconColor.color} />
       </TouchableOpacity>
       :
