@@ -32,7 +32,7 @@ export const login = async() => {
     const {uid, displayName, email, photoURL} = signin.user
     const userRef = database().ref(`users/${uid}`)
     const isUser = await userRef.once('value')
-    if(isUser === null) {
+    if(isUser.val() === null) {
       await userRef.set({uid, displayName, email, photoURL, online: true, status: 'Disponible'})
     }
     return {status: 200, message: 'Inicio de sesión correcto'}
