@@ -96,9 +96,7 @@ export const changeName = async(uid, name) => {
   try {
     const nameRef = database().ref(`users/${uid}/displayName`)
     await nameRef.set(name)
-  } catch (error) {
-    
-  }
+  } catch (error) {console.warn(error)}
 }
 
 //CAMBIAR FOTO DE USUARIO
@@ -106,9 +104,7 @@ export const changProfilePic = async(uid, photo) => {
   try {
     const photoRef = database().ref(`users/${uid}/photoURL`)
     await photoRef.set(photo)
-  } catch (error) {
-    
-  }
+  } catch (error) {console.warn(error)}
 }
 
 //CAMBIAR ESTADO PARA MOSTRAR
@@ -116,9 +112,7 @@ export const changeStatus = async(uid, status) => {
   try {
     const statusRef = database().ref(`users/${uid}/status`)
     await statusRef.set(status)
-  } catch (error) {
-    
-  }
+  } catch (error) {console.warn(error)}
 }
 
 /******************************************************
@@ -223,17 +217,64 @@ export const unblockContact = async(uid, contactUid) => {
 /******************************************************
  *++++++++++++++++++++++ CHATS +++++++++++++++++++++++*
  ******************************************************/
+//AGREGAR UN NUEVO CHAT
+export const submitChat = (uid, contactUid, message, cate) => {
+  try {
+    // const date = database.ServerValue.TIMESTAMP
+    const date = new Date().getTime()
+    const obj = {chatId: date, from: uid, contactUid, message, cate, createdAt: date}
+    const chatRef = database().ref(`chats/${uid}/${contactUid}/${date}`)
+    const chatContactRef = database().ref(`chats/${contactUid}/${uid}/${date}`)
+    chatRef.set(obj)
+    chatContactRef.set(obj)    
+    return {status: 200, message: 'Chat Agregado correctamente'}
+  } catch (error) {console.warn(error)}
+}
+
+//OBTENER CHATS
+export const chatsList = (uid) => {
+  return (dispatch) => {
+    try {
+      const chatsRef = database().ref(`chats/${uid}`)
+      chatsRef.on('value', snap => {
+        let chats = {}
+        const obj = snap.val()
+        for(let item in obj) {
+          const keys = Object.keys(obj[item]).sort((a,b) => b-a)
+          console.log(keys)
+          chats = {...chats, [item]: obj[item][keys[0]]}
+        }
+        const sortChats = (x, y) => {
+          const f1 = new Date(x.createdAt)
+          const f2 = new Date(y.createdAt)
+          if(f1 < f2) {return 1}
+          if(f1 > f2) {return -1}
+          return 0
+        }
+        const res = Object.values(chats).sort(sortChats)
+        dispatch({type: 'CHATS_LIST', payload: res})       
+      })
+    } catch (error) {console.warn(error)}
+  }
+}
+
 //OBTENER CHAT POR ID
 export const getChatContact = (uid, uidContact) => {
   return async (dispatch) => {
     try {
+      if(uid === null || uidContact === null) {
+        dispatch({
+          type: 'GET_CHAT_CONTACT',
+          payload: {}
+        })
+      } else {
       const chatRef = database().ref(`chats/${uid}/${uidContact}`)
       chatRef.on('value', snap => {
         dispatch({
           type: 'GET_CHAT_CONTACT',
           payload: snap.val() === null ? {} : snap.val()
         })
-      })
+      })}
     } catch (error) {console.warn(error)}
   }
  }
