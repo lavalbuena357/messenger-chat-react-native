@@ -1,9 +1,7 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import Theme from '../../colors/colors'
-
-const deviceHeight = Dimensions.get('window').height;
 
 const getStyles = ({colors}) => StyleSheet.create({
   container: {
@@ -16,7 +14,8 @@ const getStyles = ({colors}) => StyleSheet.create({
     padding: 5,
   },
   status: {
-    color: colors.textBody
+    color: colors.primary,
+    fontSize: 12
   },
   content: {
     flex: 1, 
@@ -25,10 +24,9 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   emptyChatContainer: {
     padding: 10,
-    backgroundColor: colors.primaryLight,
   },
   emptyChat: {
-    color: colors.textBody
+    color: colors.placeholder
   },
   loading: {
     color: colors.white

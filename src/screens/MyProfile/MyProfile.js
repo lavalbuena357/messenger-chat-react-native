@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TextInput, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
@@ -49,6 +49,8 @@ const MyProfile = ({navigation}) => {
   const handleConfirmStatus = async() => {
     if(status.length === 0) {
       setIsError({error: true, message: 'El estado no puede estar vacío'})
+    } else if(status.length > 90) {
+      Alert.alert('El estado no puede contener más de 90 caracteres')
     } else {
       setIsError({error: false, message: ''})
       setModalChangeStatus(false)
@@ -61,6 +63,8 @@ const MyProfile = ({navigation}) => {
   const handleConfirmName = async() => {
     if(name.length === 0) {
       setIsError({error: true, message: 'El nombre no puede estar vacío'})
+    } else if(name.length > 30) {
+      Alert.alert('El nombre no puede contener más de 30 caracteres')
     } else {
       setIsError({error: false, message: ''})
       setModalChangeName(false)
@@ -108,6 +112,7 @@ const MyProfile = ({navigation}) => {
         swipeDistance={180}
         titleIcon='pencil'
         title='Actualizar estado para mostrar' >
+        <Text style={styles.statusLength}>{status.length}/90</Text>
         <TextInput
           defaultValue={status}
           placeholder={isError.error ? isError.message : 'Nuevo estado para mostrar'} 
@@ -123,6 +128,7 @@ const MyProfile = ({navigation}) => {
         swipeDistance={180}
         titleIcon='pencil'
         title='Actualizar mi nombre' >
+        <Text style={styles.statusLength}>{name.length}/30</Text>
         <TextInput
           defaultValue={name}
           placeholder={isError.error ? isError.message : 'Nuevo nombre'} 

@@ -24,7 +24,7 @@ const ContactItem = ({contact, myUid, handleSelected, uidSelected, handleGoToCon
             `${displayName.slice(0, 30)}${displayName.length > 30 ? '...' : ''}`
             }
             </Text>
-          <Text style={styles.mail}>{status}</Text>
+          <Text style={styles.mail}>{status.slice(0, 50)}{status.length > 50 ? '...': ''}</Text>
           <Text style={styles.mail}>{email}</Text>
         </View>
       </View>

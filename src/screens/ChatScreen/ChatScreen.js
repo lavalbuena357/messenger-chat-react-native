@@ -34,7 +34,7 @@ const ChatScreen = ({route}) => {
       <View style={styles.container}>
         <HeaderChat contact={contact} uid={currentUser.uid} />
         <View style={styles.statusContainer}>
-          <Text style={styles.status}>{contact.status}</Text>
+          <Text style={styles.status}>{contact.status.slice(0, 50)}{contact.status.length > 50 ? '...': ''}</Text>
         </View>
         <KeyboardAvoidingView
           behavior={null}

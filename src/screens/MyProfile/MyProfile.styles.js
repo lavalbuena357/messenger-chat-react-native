@@ -52,12 +52,20 @@ const getStyles = ({colors}) => StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     elevation: 3,
-    shadowColor: colors.shadow
+    shadowColor: colors.shadow,
+    marginHorizontal: 10
   },
   name: {
     color: colors.textBody,
     fontSize: 16,
-    marginRight: 10
+    marginRight: 10,
+  },
+  statusLength: {
+    alignSelf: 'center',
+    marginTop: 10,
+    backgroundColor: colors.secondary,
+    padding: 5,
+    borderRadius: 10
   },
   email: {
     color: colors.textBody,
@@ -71,7 +79,7 @@ const getStyles = ({colors}) => StyleSheet.create({
     borderColor: colors.secondary,
     borderWidth: 0.5,
     marginHorizontal: 15,
-    marginTop: 30,
+    marginTop: 20,
     minWidth: '90%',
     marginBottom: 20,
     padding: 10,
