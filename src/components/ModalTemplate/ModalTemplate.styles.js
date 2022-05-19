@@ -49,8 +49,13 @@ const getStyles = ({colors}) => StyleSheet.create({
   loader: {
     color: colors.white
   },
-
-
+  nameLength: {
+    alignSelf: 'center',
+    marginTop: 10,
+    backgroundColor: colors.secondary,
+    padding: 5,
+    borderRadius: 10
+  },
   input: {
     borderColor: colors.secondary,
     borderWidth: 0.5,

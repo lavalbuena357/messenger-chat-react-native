@@ -1,4 +1,4 @@
-import { TextInput } from 'react-native'
+import { TextInput, Text, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { editContact } from '../../redux/actions'
@@ -30,15 +30,16 @@ const ModalEditContact = ({setShowInput, showInput, contact}) => {
 
   const handleEditContact = async() => {
     setIsError({error: false, message: ''})
-    setIsLoading(true)
-    if(username.length) {
+    if(username.length > 30) {
+      Alert.alert('El nombre no puede contener más de 30 caracteres')
+    } else if(username.length) {
+      setIsLoading(true)
       await editContact(currentUser.uid, contact.uid, username)
       setUsername('')
       setShowInput(false)
       setIsLoading(false)
     } else {
       setIsError({error: true, message: 'El campo no puede estar vacio'})
-      setIsLoading(false)
     }
   }
 
@@ -49,6 +50,7 @@ const ModalEditContact = ({setShowInput, showInput, contact}) => {
       swipeDistance={200}
       titleIcon='create'
       title='Editar nombre de contacto' >
+      <Text style={styles.nameLength}>{username.length}/30</Text>
       <TextInput 
         autoComplete='name'
         keyboardType='default'
