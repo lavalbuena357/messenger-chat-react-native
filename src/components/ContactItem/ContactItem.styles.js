@@ -7,18 +7,20 @@ const getStyles = ({colors}) => StyleSheet.create({
   container: {
     flexDirection: 'row' ,
     justifyContent: 'space-between',
-    padding: 10,
+    paddingVertical: 0,
+    paddingHorizontal: 15,
     position: 'relative',
-    marginTop: 5
+    marginTop: 10
   },
   containerSelected: {
     flexDirection: 'row' ,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 13,
-    paddingHorizontal: 10,
+    paddingVertical: 0,
+    paddingHorizontal: 15,
     backgroundColor: colors.primary,
-    position: 'relative'
+    position: 'relative',
+    marginTop: 10
   },
   left: {
     flexDirection: 'row',
@@ -43,8 +45,8 @@ const getStyles = ({colors}) => StyleSheet.create({
     left: -5
   },
   photoURL: {
-    width: 44,
-    height: 44,
+    width: 48,
+    height: 48,
     borderRadius: 10,
     backgroundColor: colors.light
   },
@@ -53,12 +55,12 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   name: {
     fontWeight: 'bold',
-    fontSize: 15,
-    marginBottom: 3,
+    fontSize: 14,
     color: colors.textBody
   },
   mail: {
-    color: colors.textBody
+    color: colors.textBody,
+    fontSize: 10
   }
 })
 

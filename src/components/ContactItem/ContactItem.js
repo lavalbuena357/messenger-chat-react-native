@@ -4,7 +4,7 @@ import useStyles from './ContactItem.styles'
 
 const ContactItem = ({contact, myUid, handleSelected, uidSelected, handleGoToContactChat}) => {
 
-  const { email, photoURL, displayName, uid, online } = contact
+  const { email, photoURL, displayName, uid, online, status } = contact
   const styles = useStyles()
 
   return (
@@ -19,11 +19,12 @@ const ContactItem = ({contact, myUid, handleSelected, uidSelected, handleGoToCon
         <View style={styles.info}>
           <Text style={styles.name}>
             {contact.nickname && contact.nickname[myUid] ? 
-            `${contact.nickname[myUid].slice(0, 35)} ${contact.nickname[myUid].length > 35 ? '...': ''}` 
+            `${contact.nickname[myUid].slice(0, 35)}${contact.nickname[myUid].length > 35 ? '...': ''}` 
             : 
-            `${displayName.slice(0, 35)} ${displayName.length > 35 ? '...' : ''}`
+            `${displayName.slice(0, 30)}${displayName.length > 30 ? '...' : ''}`
             }
             </Text>
+          <Text style={styles.mail}>{status}</Text>
           <Text style={styles.mail}>{email}</Text>
         </View>
       </View>
