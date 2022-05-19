@@ -4,13 +4,17 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import useStyles from './HeaderChat.styles'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { getChatContact } from '../../redux/actions'
 
 const HeaderChat = ({contact, uid}) => {
 
   const styles = useStyles()
   const navigation = useNavigation()
+  const dispatch = useDispatch()
 
   const handleBack = () => {
+    dispatch(getChatContact(null, null))
     navigation.goBack()
   }
 
