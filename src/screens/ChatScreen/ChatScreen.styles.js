@@ -10,12 +10,14 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   statusContainer: {
     alignItems: 'center',
-    backgroundColor: colors.placeholder,
+    justifyContent: 'center',
+    borderBottomColor: colors.placeholder,
+    borderBottomWidth: 0.3,
     padding: 5,
   },
   status: {
-    color: colors.primary,
-    fontSize: 12
+    color: colors.placeholder,
+    fontSize: 12,
   },
   content: {
     flex: 1, 
