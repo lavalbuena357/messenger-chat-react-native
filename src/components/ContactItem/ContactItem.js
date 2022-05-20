@@ -11,7 +11,7 @@ const ContactItem = ({contact, myUid, handleSelected, uidSelected, handleGoToCon
     <TouchableOpacity
       delayLongPress={400}
       onLongPress={() => handleSelected(uid)}
-      onPress={() => handleGoToContactChat(uid)}
+      onPress={() => handleGoToContactChat({...contact, isContact: true})}
       style={uidSelected === uid ? styles.containerSelected : styles.container} >
       <View style={styles.left}>
         <View style={online ? styles.online : styles.offline}></View>

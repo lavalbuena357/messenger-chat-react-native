@@ -6,45 +6,50 @@ import HeaderChat from '../../components/HeaderChat/HeaderChat'
 import ChatInputMessage from '../../components/ChatInputMessage/ChatInputMessage'
 import MessageItem from '../../components/MessageItem/MessageItem'
 import Loader from '../../components/Loader/Loader'
-import avatar from '../../assets/avatar.png'
-import { getChatContact } from '../../redux/actions'
+import { getChatContact, getUserById } from '../../redux/actions'
 import { useFocusEffect } from '@react-navigation/native'
 import ChatStatusBar from '../../components/ChatStatusBar/ChatStatusBar'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [contact, setContact] = useState(null)
+  const [isChats, setIsChats] = useState(false)
 
   const styles = useStyles()
   const scrollViewRef = useRef()
-  const {contactChat, contacts, currentUser} = useSelector(state => state)
+  const {contactChat, currentUser, contacts} = useSelector(state => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if(contacts[route.params.contactUid] === undefined) {
-      setContact({
-        uid: route.params.contactUid, 
-        displayName: route.params.email, 
-        photoURL: avatar, 
-        isContact: false, 
-        online: undefined,
-        status: 'N/A'})
-    } else {
-      setContact({...contacts[route.params.contactUid], isContact: true})
-    }
-  }, [contacts])
+    dispatch(getChatContact(currentUser.uid, route.params.contact.uid))
+  }, [])
 
   useEffect(() => {
-    if(contact !== null) {
-      dispatch(getChatContact(currentUser.uid, contact.uid))
+    if(contactChat) {
+      setIsChats(true)
     }
-  }, [contact])
+  }, [contactChat])
 
   useEffect(() => {
     if(contactChat !== null) {
+      if(contacts && contacts[route.params.contact.uid]) {
+        setContact({...contacts[route.params.contact.uid], isContact: true})
+      } else {
+        (async() => {
+          const getUser = await getUserById(route.params.contact.uid)
+          setContact({...getUser, isContact: false})
+        })()
+      }
+    }
+  }, [isChats, contacts])
+
+
+  
+  useEffect(() => {
+    if(contactChat !== null && contact) {
       setIsLoading(false)
     }
-  }, [contactChat])
+  }, [contactChat, contact])
 
   useFocusEffect(
     useCallback(() => {
@@ -76,14 +81,14 @@ const ChatScreen = ({route}) => {
               ref={scrollViewRef}
               onLayout={() => scrollViewRef.current.scrollToEnd({animated: true})}
               onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: true})} >
-              {Object.keys(contactChat).length > 0 && 
-              Object.values(contactChat).map(el => (
-                <MessageItem key={el.chatId} />
+              {contactChat.length > 0 && 
+                contactChat.map(el => (
+                <MessageItem key={el.chatId} item={el} />
               ))}
             </ScrollView>
           </View>
         </KeyboardAvoidingView>
-        <ChatInputMessage uid={currentUser.uid} contactUid={contact.uid} email={currentUser.email} />
+        <ChatInputMessage uid={currentUser.uid} contact={contact} chats={contactChat} />
       </View>
       }
     </View>

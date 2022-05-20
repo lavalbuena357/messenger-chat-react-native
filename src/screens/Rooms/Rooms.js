@@ -25,8 +25,8 @@ const Rooms = ({navigation}) => {
 
   }
 
-  const handleGoToContactChat = (uid, email) => {
-    navigation.navigate('Chat', {contactUid: uid, email})
+  const handleGoToContactChat = (contact) => {
+    navigation.navigate('Chat', {contact})
   }
 
   return (
@@ -47,7 +47,7 @@ const Rooms = ({navigation}) => {
           ))}
         </ScrollView>
         :
-        <Text style={styles.notFound}>La lista de contactos esta vacía</Text>
+        <Text style={styles.notFound}>No hay conversaciones activas</Text>
         }
       </View>
       }

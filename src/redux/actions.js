@@ -91,6 +91,15 @@ export const getCurrentUser = () => {
   }
 }
 
+//OBTENER UN USUARIO POR ID
+export const getUserById = async(uid) => {
+  try {
+    const userRef = database().ref(`users/${uid}`)
+    const userVal = await userRef.once('value')
+    return userVal.val()
+  } catch (error) {console.warn(error)}
+}
+
 //CAMBIAR NOMBRE DEL USUARIO
 export const changeName = async(uid, name) => {
   try {
@@ -218,16 +227,14 @@ export const unblockContact = async(uid, contactUid) => {
  *++++++++++++++++++++++ CHATS +++++++++++++++++++++++*
  ******************************************************/
 //AGREGAR UN NUEVO CHAT
-export const submitChat = (uid, contactUid, email, message, cate) => {
+export const submitChat = (fromUid, toUid, message, cate) => {
   try {
-    // const date = database.ServerValue.TIMESTAMP
     const date = new Date().getTime()
-    const obj = {chatId: date, from: uid, contactUid, email, message: message.replace(/(\r\n|\n|\r)/gm, ' '), cate, createdAt: date}
-    const objContact = {chatId: date, from: uid, contactUid: uid, email, message: message.replace(/(\r\n|\n|\r)/gm, ' ') , cate, createdAt: date}
-    const chatRef = database().ref(`chats/${uid}/${contactUid}/${date}`)
-    const chatContactRef = database().ref(`chats/${contactUid}/${uid}/${date}`)
+    const obj = {chatId: date, from: fromUid, to: toUid, message: message.replace(/(\r\n|\n|\r)/gm, ' '), cate, createdAt: date}
+    const chatRef = database().ref(`chats/${fromUid}/${toUid}/${date}`)
+    const chatContactRef = database().ref(`chats/${toUid}/${fromUid}/${date}`)
     chatRef.set(obj)
-    chatContactRef.set(objContact)    
+    chatContactRef.set(obj)
     return {status: 200, message: 'Chat Agregado correctamente'}
   } catch (error) {console.warn(error)}
 }
@@ -242,7 +249,7 @@ export const chatsList = (uid) => {
         const obj = snap.val()
         for(let item in obj) {
           const keys = Object.keys(obj[item]).sort((a,b) => b-a)
-          chats = {...chats, [item]: obj[item][keys[0]]}
+          chats = {...chats, [item]: {...obj[item][keys[0]], with: item}}
         }
         const sortChats = (x, y) => {
           const f1 = new Date(x.createdAt)
@@ -270,9 +277,23 @@ export const getChatContact = (uid, uidContact) => {
       } else {
       const chatRef = database().ref(`chats/${uid}/${uidContact}`)
       chatRef.on('value', snap => {
+        let chats = {}
+        const obj = snap.val()
+        for(let item in obj ) {
+          const newChat = {...obj[item], with: uidContact}
+          chats = {...chats, [item]: newChat}
+        }
+        const sortChats = (x, y) => {
+          const f1 = new Date(x.createdAt)
+          const f2 = new Date(y.createdAt)
+          if(f1 > f2) {return 1}
+          if(f1 < f2) {return -1}
+          return 0
+        }
+        const res = Object.values(chats).sort(sortChats)
         dispatch({
           type: 'GET_CHAT_CONTACT',
-          payload: snap.val() === null ? {} : snap.val()
+          payload: snap.val() === null ? {} : res
         })
       })}
     } catch (error) {console.warn(error)}

@@ -8,7 +8,7 @@ const ChatStatusBar = ({contact, uid}) => {
   const styles = useStyles()
 
   const handleAddContact = () => {
-    addContact(uid, contact.displayName)
+    addContact(uid, contact.email)
   }
 
   return (

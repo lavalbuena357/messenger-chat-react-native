@@ -55,8 +55,8 @@ const Contacts = ({navigation}) => {
     setShowActionsModal(true)
   }
 
-  const handleGoToContactChat = (uid) => {
-    navigation.navigate('Chat', {contactUid: uid})
+  const handleGoToContactChat = (contact) => {
+    navigation.navigate('Chat', {contact})
   }
 
   return (
