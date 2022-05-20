@@ -28,7 +28,7 @@ const HeaderChat = ({contact, uid}) => {
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Icon name='arrow-back' size={30} color={styles.icons.color} />
         </TouchableOpacity>
-        <Image source={{uri: contact.photoURL}} style={styles.photoURL} />
+        <Image source={contact.isContact ? {uri:contact.photoURL} : contact.photoURL} style={styles.photoURL} />
         <View>
           <Text style={styles.name}>
             {contact.nickname && contact.nickname[uid] ? 
@@ -37,7 +37,7 @@ const HeaderChat = ({contact, uid}) => {
             `${contact.displayName.slice(0, 22)}${contact.displayName.length > 22 ? '...' : ''}`
             }
           </Text>
-          <Text style={contact.online ? styles.online: styles.offline}>{contact.online ? 'En línea' : 'Desconectado'}</Text>
+          <Text style={contact.online ? styles.online: styles.offline}>{contact.online ? 'En línea' : contact.online === undefined ? '' : 'Desconectado'}</Text>
         </View>
       </View>
       <TouchableOpacity onPress={handleSettings}>
