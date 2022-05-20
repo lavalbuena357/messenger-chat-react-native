@@ -70,7 +70,7 @@ const ChatScreen = ({route}) => {
             </ScrollView>
           </View>
         </KeyboardAvoidingView>
-        <ChatInputMessage uid={currentUser.uid} contactUid={contact.uid} />
+        <ChatInputMessage uid={currentUser.uid} contactUid={contact.uid} email={currentUser.email} />
       </View>
       }
     </View>

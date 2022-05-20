@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import useStyles from './ChatInputMessage.styles'
 import { submitChat } from '../../redux/actions'
 
-const ChatInputMessage = ({uid, contactUid}) => {
+const ChatInputMessage = ({uid, contactUid, email}) => {
   const [messageText, setMessageText] = useState('')
 
   const styles = useStyles()
@@ -20,7 +20,7 @@ const ChatInputMessage = ({uid, contactUid}) => {
 
   const handleSendMessage = () => {
     setMessageText('')
-    submitChat(uid, contactUid, messageText, 'text')
+    submitChat(uid, contactUid, email, messageText, 'text')
   }
 
   return (
