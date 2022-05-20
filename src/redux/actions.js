@@ -218,12 +218,12 @@ export const unblockContact = async(uid, contactUid) => {
  *++++++++++++++++++++++ CHATS +++++++++++++++++++++++*
  ******************************************************/
 //AGREGAR UN NUEVO CHAT
-export const submitChat = (uid, contactUid, message, cate) => {
+export const submitChat = (uid, contactUid, email, message, cate) => {
   try {
     // const date = database.ServerValue.TIMESTAMP
     const date = new Date().getTime()
-    const obj = {chatId: date, from: uid, contactUid, message, cate, createdAt: date}
-    const objContact = {chatId: date, from: uid, contactUid: uid, message, cate, createdAt: date}
+    const obj = {chatId: date, from: uid, contactUid, email, message: message.replace(/(\r\n|\n|\r)/gm, ' '), cate, createdAt: date}
+    const objContact = {chatId: date, from: uid, contactUid: uid, email, message: message.replace(/(\r\n|\n|\r)/gm, ' ') , cate, createdAt: date}
     const chatRef = database().ref(`chats/${uid}/${contactUid}/${date}`)
     const chatContactRef = database().ref(`chats/${contactUid}/${uid}/${date}`)
     chatRef.set(obj)
