@@ -28,7 +28,7 @@ const ChatItem = ({chat, myUid, uidSelected, handleSelected, handleGoToContactCh
     <TouchableOpacity
       delayLongPress={400}
       onLongPress={() => handleSelected(contact.uid)}
-      onPress={() => handleGoToContactChat(contact.uid)}
+      onPress={() => handleGoToContactChat(contact.uid, contact.displayName)}
       style={uidSelected === contact.uid ? styles.containerSelected : styles.container} >
       <View style={styles.left}>
         <View style={contact.online ? styles.online : contact.online === undefined ? {display: 'none'} : styles.offline}></View>
@@ -48,7 +48,6 @@ const ChatItem = ({chat, myUid, uidSelected, handleSelected, handleGoToContactCh
       </View>
       <View style={styles.right}>
         <ReactTimeAgo {...props} date={chat.createdAt} component={Time} />
-        {/* <Text style={styles.date}>{moment(chat.createdAt).fromNow()}</Text> */}
       </View>
     </TouchableOpacity>}
     </>
