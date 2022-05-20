@@ -32,6 +32,11 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   loading: {
     color: colors.white
+  },
+  buttonAdd: {
+    backgroundColor: colors.placeholder,
+    padding: 5,
+    borderRadius: 20
   }
 })
 

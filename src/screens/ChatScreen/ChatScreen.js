@@ -6,22 +6,39 @@ import HeaderChat from '../../components/HeaderChat/HeaderChat'
 import ChatInputMessage from '../../components/ChatInputMessage/ChatInputMessage'
 import MessageItem from '../../components/MessageItem/MessageItem'
 import Loader from '../../components/Loader/Loader'
-
+import avatar from '../../assets/avatar.png'
 import { getChatContact } from '../../redux/actions'
 import { useFocusEffect } from '@react-navigation/native'
+import ChatStatusBar from '../../components/ChatStatusBar/ChatStatusBar'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
+  const [contact, setContact] = useState(null)
 
   const styles = useStyles()
   const scrollViewRef = useRef()
   const {contactChat, contacts, currentUser} = useSelector(state => state)
   const dispatch = useDispatch()
-  const contact = contacts[route.params.contactUid]
 
   useEffect(() => {
-    dispatch(getChatContact(currentUser.uid, contact.uid))
-  }, [])
+    if(contacts[route.params.contactUid] === undefined) {
+      setContact({
+        uid: route.params.contactUid, 
+        displayName: route.params.email, 
+        photoURL: avatar, 
+        isContact: false, 
+        online: undefined,
+        status: 'N/A'})
+    } else {
+      setContact({...contacts[route.params.contactUid], isContact: true})
+    }
+  }, [contacts])
+
+  useEffect(() => {
+    if(contact !== null) {
+      dispatch(getChatContact(currentUser.uid, contact.uid))
+    }
+  }, [contact])
 
   useEffect(() => {
     if(contactChat !== null) {
@@ -48,7 +65,7 @@ const ChatScreen = ({route}) => {
       <View style={styles.container}>
         <HeaderChat contact={contact} uid={currentUser.uid} />
         <View style={styles.statusContainer}>
-          <Text style={styles.status}>{contact.status.slice(0, 50)}{contact.status.length > 50 ? '...': ''}</Text>
+          <ChatStatusBar contact={contact} uid={currentUser.uid} />
         </View>
         <KeyboardAvoidingView
           behavior={null}
@@ -59,11 +76,7 @@ const ChatScreen = ({route}) => {
               ref={scrollViewRef}
               onLayout={() => scrollViewRef.current.scrollToEnd({animated: true})}
               onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: true})} >
-              {Object.keys(contactChat).length === 0 ? 
-              <View style={styles.emptyChatContainer}>
-                <Text style={styles.emptyChat}>Inicie una conversación...</Text>
-              </View>
-              :
+              {Object.keys(contactChat).length > 0 && 
               Object.values(contactChat).map(el => (
                 <MessageItem key={el.chatId} />
               ))}
