@@ -7,20 +7,21 @@ const getStyles = ({colors}) => StyleSheet.create({
   container: {
     flexDirection: 'row' ,
     justifyContent: 'space-between',
-    paddingVertical: 0,
+    paddingVertical: 10,
     paddingHorizontal: 15,
     position: 'relative',
-    marginTop: 15
+    borderBottomColor: colors.placeholder,
+    borderBottomWidth: 0.5
   },
   containerSelected: {
     flexDirection: 'row' ,
     justifyContent: 'space-between',
-    alignItems: 'center',
     paddingVertical: 0,
-    paddingHorizontal: 15,
+    paddingHorhopadding0ertical: 15,
     backgroundColor: colors.primary,
     position: 'relative',
-    marginTop: 10
+    borderBottomColor: colors.placeholder,
+    borderBottomWidth: 0.5
   },
   left: {
     flexDirection: 'row',
