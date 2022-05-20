@@ -37,7 +37,7 @@ const HeaderChat = ({contact, uid}) => {
             `${contact.displayName.slice(0, 22)}${contact.displayName.length > 22 ? '...' : ''}`
             }
           </Text>
-          <Text style={contact.online ? styles.online: styles.offline}>{contact.online ? 'En línea' : contact.online === undefined ? '' : 'Desconectado'}</Text>
+          <Text style={contact.online ? styles.online: styles.offline}>{contact.online ? 'En línea' : contact.online === undefined ? 'No está en tu lista de contactos' : 'Desconectado'}</Text>
         </View>
       </View>
       <TouchableOpacity onPress={handleSettings}>
