@@ -17,7 +17,7 @@ const ChatScreen = ({route}) => {
 
   const styles = useStyles()
   const scrollViewRef = useRef()
-  const {contactChat, currentUser, contacts, contactsBlocked} = useSelector(state => state)
+  const {contactChat, currentUser, contacts} = useSelector(state => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -34,8 +34,6 @@ const ChatScreen = ({route}) => {
     if(contactChat !== null) {
       if(contacts && contacts[route.params.contact.uid]) {
         setContact({...contacts[route.params.contact.uid], isContact: true})
-      } else if(contactsBlocked && contactsBlocked[route.params.contact.uid]) {
-        setContact({...contactsBlocked[route.params.contact.uid], isContact: true, blocked: true})
       } else {
         (async() => {
           const getUser = await getUserById(route.params.contact.uid)

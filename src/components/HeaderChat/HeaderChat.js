@@ -44,7 +44,7 @@ const HeaderChat = ({contact, uid}) => {
           </Text>
           }
           <Text style={contact.online ? styles.online: styles.offline}>
-            {contact.blocked ? 'Contacto bloqueado' : !contact.isContact ? 'No esta en tu lista de contactos' : contact.online ? 'En línea' : contact.online === undefined ? 'No está en tu lista de contactos' : 'Desconectado'}
+            {contact.blocked[uid] ? 'Contacto bloqueado' : !contact.isContact ? 'No esta en tu lista de contactos' : contact.online ? 'En línea' : contact.online === undefined ? 'No está en tu lista de contactos' : 'Desconectado'}
           </Text>
         </View>
       </View>

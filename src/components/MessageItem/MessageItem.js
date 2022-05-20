@@ -3,8 +3,6 @@ import React from 'react'
 
 const MessageItem = ({item}) => {
 
-  // console.log(item.createdAt)
-  // console.log('---------')
   const date = new Date(item.createdAt).toLocaleString()
 
   return (

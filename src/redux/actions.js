@@ -33,7 +33,7 @@ export const login = async() => {
     const userRef = database().ref(`users/${uid}`)
     const isUser = await userRef.once('value')
     if(isUser.val() === null) {
-      await userRef.set({uid, displayName, email, photoURL, online: true, status: 'Disponible'})
+      await userRef.set({uid, displayName, email, photoURL, online: true, status: 'Disponible', blocked: false})
     }
     return {status: 200, message: 'Inicio de sesión correcto'}
   } catch (error) {
@@ -149,7 +149,9 @@ export const addContact = async(uid, contactEmail) => {
       return {status: 400, message: 'Usuario no registrado'}
     } else {
       const contactsRef = database().ref(`contacts/${uid}/${contact.uid}`)
+      const userRef = database().ref(`users/${uid}/blocked/${contact.uid}`)
       await contactsRef.set(true)
+      await userRef.set(false)
       return {status: 200, message: 'Contacto agregado correctamente'}
     }
   } catch (error) {console.warn(error)}
@@ -163,19 +165,19 @@ export const contactsList = (uid) => {
       contactsRef.on('value', (snap) => {
         if(snap.val() !== null) {
           let contacts = {}
-          let contactsBlocked = {}
+          // let contactsBlocked = {}
           for(let contact in snap.val()){
             const contactRef = database().ref(`users/${contact}`)
             contactRef.on('value', contactSnap => {
               if(snap.val()[contact]) {contacts = {...contacts, [contact]: contactSnap.val()}} 
-              else {contactsBlocked = {...contactsBlocked, [contact]: contactSnap.val()}}
+              // else {contactsBlocked = {...contactsBlocked, [contact]: contactSnap.val()}}
               const snapKeys = Object.keys(snap.val())
               const contactsKeys = Object.keys(contacts)
-              const contactsBlokedKeys = Object.keys(contactsBlocked)
-              if(snapKeys.length === (contactsKeys.length + contactsBlokedKeys.length)) {
+              // const contactsBlokedKeys = Object.keys(contactsBlocked)
+              if(snapKeys.length === (contactsKeys.length)) {
                 dispatch({
                   type: 'CONTACTS_LIST',
-                  payload: {contacts, contactsBlocked}
+                  payload: {contacts}
                 })
               }
             })
@@ -183,7 +185,7 @@ export const contactsList = (uid) => {
         } else {
           dispatch({
             type: 'CONTACTS_LIST',
-            payload: {contacts: {}, contactsBlocked: {}}
+            payload: {contacts: {}}
           })
         }
       })
@@ -211,7 +213,9 @@ export const removeContact = async(uid, contactUid) => {
 export const blockContact = async(uid, contactUid) => {
   try {
     const usersRef = database().ref(`contacts/${uid}/${contactUid}`)
-    await usersRef.set(false)
+    const userRef = database().ref(`users/${uid}/blocked/${contactUid}`)
+    usersRef.remove()
+    await userRef.set(true)
   } catch (error) {console.warn(error)}
 }
 
@@ -219,7 +223,9 @@ export const blockContact = async(uid, contactUid) => {
 export const unblockContact = async(uid, contactUid) => {
   try {
     const usersRef = database().ref(`contacts/${uid}/${contactUid}`)
-    await usersRef.set(true)
+    const userRef = database().ref(`users/${uid}/blocked/${contactUid}`)
+    usersRef.set(true)
+    await userRef.set(false)
   } catch (error) {console.warn(error)}
 }
 

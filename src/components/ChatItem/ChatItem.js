@@ -10,14 +10,12 @@ const ChatItem = ({chat, myUid, uidSelected, handleSelected, handleGoToContactCh
   const [contact, setContact] = useState(null)
 
   const styles = useStyles()
-  const {contacts, chats, contactsBlocked} = useSelector(state => state)
+  const {contacts, chats, currentUser} = useSelector(state => state)
   
   useEffect(() => {
     if(chats.length) {
       if(contacts && contacts[chat.with]) {
         setContact({...contacts[chat.with], isContact: true})
-      } else if(contactsBlocked && contactsBlocked[chat.with]) {
-        setContact({...contactsBlocked[chat.with], isContact: true, blocked: true})
       } else {
         (async() => {
           const getUser = await getUserById(chat.with)
@@ -36,11 +34,11 @@ const ChatItem = ({chat, myUid, uidSelected, handleSelected, handleGoToContactCh
       onPress={() => handleGoToContactChat(contact)}
       style={uidSelected === contact.uid ? styles.containerSelected : styles.container} >
       <View style={styles.left}>
-        <View style={contact.blocked || contact.online === undefined ? {}: contact.online ? styles.online : styles.offline}></View>
+        <View style={contact.blocked[myUid] || currentUser.blocked[contact.uid] || contact.online === undefined ? {}: contact.online ? styles.online : styles.offline}></View>
         <Image source={{uri:contact.photoURL}} style={styles.photoURL} />
         <View style={styles.info}>
           {contact.isContact ? 
-          <Text style={contact.blocked ? styles.nameBlocked : styles.name}>
+          <Text style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.nameBlocked : styles.name}>
             {contact.nickname && contact.nickname[myUid] ? 
             `${contact.nickname[myUid].slice(0, 25)}${contact.nickname[myUid].length > 25 ? '...': ''}` 
             : 
@@ -48,16 +46,16 @@ const ChatItem = ({chat, myUid, uidSelected, handleSelected, handleGoToContactCh
             }
           </Text>
           :
-          <Text style={contact.blocked ? styles.nameBlocked : styles.name}>
+          <Text style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.nameBlocked : styles.name}>
             {`${contact.email.slice(0, 25)}${contact.email.length > 25 ? '...': ''}`}
           </Text>
           }
-          <Text style={contact.blocked ? styles.messageBlocked : styles.message}>
+          <Text style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message}>
             {`${chat.message.slice(0, 30)}${chat.message.length > 30 ? '...': ''}`}
           </Text>
         </View>
       </View>
-      {contact.blocked ? null :
+      {contact.blocked[myUid] || currentUser.blocked[contact.uid] ? null :
       <View style={styles.right}>
         <ReactTimeAgo {...props} date={chat.createdAt} component={Time} />
       </View>
