@@ -25,8 +25,8 @@ const Rooms = ({navigation}) => {
 
   }
 
-  const handleGoToContactChat = (uid) => {
-
+  const handleGoToContactChat = (uid, email) => {
+    navigation.navigate('Chat', {contactUid: uid, email})
   }
 
   return (
