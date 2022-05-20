@@ -13,7 +13,12 @@ const ChatStatusBar = ({contact, uid}) => {
 
   return (
     <>
-      {contact.isContact ? 
+      {contact.blocked ? 
+      <TouchableOpacity style={styles.buttonAdd} onPress={handleAddContact}>
+        <Text>Desbloquear contacto</Text>
+      </TouchableOpacity>
+      :
+      contact.isContact ? 
       <Text style={styles.status}>{contact.status.slice(0, 50)}{contact.status.length > 50 ? '...': ''}</Text>
       :
       <TouchableOpacity style={styles.buttonAdd} onPress={handleAddContact}>

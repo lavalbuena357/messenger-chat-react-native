@@ -60,8 +60,17 @@ const getStyles = ({colors}) => StyleSheet.create({
     fontSize: 15,
     color: colors.textBody
   },
+  nameBlocked: {
+    fontWeight: 'bold',
+    fontSize: 15,
+    color: colors.placeholder
+  },
   message: {
     color: colors.textBody,
+    fontSize: 14
+  },
+  messageBlocked: {
+    color: colors.placeholder,
     fontSize: 14
   },
   right: {

@@ -24,6 +24,17 @@ const getStyles = ({colors}) => StyleSheet.create({
     backgroundColor: colors.primary,
     width: deviceWidth * 0.8
   },
+  messageInputDisabled: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    marginHorizontal: 5,
+    marginVertical: 5,
+    backgroundColor: colors.placeholder,
+    width: deviceWidth * 0.8
+  },
   iconButton: {
     paddingHorizontal: 5,
     paddingVertical: 10,
@@ -40,6 +51,17 @@ const getStyles = ({colors}) => StyleSheet.create({
     paddingHorizontal: 5,
     marginVertical: 5,
     backgroundColor: colors.primary,
+    width: deviceWidth * 0.13,
+    height: 48,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-end'
+  },
+  micButtonDisabled: {
+    paddingHorizontal: 5,
+    marginVertical: 5,
+    backgroundColor: colors.placeholder,
     width: deviceWidth * 0.13,
     height: 48,
     borderRadius: 10,
