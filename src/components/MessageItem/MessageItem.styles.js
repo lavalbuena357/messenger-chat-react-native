@@ -7,13 +7,16 @@ const getStyles = ({colors}) => StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    marginTop: 2,
+    marginTop: 1,
+    elevation: 3,
+    shadowColor: colors.shadow
   },
   prevContainer: {
     flex: 1,
     paddingHorizontal: 10,
-    marginTop: 8,
-    
+    marginTop: 10,
+    elevation: 3,
+    shadowColor: colors.shadow
   },
   messageMe : {
     backgroundColor: 'red',

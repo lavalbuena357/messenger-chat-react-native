@@ -272,19 +272,13 @@ export const chatsList = (uid) => {
 }
 
 //OBTENER CHAT POR ID
-export const getChatContact = (uid, uidContact) => {
+export const getChatContact = (uid, uidContact, page) => {
   return async (dispatch) => {
     try {
-      if(uid === null || uidContact === null) {
-        dispatch({
-          type: 'GET_CHAT_CONTACT',
-          payload: {}
-        })
-      } else {
-      const chatRef = database().ref(`chats/${uid}/${uidContact}`)
-      chatRef.on('value', snap => {
+      const chatRef = database().ref(`chats/${uid}/${uidContact}`).limitToLast(page * 20)
+      chatRef.on('value', async(snap) => {
         let chats = {}
-        const obj = snap.val()
+        const obj = await snap.val()
         for(let item in obj ) {
           const newChat = {...obj[item], with: uidContact}
           chats = {...chats, [item]: newChat}
@@ -299,9 +293,22 @@ export const getChatContact = (uid, uidContact) => {
         const res = Object.values(chats).sort(sortChats)
         dispatch({
           type: 'GET_CHAT_CONTACT',
-          payload: snap.val() === null ? {} : res
+          payload: snap.val() === [] ? {} : res
         })
-      })}
+      })
     } catch (error) {console.warn(error)}
   }
+}
+
+ //RESETEAR EL CHAT DE CONTACTO
+ export const unsubscribeChatContact = (uid, uidContact, page) => {
+   return (dispatch) => {
+     try {
+      const chatRef = database().ref(`chats/${uid}/${uidContact}`).limitToLast(page * 10)
+      chatRef.off()
+      dispatch({
+        type: 'RESET_CHAT_CONTACT'
+      })
+     } catch (error) {console.warn(error)}
+   }
  }

@@ -2,7 +2,7 @@ const initialState = {
   theme: 'light',
   currentUser: null,
   chats: [],
-  contactChat: null,
+  contactChat: [],
   contacts: null,
 }
 
@@ -21,6 +21,8 @@ const reducer = (state = initialState, actions) => {
       return {...state, chats: actions.payload }
     case 'GET_CHAT_CONTACT':
       return {...state, contactChat: actions.payload}
+    case 'RESET_CHAT_CONTACT':
+      return {...state, contactChat: []}
     default:
       return state
   }

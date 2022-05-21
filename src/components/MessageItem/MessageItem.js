@@ -10,11 +10,12 @@ const MessageItem = ({message, currentUser, contact, isPrev}, props) => {
 
   return (
     <View style={isPrev ? styles.prevContainer : styles.container}>
-      <TouchableOpacity
-        style={message.from === currentUser.uid ? styles.messageMe : styles.messageContact} >
-        <Text style={styles.messageText}>{message.message}</Text>
-        <ReactTimeAgo {...props} date={message.createdAt} component={Time} />
-      </TouchableOpacity>
+      <View style={message.from === currentUser.uid ? styles.messageMe : styles.messageContact}>
+        <TouchableOpacity >
+          <Text style={styles.messageText}>{message.message}</Text>
+          <ReactTimeAgo {...props} date={message.createdAt} component={Time} />
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }

@@ -37,11 +37,19 @@ const getStyles = ({colors}) => StyleSheet.create({
   buttonAdd: {
     backgroundColor: colors.placeholder,
     padding: 5,
-    borderRadius: 20
+    borderRadius: 20,
   },
   notFound: {
     color: colors.placeholder,
     padding: 10
+  },
+  loadMore: {
+    padding: 5,
+    alignSelf:'center',
+    backgroundColor: colors.placeholder,
+    marginVertical: 5,
+    borderRadius:5,
+    color: colors.textBody
   }
 })
 
