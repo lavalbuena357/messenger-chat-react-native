@@ -22,7 +22,8 @@ const getStyles = ({colors}) => StyleSheet.create({
   content: {
     flex: 1, 
     justifyContent: 'flex-start',
-    backgroundColor: colors.background
+    backgroundColor: colors.background,
+    paddingHorizontal: 10,
   },
   emptyChatContainer: {
     padding: 10,
@@ -37,6 +38,10 @@ const getStyles = ({colors}) => StyleSheet.create({
     backgroundColor: colors.placeholder,
     padding: 5,
     borderRadius: 20
+  },
+  notFound: {
+    color: colors.placeholder,
+    padding: 10
   }
 })
 

@@ -79,10 +79,20 @@ const ChatScreen = ({route}) => {
               ref={scrollViewRef}
               onLayout={() => scrollViewRef.current.scrollToEnd({animated: true})}
               onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: true})} >
-              {contactChat.length > 0 && 
-                contactChat.map(el => (
-                <MessageItem key={el.chatId} item={el} />
-              ))}
+              {contactChat.length > 0 ?
+                contactChat.map((el, i) => (
+                <MessageItem 
+                  key={el.chatId} 
+                  message={el} 
+                  currentUser={currentUser} 
+                  contact={contact}
+                  isPrev={i > 0 && contactChat[i-1].from !== contactChat[i].from ? true : false} />
+              ))
+              :
+              <>
+              <Text style={styles.notFound}>Inicie una conversación</Text>
+              </>
+            }
             </ScrollView>
           </View>
         </KeyboardAvoidingView>

@@ -80,7 +80,8 @@ const getStyles = ({colors}) => StyleSheet.create({
   date: {
     fontSize: 10,
     fontStyle: 'italic',
-    color: colors.textBody
+    color: colors.textBody,
+    alignSelf: 'flex-end'
   },
 })
 

@@ -1,13 +1,20 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
+import Time from '../Time/Time'
+import ReactTimeAgo from 'react-time-ago'
+import useStyles from './MessageItem.styles'
 
-const MessageItem = ({item}) => {
+const MessageItem = ({message, currentUser, contact, isPrev}, props) => {
 
-  const date = new Date(item.createdAt).toLocaleString()
+  const styles = useStyles()
 
   return (
-    <View>
-      <Text>{date}</Text>
+    <View style={isPrev ? styles.prevContainer : styles.container}>
+      <TouchableOpacity
+        style={message.from === currentUser.uid ? styles.messageMe : styles.messageContact} >
+        <Text style={styles.messageText}>{message.message}</Text>
+        <ReactTimeAgo {...props} date={message.createdAt} component={Time} />
+      </TouchableOpacity>
     </View>
   )
 }
