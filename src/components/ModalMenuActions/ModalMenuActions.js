@@ -8,8 +8,7 @@ import ModalTemplate from '../ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
 import useStyles from '../ModalTemplate/ModalTemplate.styles'
 
-const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) => {
-  const [isLoading, setIsLoading] = useState(false)
+const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected, isLoading, setIsLoading}) => {
   const [action, setAction] = useState('')
   const [modalConfirm, setModalConfirm] = useState(false)
 
@@ -29,10 +28,10 @@ const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) 
   }
 
   const confirmBlock = async() => {
-    setIsLoading(true)
-    await blockContact(currentUser.uid, uidSelected)
     setModalConfirm(false)
     setShowActionsModal(false)
+    setIsLoading(true)
+    await blockContact(currentUser.uid, uidSelected)
     setIsLoading(false)
   }
 
@@ -42,10 +41,10 @@ const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected}) 
   }
 
   const confirmDelete = async() => {
-    setIsLoading(true)
-    await removeContact(currentUser.uid, uidSelected)
     setModalConfirm(false)
     setShowActionsModal(false)
+    setIsLoading(true)
+    await removeContact(currentUser.uid, uidSelected)
     setIsLoading(false)
   }
 

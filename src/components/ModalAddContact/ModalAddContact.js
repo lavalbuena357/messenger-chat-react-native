@@ -31,7 +31,6 @@ const ModalAddContact = ({setShowAddModal, showAddModal}) => {
       if(add.status === 200) {
         setMail('')
         setShowAddModal(false)
-        
       } else {
         setMail('')
         setIsError({error: true, message: add.message})

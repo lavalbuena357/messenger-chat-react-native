@@ -95,7 +95,9 @@ const Contacts = ({navigation}) => {
       <ModalMenuActions
         showActionsModal={showActionsModal}
         setShowActionsModal={setShowActionsModal}
-        uidSelected={uidSelected} />
+        uidSelected={uidSelected}
+        setIsLoading={setIsLoading}
+        isLoading={isLoading} />
     </View>
   )
 }
