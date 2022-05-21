@@ -163,18 +163,17 @@ export const contactsList = (uid) => {
     try {
       const contactsRef = database().ref(`contacts/${uid}`)
       contactsRef.on('value', (snap) => {
-        if(snap.val() !== null) {
+        const snapVal = snap.val()
+        const snapKeys = Object.keys(snapVal)
+        if(snapVal !== null) {
           let contacts = {}
-          // let contactsBlocked = {}
-          for(let contact in snap.val()){
+          for(let contact in snapVal){
             const contactRef = database().ref(`users/${contact}`)
             contactRef.on('value', contactSnap => {
-              if(snap.val()[contact]) {contacts = {...contacts, [contact]: contactSnap.val()}} 
-              // else {contactsBlocked = {...contactsBlocked, [contact]: contactSnap.val()}}
-              const snapKeys = Object.keys(snap.val())
+              const contactSnapVal = contactSnap.val()
+              contacts = {...contacts, [contact]: contactSnapVal}
               const contactsKeys = Object.keys(contacts)
-              // const contactsBlokedKeys = Object.keys(contactsBlocked)
-              if(snapKeys.length === (contactsKeys.length)) {
+              if(snapKeys.length === contactsKeys.length) {
                 dispatch({
                   type: 'CONTACTS_LIST',
                   payload: {contacts}
