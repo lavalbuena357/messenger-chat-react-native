@@ -15,8 +15,7 @@ const reducer = (state = initialState, actions) => {
     case 'LOGOUT': 
       return {...state, currentUser: actions.payload}
     case 'CONTACTS_LIST':
-      const resContacts = Object.keys(actions.payload.contacts).length > 0 ? actions.payload.contacts : null
-      return {...state, contacts: resContacts }
+      return {...state, contacts: actions.payload }
     case 'CHATS_LIST':
       return {...state, chats: actions.payload }
     case 'GET_CHAT_CONTACT':

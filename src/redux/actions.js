@@ -163,7 +163,7 @@ export const contactsList = (uid) => {
     try {
       const contactsRef = database().ref(`contacts/${uid}`)
       contactsRef.on('value', (snap) => {
-        const snapVal = snap.val()
+        const snapVal = snap.val() !== null && snap.val()
         const snapKeys = Object.keys(snapVal)
         if(snapVal !== null) {
           let contacts = {}
@@ -176,7 +176,7 @@ export const contactsList = (uid) => {
               if(snapKeys.length === contactsKeys.length) {
                 dispatch({
                   type: 'CONTACTS_LIST',
-                  payload: {contacts}
+                  payload: contacts
                 })
               }
             })
@@ -184,7 +184,7 @@ export const contactsList = (uid) => {
         } else {
           dispatch({
             type: 'CONTACTS_LIST',
-            payload: {contacts: {}}
+            payload: {}
           })
         }
       })
@@ -292,7 +292,7 @@ export const getChatContact = (uid, uidContact, page) => {
         const res = Object.values(chats).sort(sortChats)
         dispatch({
           type: 'GET_CHAT_CONTACT',
-          payload: snap.val() === [] ? {} : res
+          payload: snap.val() === null ? [] : res
         })
       })
     } catch (error) {console.warn(error)}
