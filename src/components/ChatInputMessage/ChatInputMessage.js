@@ -76,3 +76,8 @@ const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
 }
 
 export default ChatInputMessage
+
+
+const ChatInputButtons = ({}) => {
+  
+}

@@ -13,12 +13,11 @@ const getStyles = ({colors}) => StyleSheet.create({
     margin: 20,
   },
   online: {
-    position: 'absolute',
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     backgroundColor: colors.online,
-    borderRadius: 10,
-    top: 30,
+    borderRadius: 15,
+    marginTop: 20
   },
   offline: {
     width: 30,

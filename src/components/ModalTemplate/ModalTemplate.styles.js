@@ -54,7 +54,8 @@ const getStyles = ({colors}) => StyleSheet.create({
     marginTop: 10,
     backgroundColor: colors.secondary,
     padding: 5,
-    borderRadius: 10
+    borderRadius: 10,
+    color: colors.text
   },
   input: {
     borderColor: colors.secondary,
