@@ -5,9 +5,11 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import useStyles from './ChatInputMessage.styles'
 import { submitChat } from '../../redux/actions'
 import { useSelector } from 'react-redux'
+import ChatEmojiPicker from '../ChatEmojiPicker/ChatEmojiPicker'
 
 const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
   const [messageText, setMessageText] = useState('')
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false)
 
   const styles = useStyles()
   const {currentUser} = useSelector(state => state)
@@ -33,9 +35,13 @@ const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
       <View style={contact.blocked[uid] || currentUser.blocked[contact.uid] ? styles.messageInputDisabled : styles.messageInput}>
         <TouchableOpacity 
           style={styles.iconButton}
+          onPress={() => setIsEmojiOpen(true)}
           disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
           <MatIcon name={emoSelectIcon ? 'emoticon' : 'emoticon-outline'} size={26} color={styles.iconColor.color}/>
         </TouchableOpacity>
+        <ChatEmojiPicker 
+          isEmojiOpen={isEmojiOpen} 
+          setIsEmojiOpen={setIsEmojiOpen} />
         <TextInput
           placeholder='Mensaje'
           placeholderTextColor={styles.iconColor.color}

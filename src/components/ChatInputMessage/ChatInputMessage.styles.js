@@ -68,6 +68,17 @@ const getStyles = ({colors}) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end'
+  },
+  emojiContainer : {
+    backgroundColor: colors.primary,
+  },
+  emojiCat : {
+    backgroundColor: colors.secondary,
+    color: colors.text,
+  },
+  emojiCatSeledted: {
+    backgroundColor: colors.background,
+    color: colors.textBody
   }
 })
 
