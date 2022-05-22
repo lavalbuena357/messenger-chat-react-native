@@ -13,6 +13,10 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   loading: {
     color: colors.white
+  },
+  notFound: {
+    color: colors.placeholder,
+    padding: 10
   }
 })
 
