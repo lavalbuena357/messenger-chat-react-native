@@ -1,28 +1,40 @@
-import { View, Text, KeyboardAvoidingView, ScrollView, BackHandler, TouchableOpacity } from 'react-native'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { View, BackHandler } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useStyles from './ChatScreen.styles'
 import HeaderChat from '../../components/HeaderChat/HeaderChat'
 import ChatInputMessage from '../../components/ChatInputMessage/ChatInputMessage'
-import MessageItem from '../../components/MessageItem/MessageItem'
 import Loader from '../../components/Loader/Loader'
 import { getChatContact, getUserById, unsubscribeChatContact } from '../../redux/actions'
 import { useFocusEffect } from '@react-navigation/native'
 import ChatStatusBar from '../../components/ChatStatusBar/ChatStatusBar'
+import ChatScroll from '../../components/ChatScroll/ChatScroll'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoadMore, setIsLoadMore] = useState(false)
   const [contact, setContact] = useState(null)
   const [page, setPage] = useState(1)
+  const [chats, setChats] = useState(null)
 
+  const offset = 20
   const styles = useStyles()
-  const scrollViewRef = useRef()
   const {contactChat, currentUser, contacts} = useSelector(state => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getChatContact(currentUser.uid, route.params.contact.uid, page))
-  }, [page])
+    dispatch(getChatContact(currentUser.uid, route.params.contact.uid))
+  }, [])
+
+  useEffect(() => {
+    if(contactChat.length >= offset) {
+      const last = contactChat.length >= 0 ? contactChat.length : 0
+      const prev = contactChat.length-(page*offset) >= 0 ? contactChat.length-(page*offset) : 0
+      setChats(contactChat.slice(prev, last))
+    } else {
+      setChats(contactChat.slice(0, page*offset))
+    }
+  }, [contactChat])
 
   useEffect(() => {
       if(contacts && contacts[route.params.contact.uid]) {
@@ -36,7 +48,7 @@ const ChatScreen = ({route}) => {
   }, [contacts])
   
   useEffect(() => {
-    if(contact) {
+    if(chats && contact) {
       setIsLoading(false)
     }
   }, [contact])
@@ -44,8 +56,9 @@ const ChatScreen = ({route}) => {
   useFocusEffect(
     useCallback(() => {
       const onBack = () => {
-          dispatch(unsubscribeChatContact(currentUser.uid, route.params.contact.uid, 1))
-          return false
+        setChats(null)
+        dispatch(unsubscribeChatContact(currentUser.uid, route.params.contact.uid))
+        return false
       }
       BackHandler.addEventListener('hardwareBackPress', onBack)
       return () => BackHandler.removeEventListener('hardwareBackPress', onBack)
@@ -62,40 +75,25 @@ const ChatScreen = ({route}) => {
             contact={contact} 
             uid={currentUser.uid}
             setIsLoading={setIsLoading} 
-            isLoading={isLoading}
-            unsubscribe={unsubscribeChatContact} />
+            isLoading={isLoading} />
         </View>
-        <KeyboardAvoidingView
-          behavior={null}
-          keyboardVerticalOffset={70}
-          style={styles.content} >
-          <View>
-            <ScrollView
-              ref={scrollViewRef}
-              onLayout={() => scrollViewRef.current.scrollToEnd({animated: true})}>
-              {contactChat.length > 0 ?
-              <>
-              {contactChat.length >= 10 && 
-              <TouchableOpacity style={styles.loadMore} onPress={() => setPage(page + 1)}>
-                <Text style={{color: styles.loadMore.color}}>Cargar más...</Text>
-              </TouchableOpacity>}
-              {contactChat.map((el, i) => (
-                <MessageItem 
-                  key={el.chatId} 
-                  message={el} 
-                  currentUser={currentUser} 
-                  contact={contact}
-                  isPrev={i > 0 && contactChat[i-1].from !== contactChat[i].from ? true : false} />
-              ))}</>
-              :
-              <>
-              <Text style={styles.notFound}>Inicie una conversación</Text>
-              </>
-            }
-            </ScrollView>
-          </View>
-        </KeyboardAvoidingView>
-        <ChatInputMessage uid={currentUser.uid} contact={contact} chats={contactChat} />
+        <ChatScroll
+          chats={chats}
+          setChats={setChats}
+          contactChat={contactChat} 
+          setPage={setPage}
+          page={page}
+          currentUser={currentUser}
+          contact={contact}
+          offset={offset}
+          isLoadMore={isLoadMore}
+          setIsLoadMore={setIsLoadMore} />
+        <ChatInputMessage 
+          uid={currentUser.uid} 
+          contact={contact} 
+          chats={contactChat}
+          isLoadMore={isLoadMore}
+          setIsLoadMore={setIsLoadMore} />
       </View>
       }
     </View>

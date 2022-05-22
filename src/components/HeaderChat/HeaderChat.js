@@ -14,7 +14,7 @@ const HeaderChat = ({contact, uid}) => {
   const dispatch = useDispatch()
 
   const handleBack = () => {
-    dispatch(unsubscribeChatContact(uid, contact.uid, 1))
+    dispatch(unsubscribeChatContact(uid, contact.uid))
     navigation.goBack()
   }
 

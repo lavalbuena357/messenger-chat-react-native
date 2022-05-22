@@ -162,17 +162,16 @@ export const contactsList = (uid) => {
   return async(dispatch) => {
     try {
       const contactsRef = database().ref(`contacts/${uid}`)
-      contactsRef.on('value', (snap) => {
-        const snapVal = snap.val() !== null && snap.val()
-        const snapKeys = Object.keys(snapVal)
-        if(snapVal !== null) {
+      contactsRef.on('value', (snap) => {        
+        if(snap.val() !== null) {
           let contacts = {}
-          for(let contact in snapVal){
+          for(let contact in snap.val()){
             const contactRef = database().ref(`users/${contact}`)
             contactRef.on('value', contactSnap => {
               const contactSnapVal = contactSnap.val()
               contacts = {...contacts, [contact]: contactSnapVal}
               const contactsKeys = Object.keys(contacts)
+              const snapKeys = Object.keys(snap.val())
               if(snapKeys.length === contactsKeys.length) {
                 dispatch({
                   type: 'CONTACTS_LIST',
@@ -271,10 +270,10 @@ export const chatsList = (uid) => {
 }
 
 //OBTENER CHAT POR ID
-export const getChatContact = (uid, uidContact, page) => {
+export const getChatContact = (uid, uidContact) => {
   return async (dispatch) => {
     try {
-      const chatRef = database().ref(`chats/${uid}/${uidContact}`).limitToLast(page * 20)
+      const chatRef = database().ref(`chats/${uid}/${uidContact}`)
       chatRef.on('value', async(snap) => {
         let chats = {}
         const obj = await snap.val()
@@ -300,10 +299,10 @@ export const getChatContact = (uid, uidContact, page) => {
 }
 
  //RESETEAR EL CHAT DE CONTACTO
- export const unsubscribeChatContact = (uid, uidContact, page) => {
+ export const unsubscribeChatContact = (uid, uidContact) => {
    return (dispatch) => {
      try {
-      const chatRef = database().ref(`chats/${uid}/${uidContact}`).limitToLast(page * 10)
+      const chatRef = database().ref(`chats/${uid}/${uidContact}`)
       chatRef.off()
       dispatch({
         type: 'RESET_CHAT_CONTACT'

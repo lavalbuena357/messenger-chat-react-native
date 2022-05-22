@@ -6,7 +6,7 @@ import useStyles from './ChatInputMessage.styles'
 import { submitChat } from '../../redux/actions'
 import { useSelector } from 'react-redux'
 
-const ChatInputMessage = ({uid, contact}) => {
+const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
   const [messageText, setMessageText] = useState('')
 
   const styles = useStyles()
@@ -21,6 +21,9 @@ const ChatInputMessage = ({uid, contact}) => {
   }
 
   const handleSendMessage = () => {
+    if(isLoadMore) {
+      setIsLoadMore(false)
+    }
     setMessageText('')
     submitChat(uid, contact.uid, messageText, 'text')
   }
