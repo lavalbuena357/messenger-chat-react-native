@@ -10,8 +10,8 @@ const getStyles = ({colors}) => StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     position: 'relative',
-    borderBottomColor: colors.placeholder,
-    borderBottomWidth: 0.5
+    // borderBottomColor: colors.placeholder,
+    // borderBottomWidth: 0.5
   },
   containerSelected: {
     flexDirection: 'row' ,

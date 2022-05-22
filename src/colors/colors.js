@@ -1,10 +1,10 @@
 const Theme = {
   light: {
     colors: {
-      primary: '#e5e5ea',
+      primary: '#D5D5D8',
       primaryLight: '#ededed',
       secondary: '#37294d',
-      background: '#D5D5D8',
+      background: '#e5e5e5',
       button: '#37294d',
       google: '#F44646',
       text: '#ededed',

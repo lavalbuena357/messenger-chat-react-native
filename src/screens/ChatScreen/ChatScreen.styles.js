@@ -11,7 +11,7 @@ const getStyles = ({colors}) => StyleSheet.create({
   statusContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomColor: colors.placeholder,
+    borderBottomColor: colors.background,
     borderBottomWidth: 0.3,
     padding: 5,
   },

@@ -12,8 +12,8 @@ const getStyles = ({colors}) => StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     position: 'relative',
-    backgroundColor: colors.violet,
-    elevation: 4,
+    backgroundColor: colors.primary,
+    elevation: 2,
     shadowColor: colors.shadow,
     zIndex: 100
   },
@@ -23,7 +23,7 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: colors.light,
+    color: colors.textBody,
     fontWeight: 'bold'
   },
   rightCn: {
@@ -38,7 +38,7 @@ const getStyles = ({colors}) => StyleSheet.create({
     marginRight: 15,
   },
   icons: {
-    color: colors.light
+    color: colors.textBody
   }
 })
 
