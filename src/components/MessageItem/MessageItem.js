@@ -12,7 +12,11 @@ const MessageItem = ({message, currentUser, contact, isPrev}, props) => {
     <View style={isPrev ? styles.prevContainer : styles.container}>
       <View style={message.from === currentUser.uid ? styles.messageMe : styles.messageContact}>
         <TouchableOpacity >
+          {message.cate === 'text' ?
           <Text style={styles.messageText}>{message.message}</Text>
+          :
+          <Text style={styles.messageTextOnlyEmoji}>{message.message}</Text>
+          }
           <ReactTimeAgo {...props} date={message.createdAt} component={Time} />
         </TouchableOpacity>
       </View>

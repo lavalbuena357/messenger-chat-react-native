@@ -1,14 +1,22 @@
-import { View, Text } from 'react-native'
+import {} from 'react-native'
 import React from 'react'
 import EmojiPicker from 'rn-emoji-keyboard'
 import useStyles from '../ChatInputMessage/ChatInputMessage.styles'
 
-const ChatEmojiPicker = ({setIsEmojiOpen, isEmojiOpen}) => {
+const ChatEmojiPicker = ({
+  setIsEmojiOpen, 
+  isEmojiOpen, 
+  messageText, 
+  setMessageText,
+  setIsOnlyEmoji}) => {
 
   const styles = useStyles()
   
   const handlePick = (emojiObject) => {
-    console.log(emojiObject)
+    if(messageText.length == 0) {
+      setIsOnlyEmoji(true)
+    }
+    setMessageText(messageText + emojiObject.emoji)
   }
 
   return (

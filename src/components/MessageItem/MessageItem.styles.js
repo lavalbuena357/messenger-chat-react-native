@@ -44,7 +44,11 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   messageText: {
     color: colors.textBody,
-    fontSize: 15
+    fontSize: 14
+  },
+  messageTextOnlyEmoji: {
+    fontSize: 42,
+    alignSelf: 'center',
   }
 })
 

@@ -10,6 +10,7 @@ import ChatEmojiPicker from '../ChatEmojiPicker/ChatEmojiPicker'
 const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
   const [messageText, setMessageText] = useState('')
   const [isEmojiOpen, setIsEmojiOpen] = useState(false)
+  const [isOnlyEmoji, setIsOnlyEmoji] = useState(false)
 
   const styles = useStyles()
   const {currentUser} = useSelector(state => state)
@@ -23,11 +24,17 @@ const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
   }
 
   const handleSendMessage = () => {
+    setIsOnlyEmoji(false)
     if(isLoadMore) {
       setIsLoadMore(false)
     }
-    setMessageText('')
-    submitChat(uid, contact.uid, messageText, 'text')
+    if(isOnlyEmoji && messageText.length === 2) {
+      setMessageText('')
+      submitChat(uid, contact.uid, messageText, 'emoji')
+    } else {
+      setMessageText('')
+      submitChat(uid, contact.uid, messageText, 'text')
+    }
   }
 
   return (
@@ -41,7 +48,11 @@ const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
         </TouchableOpacity>
         <ChatEmojiPicker 
           isEmojiOpen={isEmojiOpen} 
-          setIsEmojiOpen={setIsEmojiOpen} />
+          setIsEmojiOpen={setIsEmojiOpen}
+          messageText={messageText}
+          setMessageText={setMessageText}
+          isOnlyEmoji={isOnlyEmoji}
+          setIsOnlyEmoji={setIsOnlyEmoji} />
         <TextInput
           placeholder='Mensaje'
           placeholderTextColor={styles.iconColor.color}
