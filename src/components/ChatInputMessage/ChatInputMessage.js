@@ -79,6 +79,7 @@ const ChatInputMessage = ({
           ref={inputRef}
           placeholderTextColor={styles.iconColor.color}
           multiline
+          onFocus={() => setIsEmojiOpen(false)}
           autoFocus={true}
           editable={contact.blocked[uid] || currentUser.blocked[contact.uid] ? false : true}
           defaultValue={messageText}
