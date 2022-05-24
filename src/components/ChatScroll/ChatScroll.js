@@ -28,35 +28,36 @@ const ChatScroll = ({
 }
 
   return (
-    <KeyboardAvoidingView
-      behavior={null}
-      keyboardVerticalOffset={70}
-      style={styles.content} >
-         <ScrollView
-        ref={scrollViewRef}
-        onLayout={() => scrollViewRef.current.scrollToEnd({animated: true})}
-        onContentSizeChange={() => !isLoadMore && scrollViewRef.current.scrollToEnd({animated: true})} >
-        {chats && chats.length > 0 ? 
-        <>{chats.length >= offset &&  chats.length === contactChat.length ? null
-          :
-          chats.length >= offset && chats.length >= page * offset &&
-          <TouchableOpacity style={styles.loadMore} onPress={loadMore}>
-            <Text style={{color: styles.loadMore.color}}>Cargar más...</Text>
-          </TouchableOpacity>}
-          {chats.map((el, i) => (
-          <MessageItem 
-            key={el.chatId} 
-            message={el} 
-            currentUser={currentUser} 
-            contact={contact}
-            isPrev={i > 0 && contactChat[i-1].from !== contactChat[i].from ? true : false} />
-          ))}
-        </>
-        :
-        <Text style={styles.notFound}>Inicie una conversación</Text>
-        }
+    // <KeyboardAvoidingView
+    //   behavior={undefined}
+    //   keyboardVerticalOffset={0}
+    //   style={styles.content} >
+        <ScrollView
+          ref={scrollViewRef}
+          keyboardShouldPersistTaps='always'
+          onLayout={() => scrollViewRef.current.scrollToEnd({animated: false})}
+          onContentSizeChange={() => !isLoadMore && scrollViewRef.current.scrollToEnd({animated: false})} >
+          {chats && chats.length > 0 ? 
+          <>{chats.length >= offset &&  chats.length === contactChat.length ? null
+            :
+            chats.length >= offset && chats.length >= page * offset &&
+            <TouchableOpacity style={styles.loadMore} onPress={loadMore}>
+              <Text style={{color: styles.loadMore.color}}>Cargar más...</Text>
+            </TouchableOpacity>}
+            {chats.map((el, i) => (
+            <MessageItem 
+              key={el.chatId} 
+              message={el} 
+              currentUser={currentUser} 
+              contact={contact}
+              isPrev={i > 0 && contactChat[i-1].from !== contactChat[i].from ? true : false} />
+            ))}
+            </>
+            :
+            <Text style={styles.notFound}>Inicie una conversación</Text>
+          }
       </ScrollView>
-    </KeyboardAvoidingView>
+    // </KeyboardAvoidingView>
   )
 }
 

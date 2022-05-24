@@ -1,22 +1,32 @@
-import { View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { View, TextInput, TouchableOpacity, Keyboard } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 import useStyles from './ChatInputMessage.styles'
 import { submitChat } from '../../redux/actions'
 import { useSelector } from 'react-redux'
-import ChatEmojiPicker from '../ChatEmojiPicker/ChatEmojiPicker'
+import ChatModalImage from '../ChatModalImage/ChatModalImage'
+import UseKeyboard from '../ChatCustomEmojiPicker/UseKeyboard'
 
-const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
+const ChatInputMessage = ({
+    uid, 
+    contact, 
+    isLoadMore, 
+    setIsLoadMore, 
+    setIsEmojiOpen, 
+    isEmojiOpen,
+    setStyleHidden
+  }) => {
   const [messageText, setMessageText] = useState('')
-  const [isEmojiOpen, setIsEmojiOpen] = useState(false)
   const [isOnlyEmoji, setIsOnlyEmoji] = useState(false)
+  const [isModalImage, setIsModalImage] = useState(false)
 
   const styles = useStyles()
   const {currentUser} = useSelector(state => state)
+  const inputRef = useRef()
+  const keyboardHeight = UseKeyboard()
 
   //temp
-  const emoSelectIcon = false
   const micSelected = false
 
   const handleChange = (text) => {
@@ -37,26 +47,39 @@ const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
     }
   }
 
+  const changeEmojiKeyboardIcon = () => {
+    if(keyboardHeight > 0 && isEmojiOpen) {
+      setIsEmojiOpen(false)
+      inputRef.current.focus()
+    } else if(keyboardHeight === 0 && !isEmojiOpen) {
+      setIsEmojiOpen(true)
+      setStyleHidden(true)
+      Keyboard.dismiss()
+    } else if(keyboardHeight === 0 && isEmojiOpen) {
+      inputRef.current.focus()
+      setIsEmojiOpen(false)
+    } else {
+      setIsEmojiOpen(true)
+      Keyboard.dismiss()
+    }
+    
+  }
+
   return (
     <View style={styles.container}>
       <View style={contact.blocked[uid] || currentUser.blocked[contact.uid] ? styles.messageInputDisabled : styles.messageInput}>
         <TouchableOpacity 
           style={styles.iconButton}
-          onPress={() => setIsEmojiOpen(true)}
+          onPress={changeEmojiKeyboardIcon}
           disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
-          <MatIcon name={emoSelectIcon ? 'emoticon' : 'emoticon-outline'} size={26} color={styles.iconColor.color}/>
+          <MatIcon name={isEmojiOpen ? 'keyboard' : 'emoticon'} size={26} color={styles.iconColor.color}/>
         </TouchableOpacity>
-        <ChatEmojiPicker 
-          isEmojiOpen={isEmojiOpen} 
-          setIsEmojiOpen={setIsEmojiOpen}
-          messageText={messageText}
-          setMessageText={setMessageText}
-          isOnlyEmoji={isOnlyEmoji}
-          setIsOnlyEmoji={setIsOnlyEmoji} />
         <TextInput
           placeholder='Mensaje'
+          ref={inputRef}
           placeholderTextColor={styles.iconColor.color}
           multiline
+          autoFocus={true}
           editable={contact.blocked[uid] || currentUser.blocked[contact.uid] ? false : true}
           defaultValue={messageText}
           onChangeText={handleChange}
@@ -64,14 +87,11 @@ const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity 
             style={styles.iconButton}
+            onPress={() => setIsModalImage(true)}
             disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
             <Icon name='attach' size={26} color={styles.iconColor.color} />
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.iconButton}
-            disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
-            <MatIcon name='camera' size={24} color={styles.iconColor.color} />
-          </TouchableOpacity>
+          <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} />
         </View>
       </View>
       {messageText.length ? 
@@ -93,8 +113,3 @@ const ChatInputMessage = ({uid, contact, isLoadMore, setIsLoadMore}) => {
 }
 
 export default ChatInputMessage
-
-
-const ChatInputButtons = ({}) => {
-  
-}

@@ -1,9 +1,12 @@
-import { StyleSheet } from 'react-native'
-import { useMemo } from 'react'
+import { StyleSheet, Dimensions } from 'react-native'
+import { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Theme from '../../colors/colors'
+import UseKeyboard from '../../components/ChatCustomEmojiPicker/UseKeyboard'
 
-const getStyles = ({colors}) => StyleSheet.create({
+const deviceHeight = Dimensions.get('window').height
+
+const getStyles = ({colors, height}) => StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
@@ -18,6 +21,12 @@ const getStyles = ({colors}) => StyleSheet.create({
   status: {
     color: colors.placeholder,
     fontSize: 12,
+  },
+  aboveKeyboard: {
+    height: deviceHeight - height - 88
+  },
+  aboveKeyboardHidden: {
+    height: deviceHeight - 88
   },
   content: {
     flex: 1, 
@@ -54,10 +63,19 @@ const getStyles = ({colors}) => StyleSheet.create({
 })
 
 const useStyles = () => {
+  const [height, setHeight] = useState(0)
   const theme = useSelector(state => state.theme)
   const { colors } = Theme[theme]
+  const keyboardHeight = UseKeyboard()
 
-  const styles = useMemo(() => getStyles({colors}), [colors])
+  useEffect(() => {
+    if(keyboardHeight > 0) {
+      setHeight(keyboardHeight)
+    }
+  }, [keyboardHeight])
+  
+
+  const styles = useMemo(() => getStyles({colors, height}), [colors, height])
 
   return styles
 }

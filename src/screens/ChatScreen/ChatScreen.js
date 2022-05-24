@@ -1,4 +1,4 @@
-import { View, BackHandler } from 'react-native'
+import { View, BackHandler} from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useStyles from './ChatScreen.styles'
@@ -9,6 +9,8 @@ import { getChatContact, getUserById, unsubscribeChatContact } from '../../redux
 import { useFocusEffect } from '@react-navigation/native'
 import ChatStatusBar from '../../components/ChatStatusBar/ChatStatusBar'
 import ChatScroll from '../../components/ChatScroll/ChatScroll'
+import ChatCustomEmojiPicker from '../../components/ChatCustomEmojiPicker/ChatCustomEmojiPicker'
+import UseKeyboard from '../../components/ChatCustomEmojiPicker/UseKeyboard'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -16,11 +18,14 @@ const ChatScreen = ({route}) => {
   const [contact, setContact] = useState(null)
   const [page, setPage] = useState(1)
   const [chats, setChats] = useState(null)
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false)
+  const [isStyileHidden, setStyleHidden] = useState(true)
 
   const offset = 20
   const styles = useStyles()
   const {contactChat, currentUser, contacts} = useSelector(state => state)
   const dispatch = useDispatch()
+  const heightKeyboard = UseKeyboard()
 
   useEffect(() => {
     dispatch(getChatContact(currentUser.uid, route.params.contact.uid))
@@ -53,22 +58,35 @@ const ChatScreen = ({route}) => {
     }
   }, [contact])
 
+  useEffect(() => {
+    if(!isEmojiOpen && heightKeyboard === 0) {
+      setStyleHidden(false)
+    } else if(!isEmojiOpen && heightKeyboard > 0) {
+      setStyleHidden(true)
+    }
+  }, [heightKeyboard])
+
   useFocusEffect(
     useCallback(() => {
       const onBack = () => {
+        if(isEmojiOpen) {
+          setIsEmojiOpen(false)
+          setStyleHidden(false)
+          return true
+        }
         setChats(null)
         dispatch(unsubscribeChatContact(currentUser.uid, route.params.contact.uid))
         return false
       }
       BackHandler.addEventListener('hardwareBackPress', onBack)
       return () => BackHandler.removeEventListener('hardwareBackPress', onBack)
-    }, [])
+    }, [isEmojiOpen, setIsEmojiOpen])
   )
 
   return (
     <View style={styles.container}>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
-      <View style={styles.container}>
+      <View>
         <HeaderChat contact={contact} uid={currentUser.uid} />
         <View style={styles.statusContainer}>
           <ChatStatusBar 
@@ -77,23 +95,30 @@ const ChatScreen = ({route}) => {
             setIsLoading={setIsLoading} 
             isLoading={isLoading} />
         </View>
-        <ChatScroll
-          chats={chats}
-          setChats={setChats}
-          contactChat={contactChat} 
-          setPage={setPage}
-          page={page}
-          currentUser={currentUser}
-          contact={contact}
-          offset={offset}
-          isLoadMore={isLoadMore}
-          setIsLoadMore={setIsLoadMore} />
-        <ChatInputMessage 
-          uid={currentUser.uid} 
-          contact={contact} 
-          chats={contactChat}
-          isLoadMore={isLoadMore}
-          setIsLoadMore={setIsLoadMore} />
+        <View style={!isStyileHidden ? styles.aboveKeyboardHidden : styles.aboveKeyboard}>
+          <ChatScroll
+            chats={chats}
+            setChats={setChats}
+            contactChat={contactChat} 
+            setPage={setPage}
+            page={page}
+            currentUser={currentUser}
+            contact={contact}
+            offset={offset}
+            isLoadMore={isLoadMore}
+            setIsLoadMore={setIsLoadMore} />
+          
+          <ChatInputMessage 
+            uid={currentUser.uid} 
+            contact={contact} 
+            chats={contactChat}
+            isLoadMore={isLoadMore}
+            setIsLoadMore={setIsLoadMore}
+            setIsEmojiOpen={setIsEmojiOpen}
+            isEmojiOpen={isEmojiOpen}
+            setStyleHidden={setStyleHidden} />
+        </View>
+        <ChatCustomEmojiPicker isEmojiOpen={isEmojiOpen}  />
       </View>
       }
     </View>
