@@ -10,8 +10,36 @@ const getStyles = ({colors, height}) => StyleSheet.create({
   height: height,
   contentModal: {
     backgroundColor: colors.primary,
-    height: height
-  }
+    height: height,
+  },
+  categories: {
+    paddingTop: 12,
+    paddingBottom: 6,
+    borderBottomWidth: 1,
+  },
+  separator: {
+    width: 1,
+    height: 28,
+    backgroundColor: colors.secondary,
+    marginHorizontal: 4,
+  },
+  category: {
+    padding: 3
+  },
+  categoryIcon : {
+    color: colors.secondary
+  },
+  activeIndicator: {
+    position: 'absolute',
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+  },
+  activeIndicatorContainer: {
+    position: 'absolute',
+    width: 28,
+    height: 28,
+  },
 })
 
 const useStyles = () => {
