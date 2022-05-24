@@ -1,11 +1,11 @@
-import { View, Text, TouchableOpacity, FlatList, Animated } from 'react-native'
-import React, { useCallback, useRef, useState } from 'react'
-import emoji, { getHeight } from './data'
+import { View, TouchableOpacity, FlatList } from 'react-native'
+import React, { useState } from 'react'
+import emoji from './data'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
 import useStyles from './ChatCustomEmojiPicker.styles'
 
 const ChatCustomEmojiPicker = ({isEmojiOpen}) => {
-  const [categorySelected, setCategorySelected] = useState(null)
+  const [categorySelected, setCategorySelected] = useState(0)
 
   const styles = useStyles()
 
@@ -21,8 +21,13 @@ const ChatCustomEmojiPicker = ({isEmojiOpen}) => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item, index) => [item.category, index]}
           renderItem={(el, i) => (
-            <TouchableOpacity style={styles.category}>
-              <IconFAw nativeID={i} name={el.item.icon} size={24} style={styles.categoryIcon} />
+            <TouchableOpacity 
+              onPress={() => setCategorySelected(el.index)}
+              style={categorySelected === el.index ? styles.categorySelected : styles.category}>
+              <IconFAw 
+                name={el.item.icon} 
+                size={22} 
+                style={categorySelected === el.index ? styles.categoryIconSelected : styles.categoryIcon} />
             </TouchableOpacity> 
             ) 
           }/>

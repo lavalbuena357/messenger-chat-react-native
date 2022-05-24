@@ -18,28 +18,30 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     borderBottomWidth: 1,
   },
   separator: {
-    width: 1,
+    width: 0.5,
     height: 28,
     backgroundColor: colors.secondary,
     marginHorizontal: 4,
   },
   category: {
-    padding: 3
-  },
-  categoryIcon : {
-    color: colors.secondary
-  },
-  activeIndicator: {
-    position: 'absolute',
-    width: 28,
-    height: 28,
+    padding: 3,
     borderRadius: 6,
   },
-  activeIndicatorContainer: {
-    position: 'absolute',
-    width: 28,
-    height: 28,
+  categorySelected: {
+    padding: 3,
+    backgroundColor: colors.secondary,
+    borderRadius: 6,
   },
+  categoryIcon : {
+    color: colors.secondary,
+    minWidth: 25,
+    textAlign: 'center'
+  },
+  categoryIconSelected: {
+    color: colors.primary,
+    minWidth: 25,
+    textAlign: 'center'
+  }
 })
 
 const useStyles = () => {
