@@ -4,31 +4,37 @@ import { useSelector } from 'react-redux'
 import Theme from '../../colors/colors'
 import UseKeyboard from './UseKeyboard'
 
-const deviceHeight = Dimensions.get('window').height
+const deviceWidth = Dimensions.get('window').width
 
 const getStyles = ({colors, height}) => StyleSheet.create({
-  height: height,
   contentModal: {
     backgroundColor: colors.primary,
     height: height,
   },
+  container: {
+    flex: 1
+  },
   categories: {
+    flex: 1,
     paddingTop: 12,
     paddingBottom: 6,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.3,
+    borderBottomColor: colors.secondary
   },
   separator: {
     width: 0.5,
     height: 28,
     backgroundColor: colors.secondary,
-    marginHorizontal: 4,
+    marginHorizontal: 2,
   },
   category: {
-    padding: 3,
-    borderRadius: 6,
+    paddingVertical: 3,
+    paddingHorizontal: 6,
+    borderRadius: 4,
   },
   categorySelected: {
-    padding: 3,
+    paddingVertical: 3,
+    paddingHorizontal: 4,
     backgroundColor: colors.secondary,
     borderRadius: 6,
   },
@@ -41,6 +47,9 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     color: colors.primary,
     minWidth: 25,
     textAlign: 'center'
+  },
+  emojiButton: {
+    padding: 5
   }
 })
 
