@@ -1,36 +1,46 @@
-import { View, TouchableOpacity, FlatList } from 'react-native'
-import React, { useState } from 'react'
-import emoji from './data'
+import { View, Pressable, FlatList } from 'react-native'
+import React, { useCallback, useMemo, useState } from 'react'
+import  UseDataList from './data'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
 import useStyles from './ChatCustomEmojiPicker.styles'
+import EmojisCategory from './EmojisCategory'
 
-const ChatCustomEmojiPicker = ({isEmojiOpen}) => {
-  const [categorySelected, setCategorySelected] = useState(0)
+const ChatCustomEmojiPicker = ({isEmojiOpen, messageText, setMessageText}) => {
+  const [categorySelected, setCategorySelected] = useState({index: 0, name: 'recently'})
+  const [emojisRecently, setEmojisRecently] = useState([])
 
   const styles = useStyles()
+  const renderList = useMemo(() =>UseDataList(emojisRecently), []) 
+
+  const renderItem = useCallback(({item, index}) => (
+    <Pressable 
+      onPress={() => setCategorySelected({index: index, name: item.name})}
+      style={categorySelected.index === index ? styles.categorySelected : styles.category}>
+      <IconFAw 
+        name={item.icon} 
+        size={22} 
+        style={categorySelected.index === index ? styles.categoryIconSelected : styles.categoryIcon} />
+      </Pressable>  
+  ), [categorySelected])
 
   return (
     <>
       {isEmojiOpen && <View style={styles.contentModal}>
-      <View style={{alignItems: 'center', flexWrap: 'nowrap'}}>
+      <View style={styles.container}>
         <FlatList
-          data={emoji}
+          data={renderList.categories}
           style={styles.categories}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item, index) => [item.category, index]}
-          renderItem={(el, i) => (
-            <TouchableOpacity 
-              onPress={() => setCategorySelected(el.index)}
-              style={categorySelected === el.index ? styles.categorySelected : styles.category}>
-              <IconFAw 
-                name={el.item.icon} 
-                size={22} 
-                style={categorySelected === el.index ? styles.categoryIconSelected : styles.categoryIcon} />
-            </TouchableOpacity> 
-            ) 
-          }/>
+          renderItem={renderItem}/>
+          <EmojisCategory 
+            categorySelected={categorySelected.name} 
+            emojiSize={30}
+            messageText={messageText}
+            setMessageText={setMessageText}
+            renderList={renderList._emoji} />
       </View>
     </View>}
     </>
