@@ -1,13 +1,13 @@
-import { Text, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useRef } from 'react'
 import useStyles from '../../screens/ChatScreen/ChatScreen.styles'
 import MessageItem from '../MessageItem/MessageItem'
+import { useSelector } from 'react-redux'
 
 const ChatScroll = ({
   chats, 
   setChats, 
   contactChat, 
-  currentUser, 
   contact, 
   offset, 
   setPage, 
@@ -17,6 +17,7 @@ const ChatScroll = ({
 
   const styles = useStyles()
   const scrollViewRef = useRef()
+  const {currentUser} = useSelector(state => state)
 
   const loadMore = () => {
     setPage(page+1)

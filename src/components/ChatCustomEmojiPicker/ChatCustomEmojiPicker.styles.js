@@ -12,44 +12,52 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     height: height,
   },
   container: {
-    flex: 1
+    // flex: 1,
+    alignSelf: 'flex-start'
   },
   categories: {
-    flex: 1,
-    paddingTop: 12,
+    // flex: 1,
+    flexDirection: 'row',
+    height: 55,
+    paddingTop: 6,
     paddingBottom: 6,
     borderBottomWidth: 0.3,
-    borderBottomColor: colors.secondary
-  },
-  separator: {
-    width: 0.5,
-    height: 28,
-    backgroundColor: colors.secondary,
-    marginHorizontal: 2,
+    borderBottomColor: colors.secondary,
+    width: deviceWidth,
   },
   category: {
-    paddingVertical: 3,
-    paddingHorizontal: 6,
-    borderRadius: 4,
+    position: 'relative',
+    borderRadius: 6,
+    height: 35,
+    width: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 5,
   },
   categorySelected: {
-    paddingVertical: 3,
-    paddingHorizontal: 4,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primaryLight,
     borderRadius: 6,
+    height: 35,
+    width: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  separator: {
+    position: 'absolute',
+    height: 2,
+    width: '80%',
+    backgroundColor: colors.orange,
+    bottom: 0
   },
   categoryIcon : {
     color: colors.secondary,
-    minWidth: 25,
-    textAlign: 'center'
   },
   categoryIconSelected: {
-    color: colors.primary,
-    minWidth: 25,
-    textAlign: 'center'
+    color: colors.orange,
   },
   emojiButton: {
-    padding: 5
+    padding: 5,
   }
 })
 

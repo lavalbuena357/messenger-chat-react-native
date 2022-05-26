@@ -1,4 +1,4 @@
-import { View, TextInput, TouchableOpacity, Keyboard } from 'react-native'
+import { View, TextInput, TouchableOpacity, Keyboard, Pressable } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -9,20 +9,22 @@ import ChatModalImage from '../ChatModalImage/ChatModalImage'
 import UseKeyboard from '../ChatCustomEmojiPicker/UseKeyboard'
 
 const ChatInputMessage = ({
-    uid, 
     contact, 
     isLoadMore, 
     setIsLoadMore, 
     setIsEmojiOpen, 
     isEmojiOpen,
-    setStyleHidden
+    setStyleHidden,
+    messageText,
+    setMessageText,
+    isOnlyEmoji,
+    setIsOnlyEmoji
   }) => {
-  const [messageText, setMessageText] = useState('')
-  const [isOnlyEmoji, setIsOnlyEmoji] = useState(false)
   const [isModalImage, setIsModalImage] = useState(false)
 
   const styles = useStyles()
   const {currentUser} = useSelector(state => state)
+  const {uid} = currentUser 
   const inputRef = useRef()
   const keyboardHeight = UseKeyboard()
 
@@ -38,7 +40,7 @@ const ChatInputMessage = ({
     if(isLoadMore) {
       setIsLoadMore(false)
     }
-    if(isOnlyEmoji && messageText.length === 2) {
+    if(isOnlyEmoji && messageText.length === 2 && isEmojiOpen) {
       setMessageText('')
       submitChat(uid, contact.uid, messageText, 'emoji')
     } else {
@@ -68,46 +70,46 @@ const ChatInputMessage = ({
   return (
     <View style={styles.container}>
       <View style={contact.blocked[uid] || currentUser.blocked[contact.uid] ? styles.messageInputDisabled : styles.messageInput}>
-        <TouchableOpacity 
+        <Pressable 
           style={styles.iconButton}
-          onPress={changeEmojiKeyboardIcon}
+          onPressIn={changeEmojiKeyboardIcon}
           disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
           <MatIcon name={isEmojiOpen ? 'keyboard' : 'emoticon'} size={26} color={styles.iconColor.color}/>
-        </TouchableOpacity>
+        </Pressable>
         <TextInput
           placeholder='Mensaje'
           ref={inputRef}
           placeholderTextColor={styles.iconColor.color}
           multiline
           onFocus={() => setIsEmojiOpen(false)}
-          autoFocus={true}
+          // autoFocus={true}
           editable={contact.blocked[uid] || currentUser.blocked[contact.uid] ? false : true}
           defaultValue={messageText}
           onChangeText={handleChange}
           style={styles.text}  />
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity 
+          <Pressable 
             style={styles.iconButton}
-            onPress={() => setIsModalImage(true)}
+            onPressIn={() => setIsModalImage(true)}
             disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
             <Icon name='attach' size={26} color={styles.iconColor.color} />
-          </TouchableOpacity>
+          </Pressable>
           <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} />
         </View>
       </View>
       {messageText.length ? 
-      <TouchableOpacity 
+      <Pressable 
         style={styles.micButton} 
-        onPress={handleSendMessage}
+        onPressIn={handleSendMessage}
         disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
         <MatIcon name='send' size={22} color={styles.iconColor.color} />
-      </TouchableOpacity>
+      </Pressable>
       :
-      <TouchableOpacity 
+      <Pressable 
         style={contact.blocked[uid] || currentUser.blocked[contact.uid] ? styles.micButtonDisabled : styles.micButton}
         disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
         <MatIcon name={micSelected ? 'microphone' : 'microphone'} size={26} color={styles.iconColor.color} />
-      </TouchableOpacity>
+      </Pressable>
       }
     </View>
   )

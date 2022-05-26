@@ -20,6 +20,8 @@ const ChatScreen = ({route}) => {
   const [chats, setChats] = useState(null)
   const [isEmojiOpen, setIsEmojiOpen] = useState(false)
   const [isStyileHidden, setStyleHidden] = useState(true)
+  const [messageText, setMessageText] = useState('')
+  const [isOnlyEmoji, setIsOnlyEmoji] = useState(false)
 
   const offset = 20
   const styles = useStyles()
@@ -102,23 +104,29 @@ const ChatScreen = ({route}) => {
             contactChat={contactChat} 
             setPage={setPage}
             page={page}
-            currentUser={currentUser}
             contact={contact}
             offset={offset}
             isLoadMore={isLoadMore}
             setIsLoadMore={setIsLoadMore} />
           
           <ChatInputMessage 
-            uid={currentUser.uid} 
             contact={contact} 
             chats={contactChat}
             isLoadMore={isLoadMore}
             setIsLoadMore={setIsLoadMore}
             setIsEmojiOpen={setIsEmojiOpen}
             isEmojiOpen={isEmojiOpen}
-            setStyleHidden={setStyleHidden} />
+            setStyleHidden={setStyleHidden}
+            messageText={messageText} 
+            setMessageText={setMessageText}
+            setIsOnlyEmoji={setIsOnlyEmoji}
+            isOnlyEmoji={isOnlyEmoji} />
         </View>
-        <ChatCustomEmojiPicker isEmojiOpen={isEmojiOpen}  />
+        <ChatCustomEmojiPicker 
+          isEmojiOpen={isEmojiOpen}
+          messageText={messageText}
+          setMessageText={setMessageText}
+          setIsOnlyEmoji={setIsOnlyEmoji} />
       </View>
       }
     </View>

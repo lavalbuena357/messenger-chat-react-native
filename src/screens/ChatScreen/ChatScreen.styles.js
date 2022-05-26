@@ -23,10 +23,10 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     fontSize: 12,
   },
   aboveKeyboard: {
-    height: deviceHeight - height - 88
+    height: deviceHeight - height - 86.7
   },
   aboveKeyboardHidden: {
-    height: deviceHeight - 88
+    height: deviceHeight - 86.7
   },
   content: {
     flex: 1, 

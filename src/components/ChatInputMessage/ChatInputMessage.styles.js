@@ -46,6 +46,7 @@ const getStyles = ({colors}) => StyleSheet.create({
   text: {
     flex:1,
     color: colors.textBody,
+    fontSize: 16
   },
   micButton: {
     paddingHorizontal: 5,

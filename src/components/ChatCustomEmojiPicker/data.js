@@ -1,3 +1,4 @@
+import {  } from 'react';
 import emojisByGroup from '../../assets/emojis.json'
 
 
@@ -46,17 +47,36 @@ export const CATEGORIES = [
   },
 ];
 
-const _emoji = emojisByGroup.reduce((acc, item) => {
-  const { title, data } = item;
-  if (!acc[title]) acc[title] = []
-  acc[title].push(data)
-  return acc
-}, {})
+export const useDataCategories = () => {
+  let categories = CATEGORIES.map((category) => {
+    let icon = category.icon
+    let name = category.name
+    return {icon, name}
+  })
+  categories.unshift({
+    icon: 'clock',
+    name: 'recently'
+  })
+  return categories
+}
 
-const emoji = CATEGORIES.map((category) => {
-  let items = _emoji[category.name][0] || []
-  let icon = category.icon
-  return { icon, items }
-});
+export const UseDataEmojis = (recently) => {
+  let _emoji = emojisByGroup.reduce((acc, item) => {
+    const { category, items } = item;
+    if (!acc[category]) acc[category] = []
+    acc[category].push(items)
+    return acc
+  }, {})
+  _emoji.recently = [recently]
+  return _emoji
+}
 
-export default emoji
+{/* <Pressable
+      onPress={() => setCategorySelected({index, name: item.name})}
+      style={categorySelected.index === index ? styles.categorySelected : styles.category}>
+      <IconFAw 
+        name={item.icon} 
+        size={22} 
+        style={categorySelected.index === index ? styles.categoryIconSelected : styles.categoryIcon} />
+        {categorySelected.index === index &&<View style={styles.separator} />}
+    </Pressable> */}
