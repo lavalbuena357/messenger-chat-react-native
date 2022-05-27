@@ -11,28 +11,18 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     backgroundColor: colors.primary,
     height: height,
   },
-  container: {
-    // flex: 1,
-    alignSelf: 'flex-start'
-  },
   categories: {
-    // flex: 1,
-    flexDirection: 'row',
     height: 55,
-    paddingTop: 6,
-    paddingBottom: 6,
-    borderBottomWidth: 0.3,
-    borderBottomColor: colors.secondary,
+    paddingVertical: 3,
     width: deviceWidth,
   },
   category: {
     position: 'relative',
     borderRadius: 6,
-    height: 35,
-    width: 35,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 5,
+    marginHorizontal: 1
   },
   categorySelected: {
     backgroundColor: colors.primaryLight,
@@ -42,6 +32,7 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 5,
+    marginHorizontal: 1
   },
   separator: {
     position: 'absolute',
