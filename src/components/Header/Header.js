@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <View style={styles.left}>
-        <Image source={{uri:currentUser.photoURL}} style={styles.photoURL} />
+        <Image source={currentUser && {uri:currentUser.photoURL}} style={styles.photoURL} />
         <Text style={styles.title}>Let'sConn</Text>
       </View>
       <View style={styles.rightCn}>

@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Loader from '../../components/Loader/Loader'
-import Header from '../../components/Header/Header'
 import ContactItem from '../../components/ContactItem/ContactItem'
 import ModalAddContact from '../../components/ModalAddContact/ModalAddContact'
 import ModalMenuActions from '../../components/ModalMenuActions/ModalMenuActions'
@@ -64,7 +63,6 @@ const Contacts = ({navigation}) => {
     <View>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <View>
-        {/* <Header /> */}
         {contacts ? 
         <ScrollView>
           {Object.values(contacts).map(el => (

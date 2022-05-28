@@ -1,7 +1,6 @@
 import { View, Text,ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Header from '../../components/Header/Header'
 import Loader from '../../components/Loader/Loader'
 import ChatItem from '../../components/ChatItem/ChatItem'
 import useStyles from '../../Hooks/UseStyles'
@@ -34,7 +33,6 @@ const Rooms = ({navigation}) => {
     <View style={styles.container}>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <View>
-        {/* <Header /> */}
         {chats.length ?
         <ScrollView>
           {chats.map(el => (

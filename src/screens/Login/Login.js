@@ -8,9 +8,11 @@ import { login } from '../../redux/actions'
 import { useSelector } from 'react-redux'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './Login.styles'
+import RandomCode from './RandomCode'
 
 const Login = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [isCode, setIsCode] = useState(true)
   const styles = useStyles(getStyles)
 
   const theme = useSelector(state => state.theme)
@@ -29,6 +31,7 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {isCode && <RandomCode isCode={isCode} setIsCode={setIsCode} />}
       <View>
         <Image source={theme === 'dark' ? logo : logoLight} style={styles.logo} />
       </View>
