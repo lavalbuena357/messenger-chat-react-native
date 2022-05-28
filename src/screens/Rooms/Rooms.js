@@ -1,5 +1,5 @@
-import { View, Text,ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, FlatList } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Loader from '../../components/Loader/Loader'
 import ChatItem from '../../components/ChatItem/ChatItem'
@@ -29,24 +29,20 @@ const Rooms = ({navigation}) => {
     navigation.navigate('Chat', {contact})
   }
 
+  const renderItem = useCallback(({item}) => (
+    <ChatItem chat={item} uidSelected={uidSelected} handleSelected={handleSelected} handleGoToContactChat={handleGoToContactChat}  />
+  ), [])
+
   return (
     <View style={styles.container}>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <View>
         {chats.length ?
-        <ScrollView>
-          {chats.map(el => (
-            <ChatItem 
-              key={el.chatId} 
-              chat={el}
-              myUid={currentUser.uid}
-              uidSelected={uidSelected}
-              handleSelected={handleSelected}
-              handleGoToContactChat={handleGoToContactChat} />
-          ))}
-        </ScrollView>
-        :
-        <Text style={styles.notFound}>No hay conversaciones activas</Text>
+          <FlatList
+            data={chats}
+            keyExtractor={item => item.chatId}
+            renderItem={renderItem} /> : 
+          <Text style={styles.notFound}>No hay conversaciones activas</Text>
         }
       </View>
       }

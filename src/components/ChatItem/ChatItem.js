@@ -7,11 +7,12 @@ import { getUserById } from '../../redux/actions'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './ChatItem.styles'
 
-const ChatItem = ({chat, myUid, uidSelected, handleSelected, handleGoToContactChat}, props) => {
+const ChatItem = ({chat, uidSelected, handleSelected, handleGoToContactChat}, props) => {
   const [contact, setContact] = useState(null)
 
   const styles = useStyles(getStyles)
   const {contacts, chats, currentUser} = useSelector(state => state)
+  const myUid = currentUser.uid
   
   useEffect(() => {
     if(chats.length) {
