@@ -6,7 +6,7 @@ import HeaderChat from '../../components/HeaderChat/HeaderChat'
 import ChatInputMessage from '../../components/ChatInputMessage/ChatInputMessage'
 import Loader from '../../components/Loader/Loader'
 import { getChatContact, getUserById, unsubscribeChatContact } from '../../redux/actions'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import ChatStatusBar from '../../components/ChatStatusBar/ChatStatusBar'
 import ChatScroll from '../../components/ChatScroll/ChatScroll'
 import ChatCustomEmojiPicker from '../../components/ChatCustomEmojiPicker/ChatCustomEmojiPicker'
@@ -14,33 +14,19 @@ import UseKeyboard from '../../components/ChatCustomEmojiPicker/UseKeyboard'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
-  const [isLoadMore, setIsLoadMore] = useState(false)
   const [contact, setContact] = useState(null)
-  const [page, setPage] = useState(1)
-  const [chats, setChats] = useState(null)
   const [isEmojiOpen, setIsEmojiOpen] = useState(false)
   const [isStyileHidden, setStyleHidden] = useState(true)
   const [messageText, setMessageText] = useState('')
 
-  const offset = 20
   const styles = useStyles()
-  const {contactChat, currentUser, contacts} = useSelector(state => state)
+  const {currentUser, contacts} = useSelector(state => state)
   const dispatch = useDispatch()
   const heightKeyboard = UseKeyboard()
 
   useEffect(() => {
     dispatch(getChatContact(currentUser.uid, route.params.contact.uid))
   }, [])
-
-  useEffect(() => {
-    if(contactChat.length >= offset) {
-      const last = contactChat.length >= 0 ? contactChat.length : 0
-      const prev = contactChat.length-(page*offset) >= 0 ? contactChat.length-(page*offset) : 0
-      setChats(contactChat.slice(prev, last))
-    } else {
-      setChats(contactChat.slice(0, page*offset))
-    }
-  }, [contactChat])
 
   useEffect(() => {
       if(contacts && contacts[route.params.contact.uid]) {
@@ -54,7 +40,7 @@ const ChatScreen = ({route}) => {
   }, [contacts])
   
   useEffect(() => {
-    if(chats && contact) {
+    if(contact) {
       setIsLoading(false)
     }
   }, [contact])
@@ -75,7 +61,6 @@ const ChatScreen = ({route}) => {
           setStyleHidden(false)
           return true
         }
-        setChats(null)
         dispatch(unsubscribeChatContact(currentUser.uid, route.params.contact.uid))
         return false
       }
@@ -97,22 +82,9 @@ const ChatScreen = ({route}) => {
             isLoading={isLoading} />
         </View>
         <View style={!isStyileHidden ? styles.aboveKeyboardHidden : styles.aboveKeyboard}>
-          <ChatScroll
-            chats={chats}
-            setChats={setChats}
-            contactChat={contactChat} 
-            setPage={setPage}
-            page={page}
-            contact={contact}
-            offset={offset}
-            isLoadMore={isLoadMore}
-            setIsLoadMore={setIsLoadMore} />
-          
+          <ChatScroll />
           <ChatInputMessage 
             contact={contact} 
-            chats={contactChat}
-            isLoadMore={isLoadMore}
-            setIsLoadMore={setIsLoadMore}
             setIsEmojiOpen={setIsEmojiOpen}
             isEmojiOpen={isEmojiOpen}
             setStyleHidden={setStyleHidden}

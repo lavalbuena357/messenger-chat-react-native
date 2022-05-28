@@ -11,8 +11,6 @@ import { getStyles } from './ChatInputMessage.styles'
 
 const ChatInputMessage = ({
     contact, 
-    isLoadMore, 
-    setIsLoadMore, 
     setIsEmojiOpen, 
     isEmojiOpen,
     setStyleHidden,
@@ -34,12 +32,8 @@ const ChatInputMessage = ({
   }
 
   const handleSendMessage = () => {
-    if(isLoadMore) {
-      setIsLoadMore(false)
-    } else {
-      setMessageText('')
-      submitChat(uid, contact.uid, messageText, 'text')
-    }
+    setMessageText('')
+    submitChat(uid, contact.uid, messageText, 'text')
   }
 
   const changeEmojiKeyboardIcon = () => {
@@ -57,7 +51,6 @@ const ChatInputMessage = ({
       setIsEmojiOpen(true)
       Keyboard.dismiss()
     }
-    
   }
 
   return (
@@ -75,7 +68,6 @@ const ChatInputMessage = ({
           placeholderTextColor={styles.iconColor.color}
           multiline
           onFocus={() => setIsEmojiOpen(false)}
-          // autoFocus={true}
           editable={contact.blocked[uid] || currentUser.blocked[contact.uid] ? false : true}
           defaultValue={messageText}
           onChangeText={handleChange}

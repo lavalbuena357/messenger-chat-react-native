@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React from 'react'
+import React, { memo } from 'react'
 import useStyles from './ChatCustomEmojiPicker.styles'
 import EmojiNavigator from './EmojiNavigator'
 
@@ -20,4 +20,4 @@ const ChatCustomEmojiPicker = ({
   )
 }
 
-export default ChatCustomEmojiPicker
+export default memo(ChatCustomEmojiPicker)
