@@ -17,10 +17,7 @@ const ChatInputMessage = ({
     isEmojiOpen,
     setStyleHidden,
     messageText,
-    setMessageText,
-    isOnlyEmoji,
-    setIsOnlyEmoji
-  }) => {
+    setMessageText}) => {
   const [isModalImage, setIsModalImage] = useState(false)
 
   const styles = useStyles(getStyles)
@@ -37,13 +34,8 @@ const ChatInputMessage = ({
   }
 
   const handleSendMessage = () => {
-    setIsOnlyEmoji(false)
     if(isLoadMore) {
       setIsLoadMore(false)
-    }
-    if(isOnlyEmoji && messageText.length === 2 && isEmojiOpen) {
-      setMessageText('')
-      submitChat(uid, contact.uid, messageText, 'emoji')
     } else {
       setMessageText('')
       submitChat(uid, contact.uid, messageText, 'text')

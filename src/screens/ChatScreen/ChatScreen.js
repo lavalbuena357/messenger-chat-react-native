@@ -21,7 +21,6 @@ const ChatScreen = ({route}) => {
   const [isEmojiOpen, setIsEmojiOpen] = useState(false)
   const [isStyileHidden, setStyleHidden] = useState(true)
   const [messageText, setMessageText] = useState('')
-  const [isOnlyEmoji, setIsOnlyEmoji] = useState(false)
 
   const offset = 20
   const styles = useStyles()
@@ -118,9 +117,7 @@ const ChatScreen = ({route}) => {
             isEmojiOpen={isEmojiOpen}
             setStyleHidden={setStyleHidden}
             messageText={messageText} 
-            setMessageText={setMessageText}
-            setIsOnlyEmoji={setIsOnlyEmoji}
-            isOnlyEmoji={isOnlyEmoji} />
+            setMessageText={setMessageText} />
         </View>
         <ChatCustomEmojiPicker 
           isEmojiOpen={isEmojiOpen}
