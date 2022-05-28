@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, BackHandler, Vibration } from 'react-native'
+import { View, Text, TouchableOpacity, BackHandler, Vibration, FlatList } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -59,23 +59,19 @@ const Contacts = ({navigation}) => {
     navigation.navigate('Chat', {contact})
   }
 
+  const renderItem = useCallback(({item}) => (
+    <ContactItem contact={item} uidSelected={uidSelected} handleSelected={handleSelected} handleGoToContactChat={handleGoToContactChat} />
+  ), [])
+
   return (
     <View>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <View>
         {contacts ? 
-        <ScrollView>
-          {Object.values(contacts).map(el => (
-            <ContactItem
-              key={el.uid}
-              contact={el}
-              myUid={currentUser.uid}
-              uidSelected={uidSelected}
-              handleSelected={handleSelected}
-              handleGoToContactChat={handleGoToContactChat} />
-          ))}
-        </ScrollView>
-        :
+        <FlatList
+          data={Object.values(contacts)}
+          keyExtractor={item => item.uid}
+          renderItem={renderItem} /> :
         <Text style={styles.notFound}>La lista de contactos esta vacía</Text>
         }
       </View>      

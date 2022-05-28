@@ -2,11 +2,14 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './ContactItem.styles'
+import { useSelector } from 'react-redux'
 
-const ContactItem = ({contact, myUid, handleSelected, uidSelected, handleGoToContactChat}) => {
+const ContactItem = ({contact, handleSelected, uidSelected, handleGoToContactChat}) => {
 
   const { email, photoURL, displayName, uid, online, status } = contact
   const styles = useStyles(getStyles)
+  const {currentUser} = useSelector(state => state)
+  const myUid = currentUser.uid
 
   return (
     <TouchableOpacity
