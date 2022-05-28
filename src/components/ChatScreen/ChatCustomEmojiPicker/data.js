@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import emojisByGroup from '../../assets/emojis.json'
+import emojisByGroup from '../../../assets/emojis.json'
 
 
 export const getHeight = (value, screenHeight) => {

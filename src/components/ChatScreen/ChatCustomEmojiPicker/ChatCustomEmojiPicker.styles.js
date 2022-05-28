@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native'
 import { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Theme from '../../colors/colors'
+import Theme from '../../../colors/colors'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const deviceWidth = Dimensions.get('window').width

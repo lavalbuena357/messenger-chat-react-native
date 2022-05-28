@@ -4,7 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import EmojisList from './EmojisList'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
 import useStyles from './ChatCustomEmojiPicker.styles'
-import Loader from '../Loader/Loader'
+import Loader from '../../Loader/Loader'
 import { UIActivityIndicator } from 'react-native-indicators'
 
 const Tab = createMaterialTopTabNavigator()

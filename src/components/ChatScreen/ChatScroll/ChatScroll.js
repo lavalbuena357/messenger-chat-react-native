@@ -1,7 +1,7 @@
 import { Text, ScrollView, TouchableOpacity } from 'react-native'
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
-import useStyles from '../../screens/ChatScreen/ChatScreen.styles'
-import MessageItem from '../MessageItem/MessageItem'
+import useStyles from '../../../screens/ChatScreen/ChatScreen.styles'
+import MessageItem from '../../MessageItem/MessageItem'
 import { useSelector } from 'react-redux'
 
 const ChatScroll = () => {

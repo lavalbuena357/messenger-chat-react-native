@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import useStyles from '../../screens/ChatScreen/ChatScreen.styles'
-import { addContact, unblockContact } from '../../redux/actions'
+import useStyles from '../../../screens/ChatScreen/ChatScreen.styles'
+import { addContact, unblockContact } from '../../../redux/actions'
 import { useSelector } from 'react-redux'
-import Loader from '../Loader/Loader'
+import Loader from '../../Loader/Loader'
 
 const ChatStatusBar = ({contact, uid, setIsLoading, isLoading}) => {
 
