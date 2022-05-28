@@ -8,15 +8,14 @@ const ChatCustomEmojiPicker = ({
   setMessageText}) => {
 
   const styles = useStyles()
+  console.log('sdsf')
   
   return (
-    <>
-      {isEmojiOpen && 
+   
       <View style={styles.contentModal}>
         <EmojiNavigator setMessageText={setMessageText} />
       </View>
-      }
-    </>
+     
   )
 }
 

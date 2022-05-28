@@ -2,15 +2,15 @@ import { View, BackHandler} from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useStyles from './ChatScreen.styles'
-import HeaderChat from '../../components/HeaderChat/HeaderChat'
-import ChatInputMessage from '../../components/ChatInputMessage/ChatInputMessage'
+import HeaderChat from '../../components/ChatScreen/HeaderChat/HeaderChat'
 import Loader from '../../components/Loader/Loader'
 import { getChatContact, getUserById, unsubscribeChatContact } from '../../redux/actions'
 import { useFocusEffect } from '@react-navigation/native'
-import ChatStatusBar from '../../components/ChatStatusBar/ChatStatusBar'
-import ChatScroll from '../../components/ChatScroll/ChatScroll'
-import ChatCustomEmojiPicker from '../../components/ChatCustomEmojiPicker/ChatCustomEmojiPicker'
-import UseKeyboard from '../../components/ChatCustomEmojiPicker/UseKeyboard'
+import ChatStatusBar from '../../components/ChatScreen/ChatStatusBar/ChatStatusBar'
+import ChatScroll from '../../components/ChatScreen/ChatScroll/ChatScroll'
+import ChatInputMessage from '../../components/ChatScreen/ChatInputMessage/ChatInputMessage'
+import ChatCustomEmojiPicker from '../../components/ChatScreen/ChatCustomEmojiPicker/ChatCustomEmojiPicker'
+import UseKeyboard from '../../components/ChatScreen/ChatCustomEmojiPicker/UseKeyboard'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -91,8 +91,9 @@ const ChatScreen = ({route}) => {
             messageText={messageText} 
             setMessageText={setMessageText} />
         </View>
+        
         <ChatCustomEmojiPicker 
-          isEmojiOpen={isEmojiOpen}
+          // isEmojiOpen={isEmojiOpen}
           setMessageText={setMessageText} />
       </View>
       }

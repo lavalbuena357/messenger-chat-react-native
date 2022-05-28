@@ -4,7 +4,6 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import EmojisList from './EmojisList'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
 import useStyles from './ChatCustomEmojiPicker.styles'
-import Loader from '../../Loader/Loader'
 import { UIActivityIndicator } from 'react-native-indicators'
 
 const Tab = createMaterialTopTabNavigator()
@@ -33,8 +32,7 @@ const EmojiNavigator = ({setMessageText}) => {
         tabBarShowLabel: false,
         tabBarIndicatorStyle: {backgroundColor: '#ff8400'},
         lazy: true,
-        // lazyPreloadDistance: 1,
-        lazyPlaceholder: () => <LazyComponent />
+        lazyPreloadDistance: 3,
       }} >
       <Tab.Screen
         name='Smiles'

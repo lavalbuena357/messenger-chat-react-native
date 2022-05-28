@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React, { memo } from 'react'
-import Time from '../Time/Time'
+import Time from '../../Time/Time'
 import ReactTimeAgo from 'react-time-ago'
-import useStyles from '../../Hooks/UseStyles'
+import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './MessageItem.styles'
 import { useSelector } from 'react-redux'
 

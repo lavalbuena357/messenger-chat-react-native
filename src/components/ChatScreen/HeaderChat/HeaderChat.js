@@ -4,8 +4,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { unsubscribeChatContact } from '../../redux/actions'
-import useStyles from '../../Hooks/UseStyles'
+import { unsubscribeChatContact } from '../../../redux/actions'
+import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './HeaderChat.styles'
 
 const HeaderChat = ({contact, uid}) => {

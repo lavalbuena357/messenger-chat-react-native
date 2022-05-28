@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { Text, TouchableOpacity } from 'react-native'
+import React from 'react'
 import useStyles from '../../../screens/ChatScreen/ChatScreen.styles'
 import { addContact, unblockContact } from '../../../redux/actions'
 import { useSelector } from 'react-redux'

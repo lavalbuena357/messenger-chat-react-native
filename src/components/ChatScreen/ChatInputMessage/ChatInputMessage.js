@@ -2,13 +2,12 @@ import { View, TextInput, Keyboard, Pressable } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { submitChat } from '../../redux/actions'
+import { submitChat } from '../../../redux/actions'
 import { useSelector } from 'react-redux'
 import ChatModalImage from '../ChatModalImage/ChatModalImage'
 import UseKeyboard from '../ChatCustomEmojiPicker/UseKeyboard'
-import useStyles from '../../Hooks/UseStyles'
+import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatInputMessage.styles'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ChatInputMessage = ({
     contact, 
@@ -27,13 +26,6 @@ const ChatInputMessage = ({
 
   //temp
   const micSelected = false
-
-  // useEffect(() => {
-  //   (async() => {
-  //     const value = await AsyncStorage.getItem('height')
-  //     setKeyboardHeight(parseInt(value))
-  //   })()
-  // }, [])
 
   const handleChange = (text) => {
     setMessageText(text)

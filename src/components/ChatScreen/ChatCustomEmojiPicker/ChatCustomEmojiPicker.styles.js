@@ -5,6 +5,7 @@ import Theme from '../../../colors/colors'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const deviceWidth = Dimensions.get('window').width
+const deviceHeight = Dimensions.get('window').height
 
 const getStyles = ({colors, height}) => StyleSheet.create({
   contentModal: {
@@ -12,9 +13,9 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     height: height,
   },
   categories: {
-    height: 55,
-    paddingVertical: 3,
+    height: 50,
     width: deviceWidth,
+    justifyContent: 'center',
   },
   category: {
     position: 'relative',
