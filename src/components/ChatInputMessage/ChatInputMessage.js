@@ -1,5 +1,5 @@
-import { View, TextInput, TouchableOpacity, Keyboard, Pressable } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { View, TextInput, Keyboard, Pressable } from 'react-native'
+import React, { useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { submitChat } from '../../redux/actions'
