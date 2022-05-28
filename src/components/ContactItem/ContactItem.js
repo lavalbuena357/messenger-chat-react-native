@@ -1,11 +1,12 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import useStyles from './ContactItem.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './ContactItem.styles'
 
 const ContactItem = ({contact, myUid, handleSelected, uidSelected, handleGoToContactChat}) => {
 
   const { email, photoURL, displayName, uid, online, status } = contact
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   return (
     <TouchableOpacity

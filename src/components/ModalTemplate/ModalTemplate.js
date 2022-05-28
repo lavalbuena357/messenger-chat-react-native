@@ -2,7 +2,8 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import Modal from 'react-native-modal'
 import Icon from 'react-native-vector-icons/Ionicons'
-import useStyles from './ModalTemplate.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './ModalTemplate.styles'
 
 const ModalTemplate = ({
   modalVisible, 
@@ -13,7 +14,7 @@ const ModalTemplate = ({
   children
 }) => {
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   return (
     <Modal

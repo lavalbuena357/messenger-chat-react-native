@@ -2,14 +2,15 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ReactTimeAgo from 'react-time-ago'
-import useStyles from './ChatItem.styles'
 import Time from '../Time/Time'
 import { getUserById } from '../../redux/actions'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './ChatItem.styles'
 
 const ChatItem = ({chat, myUid, uidSelected, handleSelected, handleGoToContactChat}, props) => {
   const [contact, setContact] = useState(null)
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
   const {contacts, chats, currentUser} = useSelector(state => state)
   
   useEffect(() => {

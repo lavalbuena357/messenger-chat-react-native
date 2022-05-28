@@ -2,7 +2,8 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
-import useStyles from './Privacity.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './Privacity.styles'
 
 const Privacity = ({navigation}) => {
   const [showHiddenAll, setShowHiddenAll] = useState(false)
@@ -11,7 +12,7 @@ const Privacity = ({navigation}) => {
   const [showHiddenPhoto, setShowHiddenPhoto] = useState(false)
   const [showHiddeEmail, setShowHiddeEmail] = useState(false)
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   const handleAll = () => {
     if(showHiddenAll) {

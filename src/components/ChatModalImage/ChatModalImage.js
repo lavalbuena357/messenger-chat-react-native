@@ -1,11 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import Modal from 'react-native-modal'
-import useStyles from './ChatModalImage.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './ChatModalImage.styles'
 
 const ChatModalImage = ({isModalImage, setIsModalImage}) => {
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   return (
     <Modal

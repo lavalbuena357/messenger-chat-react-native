@@ -1,10 +1,12 @@
 import { View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import TabButton from '../TabButton/TabButton'
-import useStyles from './TabBar.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './TabBar.styles'
 
 const TabBar = ({state, descriptors, navigation}) => {
-  const styles = useStyles()
+
+  const styles = useStyles(getStyles)
 
   return (
     <View style={styles.container}>

@@ -4,6 +4,7 @@ const initialState = {
   chats: [],
   contactChat: [],
   contacts: null,
+  emojiCategorySelected: {index: 0, name: 'smileys_emotion'}
 }
 
 const reducer = (state = initialState, actions) => {
@@ -22,6 +23,8 @@ const reducer = (state = initialState, actions) => {
       return {...state, contactChat: actions.payload}
     case 'RESET_CHAT_CONTACT':
       return {...state, contactChat: []}
+    case 'SET_EMOJI_CATEGORY':
+      return {...state, emojiCategorySelected: actions.payload}
     default:
       return state
   }

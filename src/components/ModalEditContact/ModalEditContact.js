@@ -3,16 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { editContact } from '../../redux/actions'
 import Loader from '../Loader/Loader'
-import useStyles from '../ModalTemplate/ModalTemplate.styles'
 import ModalTemplate from '../ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from '../ModalTemplate/ModalTemplate.styles'
 
 const ModalEditContact = ({setShowInput, showInput, contact}) => {
   const [username, setUsername] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState({error: false, message: ''})
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.currentUser)
 
   useEffect(() => {

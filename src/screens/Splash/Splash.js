@@ -5,15 +5,16 @@ import { useFocusEffect } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import logo from '../../assets/fullscreen_logo.png'
 import logoLight from '../../assets/fullscreen_logo_light.png'
-import useStyles from './Splash.styles'
+import { getStyles } from './Splash.styles'
 import { useSelector } from 'react-redux'
+import useStyles from '../../Hooks/UseStyles'
 
 const Splash = ({navigation}) => {
   let count = 0
 
   const theme = useSelector(state => state.theme)
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   useFocusEffect(
     useCallback(() => {

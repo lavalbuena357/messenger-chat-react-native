@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import useStyles from './About.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './About.styles'
 
 const About = () => {
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   return (
     <View>

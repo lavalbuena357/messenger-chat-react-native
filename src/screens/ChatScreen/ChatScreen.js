@@ -124,9 +124,7 @@ const ChatScreen = ({route}) => {
         </View>
         <ChatCustomEmojiPicker 
           isEmojiOpen={isEmojiOpen}
-          messageText={messageText}
-          setMessageText={setMessageText}
-          setIsOnlyEmoji={setIsOnlyEmoji} />
+          setMessageText={setMessageText} />
       </View>
       }
     </View>

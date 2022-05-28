@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native'
-import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
-import Theme from '../../colors/colors'
 
-const getStyles = ({colors}) => StyleSheet.create({
+export const getStyles = ({colors}) => StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
@@ -44,21 +41,10 @@ const getStyles = ({colors}) => StyleSheet.create({
   },
   messageText: {
     color: colors.textBody,
-    fontSize: 15
+    fontSize: 20
   },
   messageTextOnlyEmoji: {
     fontSize: 42,
     alignSelf: 'center',
   }
 })
-
-const useStyles = () => {
-  const theme = useSelector(state => state.theme)
-  const { colors } = Theme[theme]
-
-  const styles = useMemo(() => getStyles({colors}), [colors])
-
-  return styles
-}
-
-export default useStyles

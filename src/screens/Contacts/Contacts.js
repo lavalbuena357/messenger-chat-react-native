@@ -6,9 +6,10 @@ import Loader from '../../components/Loader/Loader'
 import Header from '../../components/Header/Header'
 import ContactItem from '../../components/ContactItem/ContactItem'
 import ModalAddContact from '../../components/ModalAddContact/ModalAddContact'
-import useStyles from './Contacts.styles'
 import ModalMenuActions from '../../components/ModalMenuActions/ModalMenuActions'
 import { useFocusEffect } from '@react-navigation/native'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './Contacts.styles'
 
 const Contacts = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -16,7 +17,7 @@ const Contacts = ({navigation}) => {
   const [showActionsModal, setShowActionsModal] = useState(false)
   const [uidSelected, setUidSelected] = useState('')
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
   const {currentUser, contacts} = useSelector(state => state)
 
   useEffect(() => {

@@ -6,7 +6,8 @@ import { blockContact, removeContact } from '../../redux/actions'
 import Loader from '../Loader/Loader'
 import ModalTemplate from '../ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
-import useStyles from '../ModalTemplate/ModalTemplate.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from '../ModalTemplate/ModalTemplate.styles'
 
 const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected, isLoading, setIsLoading}) => {
   const [action, setAction] = useState('')
@@ -15,7 +16,7 @@ const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected, i
   const navigation = useNavigation()
   const currentUser = useSelector(state => state.currentUser)
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   const handleEditContact = () => {
     setShowActionsModal(false)

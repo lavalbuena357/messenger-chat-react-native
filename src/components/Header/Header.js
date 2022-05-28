@@ -6,13 +6,13 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { getTheme } from '../../redux/actions'
 import ModalSettings from '../ModalSettings/ModalSettings'
-import useStyles from './Header.styles'
-
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './Header.styles'
 
 const Header = () => {
   const [showModalSettings, setShowModalSettings] = useState(false)
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   const {theme, currentUser} = useSelector(state => state)
   const dispatch = useDispatch()

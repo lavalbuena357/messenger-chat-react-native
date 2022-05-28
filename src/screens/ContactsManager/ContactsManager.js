@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import useStyles from './ContactsManager.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './ContactsManager.styles'
 
 const ContactsManager = () => {
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   return (
     <View>

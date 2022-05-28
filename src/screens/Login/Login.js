@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Loader from '../../components/Loader/Loader'
 import logo from '../../assets/logo.png'
 import logoLight from '../../assets/logo_light.png'
-import useStyles from './Login.styles'
 import { login } from '../../redux/actions'
 import { useSelector } from 'react-redux'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './Login.styles'
 
 const Login = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   const theme = useSelector(state => state.theme)
 

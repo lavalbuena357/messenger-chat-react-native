@@ -1,10 +1,12 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
-import useStyles from './TabButton.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './TabButton.styles'
 
 const TabButton = ({icon, tabText, tabBarBadge, selectedTab, onPress}) => {
-  const styles = useStyles()
+
+  const styles = useStyles(getStyles)
 
   return (
     <TouchableOpacity onPress={onPress} style={selectedTab ? styles.bottomTabContainerSelected : styles.bottomTabContainer}>

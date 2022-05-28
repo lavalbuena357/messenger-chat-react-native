@@ -310,3 +310,13 @@ export const getChatContact = (uid, uidContact) => {
      } catch (error) {console.warn(error)}
    }
  }
+
+//SETEA LA CATEGORIA DE EMOJIS SELECCIONADA
+export const setEmojiCategory = (category) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'SET_EMOJI_CATEGORY',
+      payload: category
+    })
+  }
+}

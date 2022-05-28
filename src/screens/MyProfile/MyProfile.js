@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
 import Icon from 'react-native-vector-icons/Ionicons'
-import useStyles from './MyProfile.styles'
 import ModalTemplate from '../../components/ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../../components/ModalTouchableCustom/ModalTouchableCustom'
 import Loader from '../../components/Loader/Loader'
 import { changeName, changeStatus } from '../../redux/actions'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './MyProfile.styles'
 
 const MyProfile = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -19,7 +20,7 @@ const MyProfile = ({navigation}) => {
   const [photo, setPhoto] = useState('')
   const [isError, setIsError] = useState({error: false, message: ''})
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
   const {currentUser} = useSelector(state => state)
 
   useEffect(() => {

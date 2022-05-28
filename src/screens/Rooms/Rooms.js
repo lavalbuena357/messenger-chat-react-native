@@ -3,15 +3,16 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Header from '../../components/Header/Header'
 import Loader from '../../components/Loader/Loader'
-import useStyles from './Rooms.styles'
 import ChatItem from '../../components/ChatItem/ChatItem'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './Rooms.styles'
 
 const Rooms = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [showActionsModal, setShowActionsModal] = useState(false)
   const [uidSelected, setUidSelected] = useState('')
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
   const {currentUser, chats} = useSelector(state => state)
 
   useEffect(() => {

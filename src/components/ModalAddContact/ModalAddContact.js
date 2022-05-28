@@ -4,15 +4,16 @@ import Loader from '../Loader/Loader'
 import { addContact } from '../../redux/actions'
 import { useSelector } from 'react-redux'
 import ModalTemplate from '../ModalTemplate/ModalTemplate'
-import useStyles from '../ModalTemplate/ModalTemplate.styles'
 import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from '../ModalTemplate/ModalTemplate.styles'
 
 const ModalAddContact = ({setShowAddModal, showAddModal}) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState({error: false, message: ''})
   const [mail, setMail] = useState('')
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.currentUser)
 
   const handleChange = (text) => {

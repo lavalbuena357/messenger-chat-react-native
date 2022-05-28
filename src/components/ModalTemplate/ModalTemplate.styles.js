@@ -1,11 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
-import Theme from '../../colors/colors'
 
-const deviceHeight = Dimensions.get('window').height;
-
-const getStyles = ({colors}) => StyleSheet.create({
+export const getStyles = ({colors}) => StyleSheet.create({
   modelContentView: {
     justifyContent: 'flex-end',
     margin: 0,
@@ -95,14 +90,3 @@ const getStyles = ({colors}) => StyleSheet.create({
     marginLeft: 10,
   },
 })
-
-const useStyles = () => {
-  const theme = useSelector(state => state.theme)
-  const { colors } = Theme[theme]
-
-  const styles = useMemo(() => getStyles({colors}), [colors])
-
-  return styles
-}
-
-export default useStyles

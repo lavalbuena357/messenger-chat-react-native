@@ -1,10 +1,12 @@
 import { Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import useStyles from '../ModalTemplate/ModalTemplate.styles'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from '../ModalTemplate/ModalTemplate.styles'
 
 const ModalTouchableCustom = ({handleFunction, buttonName, type, iconName}) => {
-  const styles = useStyles()
+
+  const styles = useStyles(getStyles)
 
   return (
     <>

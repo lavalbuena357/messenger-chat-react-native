@@ -2,11 +2,12 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Time from '../Time/Time'
 import ReactTimeAgo from 'react-time-ago'
-import useStyles from './MessageItem.styles'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './MessageItem.styles'
 
 const MessageItem = ({message, currentUser, contact, isPrev}, props) => {
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   return (
     <View style={isPrev ? styles.prevContainer : styles.container}>

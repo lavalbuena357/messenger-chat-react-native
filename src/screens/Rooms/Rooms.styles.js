@@ -1,11 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
-import Theme from '../../colors/colors'
 
 const deviceHeight = Dimensions.get('window').height;
 
-const getStyles = ({colors}) => StyleSheet.create({
+export const getStyles = ({colors}) => StyleSheet.create({
   container: {
     position: 'relative',
     height: deviceHeight - 70,
@@ -19,14 +16,3 @@ const getStyles = ({colors}) => StyleSheet.create({
     padding: 10
   }
 })
-
-const useStyles = () => {
-  const theme = useSelector(state => state.theme)
-  const { colors } = Theme[theme]
-
-  const styles = useMemo(() => getStyles({colors}), [colors])
-
-  return styles
-}
-
-export default useStyles

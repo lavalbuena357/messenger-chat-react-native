@@ -4,14 +4,15 @@ import { useSelector } from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Header from '../../components/Header/Header'
 import Loader from '../../components/Loader/Loader'
-import useStyles from './ContactDetail.styles'
 import ModalEditContact from '../../components/ModalEditContact/ModalEditContact'
+import useStyles from '../../Hooks/UseStyles'
+import { getStyles } from './ContactDetail.styles'
 
 const ContactDetail = ({route}) => {
   const [showInput, setShowInput] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  const styles = useStyles()
+  const styles = useStyles(getStyles)
 
   const {currentUser, contacts} = useSelector(state => state)
 
