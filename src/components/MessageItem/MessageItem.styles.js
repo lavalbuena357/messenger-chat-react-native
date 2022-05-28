@@ -41,7 +41,7 @@ export const getStyles = ({colors}) => StyleSheet.create({
   },
   messageText: {
     color: colors.textBody,
-    fontSize: 20
+    fontSize: 17
   },
   messageTextOnlyEmoji: {
     fontSize: 42,
