@@ -3,19 +3,14 @@ import React, { memo } from 'react'
 import useStyles from './ChatCustomEmojiPicker.styles'
 import EmojiNavigator from './EmojiNavigator'
 
-const ChatCustomEmojiPicker = ({
-  isEmojiOpen, 
-  setMessageText}) => {
+const ChatCustomEmojiPicker = ({isEmojiOpen, setMessageText}) => {
 
   const styles = useStyles()
-  console.log('sdsf')
   
   return (
-   
-      <View style={styles.contentModal}>
-        <EmojiNavigator setMessageText={setMessageText} />
-      </View>
-     
+    <View style={isEmojiOpen ? styles.contentModal : styles.contentModalHidden}>
+      <EmojiNavigator setMessageText={setMessageText} />
+    </View> 
   )
 }
 

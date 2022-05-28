@@ -10,7 +10,17 @@ const deviceHeight = Dimensions.get('window').height
 const getStyles = ({colors, height}) => StyleSheet.create({
   contentModal: {
     backgroundColor: colors.primary,
-    height: height,
+    // height: height,
+    position: 'absolute',
+    bottom: -height,
+    top: deviceHeight - height
+  },
+  contentModalHidden: {
+    backgroundColor: colors.primary,
+    // height: height,
+    position: 'absolute',
+    bottom: 0,
+    top: deviceHeight
   },
   categories: {
     height: 50,

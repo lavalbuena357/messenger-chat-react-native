@@ -59,7 +59,7 @@ const ChatScreen = ({route}) => {
         if(isEmojiOpen) {
           setIsEmojiOpen(false)
           setStyleHidden(false)
-          return true
+          return false
         }
         dispatch(unsubscribeChatContact(currentUser.uid, route.params.contact.uid))
         return false
@@ -93,7 +93,7 @@ const ChatScreen = ({route}) => {
         </View>
         
         <ChatCustomEmojiPicker 
-          // isEmojiOpen={isEmojiOpen}
+          isEmojiOpen={isEmojiOpen}
           setMessageText={setMessageText} />
       </View>
       }
