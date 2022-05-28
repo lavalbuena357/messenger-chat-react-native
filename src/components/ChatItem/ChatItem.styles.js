@@ -2,13 +2,10 @@ import { StyleSheet } from 'react-native'
 
 export const getStyles = ({colors}) => StyleSheet.create({
   container: {
-    flexDirection: 'row' ,
+    flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 10,
     paddingHorizontal: 15,
-    position: 'relative',
-    // borderBottomColor: colors.placeholder,
-    // borderBottomWidth: 0.5
   },
   containerSelected: {
     flexDirection: 'row' ,
@@ -16,9 +13,6 @@ export const getStyles = ({colors}) => StyleSheet.create({
     paddingVertical: 0,
     paddingHorhopadding0ertical: 15,
     backgroundColor: colors.primary,
-    position: 'relative',
-    borderBottomColor: colors.placeholder,
-    borderBottomWidth: 0.5
   },
   left: {
     flexDirection: 'row',

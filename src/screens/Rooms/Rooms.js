@@ -34,7 +34,7 @@ const Rooms = ({navigation}) => {
     <View style={styles.container}>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <View>
-        <Header />
+        {/* <Header /> */}
         {chats.length ?
         <ScrollView>
           {chats.map(el => (

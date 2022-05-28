@@ -64,7 +64,7 @@ const Contacts = ({navigation}) => {
     <View>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <View>
-        <Header />
+        {/* <Header /> */}
         {contacts ? 
         <ScrollView>
           {Object.values(contacts).map(el => (

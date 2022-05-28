@@ -5,7 +5,6 @@ const deviceHeight = Dimensions.get('window').height;
 export const getStyles = ({colors}) => StyleSheet.create({
   container: {
     position: 'relative',
-    height: deviceHeight - 70
   },
   loading: {
     color: colors.white
@@ -16,7 +15,7 @@ export const getStyles = ({colors}) => StyleSheet.create({
   },
   buttonAddcontainer: {
     position: 'absolute',
-    top: deviceHeight - 150,
+    top: deviceHeight - 200,
     right: 20
   },
   iconContainer: {

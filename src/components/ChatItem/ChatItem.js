@@ -52,7 +52,7 @@ const ChatItem = ({chat, myUid, uidSelected, handleSelected, handleGoToContactCh
           </Text>
           }
           <Text style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message}>
-            {`${chat.message.slice(0, 30)}${chat.message.length > 30 ? '...': ''}`}
+            {`${chat.message.slice(0, 20)}${chat.message.length > 20 ? '...': ''}`}
           </Text>
         </View>
       </View>
