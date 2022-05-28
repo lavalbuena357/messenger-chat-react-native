@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, TouchableHighlight } from 'react-native'
 import React, {PureComponent} from 'react'
 
 class SingleEmoji extends PureComponent {
@@ -8,15 +8,11 @@ class SingleEmoji extends PureComponent {
     
     return (
       <View >
-        <Pressable 
-          style={({pressed}) => [
-            {padding: 5, 
-              backgroundColor: pressed ?'#ff840030' : '#ffffff00'
-            }
-          ]} 
+        <TouchableHighlight 
+          style={{padding: 5, borderRadius: 10}} 
           onPress={() => setMessageText(prev=> prev + item.emoji)}>
           <Text style={{fontSize: emojiSize}}>{item.emoji}</Text>
-        </Pressable>
+        </TouchableHighlight>
     </View>
     )
   }
