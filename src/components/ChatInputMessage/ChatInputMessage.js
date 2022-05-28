@@ -1,5 +1,5 @@
 import { View, TextInput, Keyboard, Pressable } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { submitChat } from '../../redux/actions'
@@ -8,6 +8,7 @@ import ChatModalImage from '../ChatModalImage/ChatModalImage'
 import UseKeyboard from '../ChatCustomEmojiPicker/UseKeyboard'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './ChatInputMessage.styles'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const ChatInputMessage = ({
     contact, 
@@ -27,6 +28,13 @@ const ChatInputMessage = ({
   //temp
   const micSelected = false
 
+  // useEffect(() => {
+  //   (async() => {
+  //     const value = await AsyncStorage.getItem('height')
+  //     setKeyboardHeight(parseInt(value))
+  //   })()
+  // }, [])
+
   const handleChange = (text) => {
     setMessageText(text)
   }
@@ -37,20 +45,15 @@ const ChatInputMessage = ({
   }
 
   const changeEmojiKeyboardIcon = () => {
-    if(keyboardHeight > 0 && isEmojiOpen) {
-      setIsEmojiOpen(false)
-      inputRef.current.focus()
+    if(keyboardHeight > 0) {
+      setIsEmojiOpen(true)
     } else if(keyboardHeight === 0 && !isEmojiOpen) {
       setIsEmojiOpen(true)
       setStyleHidden(true)
-      Keyboard.dismiss()
     } else if(keyboardHeight === 0 && isEmojiOpen) {
       inputRef.current.focus()
       setIsEmojiOpen(false)
-    } else {
-      setIsEmojiOpen(true)
-      Keyboard.dismiss()
-    }
+    } 
   }
 
   return (

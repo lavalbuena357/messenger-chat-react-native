@@ -16,7 +16,7 @@ const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [contact, setContact] = useState(null)
   const [isEmojiOpen, setIsEmojiOpen] = useState(false)
-  const [isStyileHidden, setStyleHidden] = useState(true)
+  const [isStyileHidden, setStyleHidden] = useState(false)
   const [messageText, setMessageText] = useState('')
 
   const styles = useStyles()

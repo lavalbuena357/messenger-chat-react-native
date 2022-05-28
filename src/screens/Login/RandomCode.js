@@ -21,9 +21,9 @@ const RandomCode = ({isCode, setIsCode}) => {
   useEffect(() => {
     (async() => {
       if(keyboardHeight > 0) {
-        await AsyncStorage.setItem('height', keyboardHeight)
+        await AsyncStorage.setItem('height', keyboardHeight.toString())
       }
-    })
+    })()
   }, [keyboardHeight])
 
   useEffect(() => {

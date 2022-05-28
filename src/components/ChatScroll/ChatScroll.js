@@ -31,7 +31,16 @@ const ChatScroll = () => {
     setChats(prevData => [...contactChat.slice(prev, last), ...prevData])
     setIsLoadMore(true)
     scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true})
-}
+  }
+
+  const RenderItems = useCallback(() => {
+    const items = chats.map((el, i) => {
+      return (
+        <MessageItem key={i} message={el} />
+      )
+    })
+    return items
+  }, [chats])
 
   return (
     <ScrollView
@@ -47,11 +56,7 @@ const ChatScroll = () => {
         <TouchableOpacity style={styles.loadMore} onPress={loadMore}>
           <Text style={{color: styles.loadMore.color}}>Cargar más...</Text>
         </TouchableOpacity>}
-        {chats.map((el, i) => (
-        <MessageItem 
-          key={el.chatId} 
-          message={el} />
-        ))}
+        {<RenderItems />}
         </>
         :
         <Text style={styles.notFound}>Inicie una conversación</Text>
