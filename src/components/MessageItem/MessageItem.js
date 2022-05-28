@@ -1,16 +1,18 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { memo } from 'react'
 import Time from '../Time/Time'
 import ReactTimeAgo from 'react-time-ago'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './MessageItem.styles'
+import { useSelector } from 'react-redux'
 
-const MessageItem = ({message, currentUser, contact, isPrev}, props) => {
+const MessageItem = ({message}, props) => {
 
   const styles = useStyles(getStyles)
+  const {currentUser} = useSelector(state => state)
 
   return (
-    <View style={isPrev ? styles.prevContainer : styles.container}>
+    <View style={styles.container}>
       <View style={message.from === currentUser.uid ? styles.messageMe : styles.messageContact}>
         <TouchableOpacity >
           {message.cate === 'text' ?
@@ -25,4 +27,4 @@ const MessageItem = ({message, currentUser, contact, isPrev}, props) => {
   )
 }
 
-export default MessageItem
+export default memo(MessageItem)

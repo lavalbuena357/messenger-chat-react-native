@@ -4,7 +4,7 @@ export const getStyles = ({colors}) => StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    marginTop: 1,
+    marginVertical: 2,
     elevation: 3,
     shadowColor: colors.shadow
   },
