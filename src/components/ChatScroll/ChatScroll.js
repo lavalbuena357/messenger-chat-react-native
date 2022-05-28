@@ -1,5 +1,5 @@
 import { Text, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import useStyles from '../../screens/ChatScreen/ChatScreen.styles'
 import MessageItem from '../MessageItem/MessageItem'
 import { useSelector } from 'react-redux'
@@ -8,7 +8,6 @@ const ChatScroll = ({
   chats, 
   setChats, 
   contactChat, 
-  contact, 
   offset, 
   setPage, 
   page, 
@@ -19,14 +18,14 @@ const ChatScroll = ({
   const scrollViewRef = useRef()
   const {currentUser} = useSelector(state => state)
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     setPage(page+1)
     const last = contactChat.length-(page*offset) >= 0 ? contactChat.length-(page*offset) : 0
     const prev = contactChat.length-((page+1)*offset) >= 0 ? contactChat.length-((page+1)*offset) : 0
     setChats(prevData => [...contactChat.slice(prev, last), ...prevData])
     setIsLoadMore(true)
     scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true})
-}
+}, [])
 
   return (
     <ScrollView
@@ -44,10 +43,7 @@ const ChatScroll = ({
         {chats.map((el, i) => (
         <MessageItem 
           key={el.chatId} 
-          message={el} 
-          currentUser={currentUser} 
-          contact={contact}
-          isPrev={i > 0 && contactChat[i-1].from !== contactChat[i].from ? true : false} />
+          message={el} />
         ))}
         </>
         :
