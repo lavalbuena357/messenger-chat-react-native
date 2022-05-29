@@ -47,15 +47,6 @@ const ChatInputMessage = ({
       setIsEmojiOpen(true)
       Keyboard.dismiss()
     }
-    // if(keyboardHeight > 0) {
-    //   setIsEmojiOpen(true)
-    // } else if(keyboardHeight === 0 && !isEmojiOpen) {
-    //   setIsEmojiOpen(true)
-    //   setStyleHidden(true)
-    // } else if(keyboardHeight === 0 && isEmojiOpen) {
-    //   inputRef.current.focus()
-    //   setIsEmojiOpen(false)
-    // } 
   }
 
   return (
