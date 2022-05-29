@@ -3,14 +3,14 @@ import React from 'react'
 import Modal from 'react-native-modal'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatModalImage.styles'
-import { saveImage, saveMedia } from '../../../redux/actions'
 import { useSelector } from 'react-redux'
+import { saveMedia } from '../../../redux/actions/chats'
 
 const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData, contact}) => {
 
   const { width: screenWidth, height: screenHeight } = useWindowDimensions()
   const styles = useStyles(getStyles)
-  const {currentUser} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
 
   const resize = (d) => {
     const aspectRatio = d.height > d.width ? '0.5' : d.width > d.height ? '1.5' : '1'

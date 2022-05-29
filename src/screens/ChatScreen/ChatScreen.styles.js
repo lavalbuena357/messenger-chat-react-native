@@ -64,7 +64,7 @@ const getStyles = ({colors, height}) => StyleSheet.create({
 
 const useStyles = () => {
   const [height, setHeight] = useState(0)
-  const theme = useSelector(state => state.theme)
+  const theme = useSelector(state => state.themeReducer.theme)
   const { colors } = Theme[theme]
 
   useEffect(() => {

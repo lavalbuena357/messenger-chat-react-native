@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from 'react-native-vector-icons/Ionicons'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { getTheme } from '../../redux/actions'
 import ModalSettings from '../ModalSettings/ModalSettings'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './Header.styles'
+import { getTheme } from '../../redux/actions/theme'
 
 const Header = () => {
   const [showModalSettings, setShowModalSettings] = useState(false)
 
   const styles = useStyles(getStyles)
 
-  const {theme, currentUser} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
+  const theme = useSelector(state => state.themeReducer.theme)
   const dispatch = useDispatch()
 
   const handleSettings = () => {

@@ -1,12 +1,12 @@
 import { TextInput } from 'react-native'
 import React, { useState } from 'react'
 import Loader from '../Loader/Loader'
-import { addContact } from '../../redux/actions'
 import { useSelector } from 'react-redux'
 import ModalTemplate from '../ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from '../ModalTemplate/ModalTemplate.styles'
+import { addContact } from '../../redux/actions/contacs'
 
 const ModalAddContact = ({setShowAddModal, showAddModal}) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -14,7 +14,7 @@ const ModalAddContact = ({setShowAddModal, showAddModal}) => {
   const [mail, setMail] = useState('')
 
   const styles = useStyles(getStyles)
-  const currentUser = useSelector(state => state.currentUser)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
 
   const handleChange = (text) => {
     setMail(text)

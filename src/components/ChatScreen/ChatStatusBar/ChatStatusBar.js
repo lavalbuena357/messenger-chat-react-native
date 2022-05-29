@@ -1,14 +1,14 @@
 import { Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import useStyles from '../../../screens/ChatScreen/ChatScreen.styles'
-import { addContact, unblockContact } from '../../../redux/actions'
 import { useSelector } from 'react-redux'
 import Loader from '../../Loader/Loader'
+import { addContact, unblockContact } from '../../../redux/actions/contacs'
 
 const ChatStatusBar = ({contact, uid, setIsLoading, isLoading}) => {
 
   const styles = useStyles()
-  const {currentUser} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
   
 
   const handleAddContact = async() => {

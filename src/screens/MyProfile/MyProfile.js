@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import ModalTemplate from '../../components/ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../../components/ModalTouchableCustom/ModalTouchableCustom'
 import Loader from '../../components/Loader/Loader'
-import { changeName, changeStatus } from '../../redux/actions'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './MyProfile.styles'
+import { changeName, changeStatus } from '../../redux/actions/users'
 
 const MyProfile = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -21,7 +21,7 @@ const MyProfile = ({navigation}) => {
   const [isError, setIsError] = useState({error: false, message: ''})
 
   const styles = useStyles(getStyles)
-  const {currentUser} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
 
   useEffect(() => {
     setName(currentUser.displayName)

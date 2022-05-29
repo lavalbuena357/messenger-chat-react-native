@@ -8,7 +8,7 @@ const ContactItem = ({contact, handleSelected, uidSelected, handleGoToContactCha
 
   const { email, photoURL, displayName, uid, online, status } = contact
   const styles = useStyles(getStyles)
-  const {currentUser} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
   const myUid = currentUser.uid
 
   return (

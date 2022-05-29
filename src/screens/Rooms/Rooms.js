@@ -12,7 +12,8 @@ const Rooms = ({navigation}) => {
   const [uidSelected, setUidSelected] = useState('')
 
   const styles = useStyles(getStyles)
-  const {currentUser, chats} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
+  const chats = useSelector(state => state.chatsReducer.chats)
 
   useEffect(() => {
     setIsLoading(true)

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 const MessageItem = ({message}, props) => {
 
   const styles = useStyles(getStyles)
-  const {currentUser} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
 
   return (
     <View style={styles.container}>

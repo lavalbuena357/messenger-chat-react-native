@@ -2,19 +2,19 @@ import { View, Text } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
-import { blockContact, removeContact } from '../../redux/actions'
 import Loader from '../Loader/Loader'
 import ModalTemplate from '../ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../ModalTouchableCustom/ModalTouchableCustom'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from '../ModalTemplate/ModalTemplate.styles'
+import { blockContact, removeContact } from '../../redux/actions/contacs'
 
 const ModalMenuActions = ({showActionsModal, setShowActionsModal, uidSelected, isLoading, setIsLoading}) => {
   const [action, setAction] = useState('')
   const [modalConfirm, setModalConfirm] = useState(false)
 
   const navigation = useNavigation()
-  const currentUser = useSelector(state => state.currentUser)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
 
   const styles = useStyles(getStyles)
 

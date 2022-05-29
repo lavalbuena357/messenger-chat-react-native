@@ -2,12 +2,12 @@ import { View, TextInput, Keyboard, Pressable, TouchableHighlight } from 'react-
 import React, { useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { submitChat } from '../../../redux/actions'
 import { useSelector } from 'react-redux'
 import ChatModalImage from '../ChatModalImage/ChatModalImage'
 import UseKeyboard from '../ChatCustomEmojiPicker/UseKeyboard'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatInputMessage.styles'
+import { submitChat } from '../../../redux/actions/chats'
 
 const ChatInputMessage = ({
     contact, 
@@ -19,7 +19,7 @@ const ChatInputMessage = ({
   const [isModalImage, setIsModalImage] = useState(false)
 
   const styles = useStyles(getStyles)
-  const {currentUser} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
   const {uid} = currentUser 
   const inputRef = useRef()
   const keyboardHeight = UseKeyboard()

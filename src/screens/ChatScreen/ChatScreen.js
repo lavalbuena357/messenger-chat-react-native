@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import useStyles from './ChatScreen.styles'
 import HeaderChat from '../../components/ChatScreen/HeaderChat/HeaderChat'
 import Loader from '../../components/Loader/Loader'
-import { getChatContact, getUserById, unsubscribeChatContact } from '../../redux/actions'
 import { useFocusEffect } from '@react-navigation/native'
 import ChatStatusBar from '../../components/ChatScreen/ChatStatusBar/ChatStatusBar'
 import ChatScroll from '../../components/ChatScreen/ChatScroll/ChatScroll'
 import ChatInputMessage from '../../components/ChatScreen/ChatInputMessage/ChatInputMessage'
 import ChatCustomEmojiPicker from '../../components/ChatScreen/ChatCustomEmojiPicker/ChatCustomEmojiPicker'
 import UseKeyboard from '../../components/ChatScreen/ChatCustomEmojiPicker/UseKeyboard'
+import { getChatContact, unsubscribeChatContact } from '../../redux/actions/chats'
+import { getUserById } from '../../redux/actions/users'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -20,7 +21,8 @@ const ChatScreen = ({route}) => {
   const [messageText, setMessageText] = useState('')
 
   const styles = useStyles()
-  const {currentUser, contacts} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
+  const contacts = useSelector(state => state.contactsReducer.contacts)
   const dispatch = useDispatch()
   const heightKeyboard = UseKeyboard()
 

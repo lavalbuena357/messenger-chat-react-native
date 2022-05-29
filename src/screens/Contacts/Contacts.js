@@ -17,7 +17,8 @@ const Contacts = ({navigation}) => {
   const [uidSelected, setUidSelected] = useState('')
 
   const styles = useStyles(getStyles)
-  const {currentUser, contacts} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
+  const contacts = useSelector(state => state.contactsReducer.contacts)
 
   useEffect(() => {
     setIsLoading(true)

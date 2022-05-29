@@ -11,7 +11,7 @@ const ChatScroll = () => {
 
   const styles = useStyles()
   const scrollViewRef = useRef()
-  const {contactChat} = useSelector(state => state)
+  const contactChat = useSelector(state => state.chatsReducer.contactChat)
   const offset = 20
 
   useEffect(() => {

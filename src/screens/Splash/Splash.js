@@ -12,7 +12,7 @@ import useStyles from '../../Hooks/UseStyles'
 const Splash = ({navigation}) => {
   let count = 0
 
-  const theme = useSelector(state => state.theme)
+  const theme = useSelector(state => state.themeReducer.theme)
 
   const styles = useStyles(getStyles)
 

@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ReactTimeAgo from 'react-time-ago'
 import Time from '../Time/Time'
-import { getUserById } from '../../redux/actions'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './ChatItem.styles'
+import { getUserById } from '../../redux/actions/users'
 
 const ChatItem = ({chat, uidSelected, handleSelected, handleGoToContactChat}, props) => {
   const [contact, setContact] = useState(null)
 
   const styles = useStyles(getStyles)
-  const {contacts, chats, currentUser} = useSelector(state => state)
+  const contacts = useSelector(state => state.contactsReducer.contacts)
+  const chats = useSelector(state => state.chatsReducer.chats)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
   const myUid = currentUser.uid
   
   useEffect(() => {

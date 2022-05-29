@@ -10,7 +10,6 @@ import Login from './src/screens/Login/Login'
 import Main from './src/screens/Main/Main'
 import Rooms from './src/screens/Rooms/Rooms'
 import Contacts from './src/screens/Contacts/Contacts'
-import { getTheme, userOffline } from './src/redux/actions'
 import ChatScreen from './src/screens/ChatScreen/ChatScreen'
 import ContactDetail from './src/screens/ContactDetail/ContactDetail'
 import MyProfile from './src/screens/MyProfile/MyProfile'
@@ -18,6 +17,8 @@ import Privacity from './src/screens/Privacity/Privacity'
 import SoundsNotifications from './src/screens/SoundsNotifications/SoundsNotifications'
 import ContactsManager from './src/screens/ContactsManager/ContactsManager'
 import About from './src/screens/About/About'
+import { getTheme } from './src/redux/actions/theme'
+import { userOffline } from './src/redux/actions/auth'
 
 const Stack = createNativeStackNavigator()
 
@@ -25,7 +26,8 @@ const App = () => {
 
   const appState = useRef(AppState.currentState)
   const dispatch = useDispatch()
-  const {theme, currentUser} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
+  const theme = useSelector(state => state.themeReducer.theme)
 
   useEffect(() => {
     (async() => {

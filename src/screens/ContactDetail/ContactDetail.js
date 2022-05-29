@@ -14,7 +14,8 @@ const ContactDetail = ({route}) => {
 
   const styles = useStyles(getStyles)
 
-  const {currentUser, contacts} = useSelector(state => state)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
+  const contacts = useSelector(state => state.contactsReducer.contacts)
 
   const contact = contacts[route.params.contactUid]
 
