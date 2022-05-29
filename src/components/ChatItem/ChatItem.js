@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ReactTimeAgo from 'react-time-ago'
 import Time from '../Time/Time'
@@ -69,4 +69,4 @@ const ChatItem = ({chat, uidSelected, handleSelected, handleGoToContactChat}, pr
   )
 }
 
-export default ChatItem
+export default memo(ChatItem)
