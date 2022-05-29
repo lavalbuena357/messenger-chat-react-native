@@ -62,7 +62,7 @@ const Contacts = ({navigation}) => {
 
   const renderItem = useCallback(({item}) => (
     <ContactItem contact={item} uidSelected={uidSelected} handleSelected={handleSelected} handleGoToContactChat={handleGoToContactChat} />
-  ), [])
+  ), [uidSelected])
 
   return (
     <View>
