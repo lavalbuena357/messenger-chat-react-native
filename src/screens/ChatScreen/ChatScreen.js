@@ -10,19 +10,19 @@ import ChatScroll from '../../components/ChatScreen/ChatScroll/ChatScroll'
 import ChatInputMessage from '../../components/ChatScreen/ChatInputMessage/ChatInputMessage'
 import ChatCustomEmojiPicker from '../../components/ChatScreen/ChatCustomEmojiPicker/ChatCustomEmojiPicker'
 import UseKeyboard from '../../components/ChatScreen/ChatCustomEmojiPicker/UseKeyboard'
-import { getChatContact, unsubscribeChatContact } from '../../redux/actions/chats'
+import { getChatContact, getEmojisState, unsubscribeChatContact } from '../../redux/actions/chats'
 import { getUserById } from '../../redux/actions/users'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)
   const [contact, setContact] = useState(null)
-  const [isEmojiOpen, setIsEmojiOpen] = useState(false)
   const [isStyileHidden, setStyleHidden] = useState(false)
   const [messageText, setMessageText] = useState('')
 
   const styles = useStyles()
   const currentUser = useSelector(state => state.userReducer.currentUser)
   const contacts = useSelector(state => state.contactsReducer.contacts)
+  const isEmojiOpen = useSelector(state => state.chatsReducer.isEmojiOpen)
   const dispatch = useDispatch()
   const heightKeyboard = UseKeyboard()
 
@@ -59,7 +59,7 @@ const ChatScreen = ({route}) => {
     useCallback(() => {
       const onBack = () => {
         if(isEmojiOpen) {
-          setIsEmojiOpen(false)
+          dispatch(getEmojisState(false))
           setStyleHidden(false)
           return false
         }
@@ -68,7 +68,7 @@ const ChatScreen = ({route}) => {
       }
       BackHandler.addEventListener('hardwareBackPress', onBack)
       return () => BackHandler.removeEventListener('hardwareBackPress', onBack)
-    }, [isEmojiOpen, setIsEmojiOpen])
+    }, [isEmojiOpen])
   )
 
   return (
@@ -87,15 +87,12 @@ const ChatScreen = ({route}) => {
           <ChatScroll />
           <ChatInputMessage 
             contact={contact} 
-            setIsEmojiOpen={setIsEmojiOpen}
-            isEmojiOpen={isEmojiOpen}
             setStyleHidden={setStyleHidden}
             messageText={messageText} 
             setMessageText={setMessageText} />
         </View>
         
         <ChatCustomEmojiPicker 
-          isEmojiOpen={isEmojiOpen}
           setMessageText={setMessageText} />
       </View>
       }

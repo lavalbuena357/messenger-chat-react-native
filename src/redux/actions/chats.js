@@ -100,3 +100,13 @@ export const getChatContact = (uid, uidContact) => {
      } catch (error) {console.warn(error)}
    }
  }
+
+//OBTENER EL ESTADO DE LOS EMOJIS
+export const getEmojisState = (toState) => {
+  return async(dispatch) => {
+      dispatch({
+        type: 'EMOJI_OPEN',
+        payload: toState
+      })
+  }
+}

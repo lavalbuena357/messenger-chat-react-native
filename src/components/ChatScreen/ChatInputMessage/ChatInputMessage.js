@@ -2,17 +2,15 @@ import { View, TextInput, Keyboard, Pressable, TouchableHighlight } from 'react-
 import React, { useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ChatModalImage from '../ChatModalImage/ChatModalImage'
 import UseKeyboard from '../ChatCustomEmojiPicker/UseKeyboard'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatInputMessage.styles'
-import { submitChat } from '../../../redux/actions/chats'
+import { getEmojisState, submitChat } from '../../../redux/actions/chats'
 
 const ChatInputMessage = ({
     contact, 
-    setIsEmojiOpen, 
-    isEmojiOpen,
     setStyleHidden,
     messageText,
     setMessageText}) => {
@@ -20,9 +18,11 @@ const ChatInputMessage = ({
 
   const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.userReducer.currentUser)
+  const isEmojiOpen = useSelector(state => state.chatsReducer.isEmojiOpen)
   const {uid} = currentUser 
   const inputRef = useRef()
   const keyboardHeight = UseKeyboard()
+  const dispatch = useDispatch()
 
   //temp
   const micSelected = false
@@ -39,12 +39,12 @@ const ChatInputMessage = ({
   const changeEmojiKeyboardIcon = () => {
     if(keyboardHeight === 0 && isEmojiOpen) {
       inputRef.current.focus()
-      setIsEmojiOpen(false)
+      dispatch(getEmojisState(false))
     } else if(keyboardHeight === 0 && !isEmojiOpen) {
-      setIsEmojiOpen(true)
+      dispatch(getEmojisState(true))
       setStyleHidden(true)
     } else {
-      setIsEmojiOpen(true)
+      dispatch(getEmojisState(true))
       Keyboard.dismiss()
     }
   }
@@ -63,7 +63,7 @@ const ChatInputMessage = ({
           ref={inputRef}
           placeholderTextColor={styles.iconColor.color}
           multiline
-          onFocus={() => setIsEmojiOpen(false)}
+          onFocus={() => dispatch(getEmojisState(false))}
           editable={contact.blocked[uid] || currentUser.blocked[contact.uid] ? false : true}
           defaultValue={messageText}
           onChangeText={handleChange}

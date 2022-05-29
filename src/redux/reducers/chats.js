@@ -4,7 +4,7 @@ const initialState = {
   currentMessage: null,
   isEmojiOpen: false,
   mediaData: [],
-  currentContact: []
+  currentContact: null
 }
 
 const chatsReducer = (state= initialState, actions) => {
@@ -13,6 +13,10 @@ const chatsReducer = (state= initialState, actions) => {
       return {...state, chats: actions.payload}
     case 'GET_CHAT_CONTACT':
       return {...state, contactChat: actions.payload}
+    case 'CURRENT_CONTACT':
+      return {...state, currentContact: actions.payload}
+    case 'EMOJI_OPEN':
+      return {...state, isEmojiOpen: actions.payload}
     default:
       return state
   }
