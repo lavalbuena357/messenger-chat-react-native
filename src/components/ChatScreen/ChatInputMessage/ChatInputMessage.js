@@ -1,4 +1,4 @@
-import { View, TextInput, Keyboard, Pressable } from 'react-native'
+import { View, TextInput, Keyboard, Pressable, TouchableHighlight } from 'react-native'
 import React, { useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -69,28 +69,29 @@ const ChatInputMessage = ({
           onChangeText={handleChange}
           style={styles.text}  />
         <View style={{flexDirection: 'row'}}>
-          <Pressable 
+          <TouchableHighlight 
             style={styles.iconButton}
             onPressIn={() => setIsModalImage(true)}
             disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
             <Icon name='attach' size={26} color={styles.iconColor.color} />
-          </Pressable>
-          <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} />
+          </TouchableHighlight>
+          <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} contact={contact} />
         </View>
       </View>
       {messageText.length ? 
-      <Pressable 
+      <TouchableHighlight 
         style={styles.micButton} 
         onPressIn={handleSendMessage}
         disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
         <MatIcon name='send' size={22} color={styles.iconColor.color} />
-      </Pressable>
+      </TouchableHighlight>
       :
-      <Pressable 
+      <TouchableHighlight 
+        onPress={() => console.log('mic')}
         style={contact.blocked[uid] || currentUser.blocked[contact.uid] ? styles.micButtonDisabled : styles.micButton}
         disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
         <MatIcon name={micSelected ? 'microphone' : 'microphone'} size={26} color={styles.iconColor.color} />
-      </Pressable>
+      </TouchableHighlight>
       }
     </View>
   )

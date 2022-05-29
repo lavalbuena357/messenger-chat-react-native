@@ -8,7 +8,7 @@ import { requestStoragePermission } from '../../../utils/Permissions'
 import { launchImageLibrary } from 'react-native-image-picker'
 import ModalPreview from './ModalPreview'
 
-const ChatModalImage = ({isModalImage, setIsModalImage}) => {
+const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
   const [mediaData, setMediaData] = useState([])
   const [isModalPreview, setIsModalPreview] = useState(false)
 
@@ -61,7 +61,8 @@ const ChatModalImage = ({isModalImage, setIsModalImage}) => {
       <ModalPreview 
         isModalPreview={isModalPreview} 
         setIsModalPreview={setIsModalPreview}
-        mediaData={mediaData} />
+        mediaData={mediaData}
+        contact={contact} />
     </View>
   )
 }

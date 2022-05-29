@@ -6,7 +6,7 @@ import { getStyles } from './ChatModalImage.styles'
 import { saveImage, saveMedia } from '../../../redux/actions'
 import { useSelector } from 'react-redux'
 
-const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData}) => {
+const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData, contact}) => {
 
   const { width, height } = useWindowDimensions()
   const styles = useStyles(getStyles)
@@ -19,7 +19,7 @@ const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData}) => {
     const timestamp = Date.now()
     const fileExtension = mediaData[0][0].fileName.split('.')[1]
     const filename = `${cate}_${currentUser.uid}-${timestamp}.${fileExtension}`
-    saveMedia(file, filename, cate)
+    saveMedia(file, filename, cate, currentUser.uid, contact.uid)
     setIsModalPreview(false)
   }
 

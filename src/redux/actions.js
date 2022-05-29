@@ -235,23 +235,27 @@ export const unblockContact = async(uid, contactUid) => {
 export const submitChat = (fromUid, toUid, message, cate) => {
   try {
     const date = new Date().getTime()
-    const obj = {chatId: date, from: fromUid, to: toUid, message: message.replace(/(\r\n|\n|\r)/gm, ' '), cate, createdAt: date}
+    const obj = {chatId:`${fromUid}${date}`,from:fromUid,to:toUid,message:message.replace(/(\r\n|\n|\r)/gm, ' '),cate,createdAt:date}
     const chatRef = database().ref(`chats/${fromUid}/${toUid}/${date}`)
     const chatContactRef = database().ref(`chats/${toUid}/${fromUid}/${date}`)
     chatRef.set(obj)
     chatContactRef.set(obj)
-    return {status: 200, message: 'Chat Agregado correctamente'}
   } catch (error) {console.warn(error)}
 }
 
 //GUARDAR IMAGEN EN EL ALMACENAMIENTO DE FIRESTORE
-export const saveMedia = async(file, filename, cate) => {
+export const saveMedia = async(file, filename, cate, fromUid, toUid) => {
   try {
     const storageRef = storage().ref(`media/${filename}`)
     const upload = await storageRef.putString(file, 'base64')
     if(upload.state === 'success') {
       const url = await storageRef.getDownloadURL()
-      console.log(url)
+      const date = new Date().getTime()
+      const mediaMessage = {chatId:`${fromUid}${date}`,from:fromUid,to:toUid,message:url,cate,createdAt:date}
+      const chatRef = database().ref(`chats/${fromUid}/${toUid}/${date}`)
+      const chatContactRef = database().ref(`chats/${toUid}/${fromUid}/${date}`)
+      chatRef.set(mediaMessage)
+      chatContactRef.set(mediaMessage)
     }
   } catch (error) {console.warn(error)}
 }
