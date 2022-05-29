@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { memo } from 'react'
 import Time from '../../Time/Time'
 import ReactTimeAgo from 'react-time-ago'
@@ -17,8 +17,17 @@ const MessageItem = ({message}, props) => {
         <TouchableOpacity >
           {message.cate === 'text' ?
           <Text style={styles.messageText}>{message.message}</Text>
-          :
-          <Text style={styles.messageTextOnlyEmoji}>{message.message}</Text>
+          : message.cate === 'photo' ? 
+          <Image 
+            source={{uri: message.message}} 
+            style={{
+              borderRadius: 10,
+              margin: 3,
+              aspectRatio:parseFloat(message.metadata.aspectRatio),
+              width: message.metadata.width === 'null' ? null : parseFloat(message.metadata.width) * 0.5,
+              height: message.metadata.height === 'null' ? null : parseFloat(message.metadata.height) * 0.5
+            }} />
+          : null
           }
           <ReactTimeAgo {...props} date={message.createdAt} component={Time} />
         </TouchableOpacity>
