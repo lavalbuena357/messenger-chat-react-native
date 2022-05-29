@@ -61,7 +61,7 @@ const ChatScreen = ({route}) => {
         if(isEmojiOpen) {
           dispatch(getEmojisState(false))
           setStyleHidden(false)
-          return false
+          return true
         }
         dispatch(unsubscribeChatContact(currentUser.uid, route.params.contact.uid))
         return false
