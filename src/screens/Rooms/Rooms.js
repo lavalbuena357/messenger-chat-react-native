@@ -32,7 +32,7 @@ const Rooms = ({navigation}) => {
 
   const renderItem = useCallback(({item}) => (
     <ChatItem chat={item} uidSelected={uidSelected} handleSelected={handleSelected} handleGoToContactChat={handleGoToContactChat}  />
-  ), [])
+  ), [uidSelected])
 
   return (
     <View style={styles.container}>
