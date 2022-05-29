@@ -19,7 +19,8 @@ const ModalTemplate = ({
   return (
     <Modal
       isVisible={modalVisible}
-      backdropOpacity={0.7}
+      backdropOpacity={0.5}
+      backdropColor={styles.titleBox.borderBottomColor}
       onBackButtonPress={() => setModalVisible(false)}
       onBackdropPress={() => setModalVisible(false)}
       onSwipeComplete={() => setModalVisible(false)}
