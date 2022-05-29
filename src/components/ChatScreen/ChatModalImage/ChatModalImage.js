@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 import FAwIcon from 'react-native-vector-icons/FontAwesome'
 import { getStyles } from './ChatModalImage.styles'
 import useStyles from '../../../Hooks/UseStyles'
-import { requestStogarePermission } from '../../../utils/Permissions'
+import { requestStoragePermission } from '../../../utils/Permissions'
 import { launchImageLibrary } from 'react-native-image-picker'
 import ModalPreview from './ModalPreview'
 
@@ -14,16 +14,16 @@ const ChatModalImage = ({isModalImage, setIsModalImage}) => {
 
   const styles = useStyles(getStyles)
 
-  const handlePermission = async(type) => {
+  const handleUpload = async(type) => {
+    const resStorage = await requestStoragePermission()
     if(type === 'photo') {
       setMediaData([])
-      const resPhoto = await requestStogarePermission()
-      if(resPhoto) {
-        const itemSelect = await launchImageLibrary({mediaType: type, maxWidth: 1280, maxHeight: 1280})
+      if(resStorage) {
+        const itemSelect = await launchImageLibrary({mediaType: type, maxWidth: 1024, maxHeight: 1024, includeBase64:true})
         if(itemSelect.assets) {
-          setMediaData((prev) => [...prev, itemSelect.assets[0]])
+          setMediaData([[itemSelect.assets[0]], type])
           setIsModalPreview(true)
-          // setIsModalImage(false)
+          setIsModalImage(false)
         }
       } else {
         Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.')
@@ -45,10 +45,10 @@ const ChatModalImage = ({isModalImage, setIsModalImage}) => {
         animationIn='bounceInRight'
         style={styles.modelContentView} >
         <View style={styles.contentModal}>
-          <TouchableOpacity style={styles.iconContainer} onPress={() => handlePermission('photo')}>
+          <TouchableOpacity style={styles.iconContainer} onPress={() => handleUpload('photo')}>
             <FAwIcon name='file-photo-o' size={25} style={styles.icon} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconContainer} onPress={() => handlePermission('video')}>
+          <TouchableOpacity style={styles.iconContainer} onPress={() => handleUpload('video')}>
             <FAwIcon name='file-video-o' size={25} style={styles.icon} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconContainer}>

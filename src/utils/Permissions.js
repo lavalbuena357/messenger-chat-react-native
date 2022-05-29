@@ -1,7 +1,7 @@
 import React from 'react'
 import { PermissionsAndroid } from 'react-native'
 
-export const requestStogarePermission = async() => {
+export const requestStoragePermission = async() => {
   try {
     const granted = await PermissionsAndroid.requestMultiple(
       [PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,

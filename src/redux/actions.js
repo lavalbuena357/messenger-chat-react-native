@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import storage from '@react-native-firebase/storage'
 import database from '@react-native-firebase/database'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { webClientId } from '../../env'
@@ -243,6 +244,18 @@ export const submitChat = (fromUid, toUid, message, cate) => {
   } catch (error) {console.warn(error)}
 }
 
+//GUARDAR IMAGEN EN EL ALMACENAMIENTO DE FIRESTORE
+export const saveMedia = async(file, filename, cate) => {
+  try {
+    const storageRef = storage().ref(`media/${filename}`)
+    const upload = await storageRef.putString(file, 'base64')
+    if(upload.state === 'success') {
+      const url = await storageRef.getDownloadURL()
+      console.log(url)
+    }
+  } catch (error) {console.warn(error)}
+}
+
 //OBTENER CHATS
 export const chatsList = (uid) => {
   return (dispatch) => {
@@ -311,12 +324,5 @@ export const getChatContact = (uid, uidContact) => {
    }
  }
 
-//SETEA LA CATEGORIA DE EMOJIS SELECCIONADA
-export const setEmojiCategory = (category) => {
-  return(dispatch) => {
-    dispatch({
-      type: 'SET_EMOJI_CATEGORY',
-      payload: category
-    })
-  }
-}
+
+

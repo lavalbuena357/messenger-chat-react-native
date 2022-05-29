@@ -3,11 +3,25 @@ import React from 'react'
 import Modal from 'react-native-modal'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatModalImage.styles'
+import { saveImage, saveMedia } from '../../../redux/actions'
+import { useSelector } from 'react-redux'
 
 const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData}) => {
 
   const { width, height } = useWindowDimensions()
   const styles = useStyles(getStyles)
+  const {currentUser} = useSelector(state => state)
+
+  const uploadFile = async() => {
+    console.log(mediaData)
+    const file = mediaData[0][0].base64
+    const cate = mediaData[1]
+    const timestamp = Date.now()
+    const fileExtension = mediaData[0][0].fileName.split('.')[1]
+    const filename = `${cate}_${currentUser.uid}-${timestamp}.${fileExtension}`
+    saveMedia(file, filename, cate)
+    setIsModalPreview(false)
+  }
 
   return (
     <Modal
@@ -22,7 +36,7 @@ const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData}) => {
       backdropOpacity={1}
       style={null} >
       <View style={styles.modalPreview}>
-        {mediaData.map((el, i) => (
+        {mediaData.length && mediaData[0].map((el, i) => (
           <Image 
             key={i} 
             source={{uri: el.uri}}  
@@ -36,7 +50,7 @@ const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData}) => {
           <TouchableOpacity style={styles.ButtonPreview} onPress={() => setIsModalPreview(false)}>
             <Text>Cancelar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.ButtonPreview} onPress={() => console.log('imagen lista para enviar')}>
+          <TouchableOpacity style={styles.ButtonPreview} onPress={() => uploadFile()}>
             <Text>Enviar imagen</Text>
           </TouchableOpacity>
         </View>
