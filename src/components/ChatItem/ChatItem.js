@@ -29,7 +29,6 @@ const ChatItem = ({chat, uidSelected, handleSelected, handleGoToContactChat}, pr
       }
     }
   }, [contacts])
-  console.log(chat)
 
   return (
     <>

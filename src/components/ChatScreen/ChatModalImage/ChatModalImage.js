@@ -23,7 +23,7 @@ const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
         if(itemSelect.assets) {
           setMediaData([[itemSelect.assets[0]], type])
           setIsModalPreview(true)
-          setIsModalImage(false)
+          // setIsModalImage(false)
         }
       } else {
         Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.')
@@ -32,7 +32,7 @@ const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
   }
 
   return (
-    <View>
+    <>
       <Modal
         isVisible={isModalImage}
         onBackButtonPress={() => setIsModalImage(false)}
@@ -58,12 +58,13 @@ const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
         </View>
         <View style={styles.before}></View>
       </Modal>
-      <ModalPreview 
+      {isModalPreview && <ModalPreview 
         isModalPreview={isModalPreview} 
         setIsModalPreview={setIsModalPreview}
         mediaData={mediaData}
-        contact={contact} />
-    </View>
+        contact={contact}
+        setIsModalImage={setIsModalImage} />}
+    </>
   )
 }
 

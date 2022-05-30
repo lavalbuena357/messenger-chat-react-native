@@ -75,7 +75,7 @@ const ChatInputMessage = ({
             disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
             <Icon name='attach' size={26} color={styles.iconColor.color} />
           </TouchableHighlight>
-          <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} contact={contact} />
+          {isModalImage && <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} contact={contact} />}
         </View>
       </View>
       {messageText.length ? 
