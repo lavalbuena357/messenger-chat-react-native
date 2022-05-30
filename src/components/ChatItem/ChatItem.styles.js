@@ -58,11 +58,13 @@ export const getStyles = ({colors}) => StyleSheet.create({
   },
   message: {
     color: colors.textBody,
-    fontSize: 14
   },
   messageBlocked: {
     color: colors.placeholder,
-    fontSize: 14
+  },
+  messageMediaContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end'
   },
   right: {
     alignItems: 'flex-end',

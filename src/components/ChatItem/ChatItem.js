@@ -3,6 +3,7 @@ import React, { memo, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ReactTimeAgo from 'react-time-ago'
 import Time from '../Time/Time'
+import MatIcon from 'react-native-vector-icons/MaterialIcons'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './ChatItem.styles'
 import { getUserById } from '../../redux/actions/users'
@@ -28,6 +29,7 @@ const ChatItem = ({chat, uidSelected, handleSelected, handleGoToContactChat}, pr
       }
     }
   }, [contacts])
+  console.log(chat)
 
   return (
     <>
@@ -54,9 +56,16 @@ const ChatItem = ({chat, uidSelected, handleSelected, handleGoToContactChat}, pr
             {`${contact.email.slice(0, 25)}${contact.email.length > 25 ? '...': ''}`}
           </Text>
           }
-          <Text style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message}>
+          {chat.cate === 'text' ? 
+          <Text style={[contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message, {fontSize: 14}]}>
             {`${chat.message.slice(0, 20)}${chat.message.length > 20 ? '...': ''}`}
           </Text>
+          :
+          <View style={styles.messageMediaContainer}>
+            <MatIcon name='photo' size={24} style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message} />
+            <Text style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message}>Foto</Text>
+          </View>
+          }
         </View>
       </View>
       {contact.blocked[myUid] || currentUser.blocked[contact.uid] ? null :
