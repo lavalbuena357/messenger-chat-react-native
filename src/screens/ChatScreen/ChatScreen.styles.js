@@ -16,17 +16,17 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     justifyContent: 'center',
     borderBottomColor: colors.background,
     borderBottomWidth: 0.3,
-    padding: 0,
+    padding: 5,
   },
   status: {
     color: colors.placeholder,
     fontSize: 12,
   },
   aboveKeyboard: {
-    height: deviceHeight - height - 75.3,
+    height: deviceHeight - height - 97.3,
   },
   aboveKeyboardHidden: {
-    height: deviceHeight - 75.3
+    height: deviceHeight - 97.3
   },
   content: {
     flex: 1, 

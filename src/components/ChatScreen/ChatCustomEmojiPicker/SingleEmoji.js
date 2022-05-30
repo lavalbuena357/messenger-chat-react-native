@@ -1,5 +1,5 @@
-import { View, Text, TouchableHighlight } from 'react-native'
-import React, {PureComponent} from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import React, {memo, PureComponent} from 'react'
 
 class SingleEmoji extends PureComponent {
   
@@ -8,11 +8,12 @@ class SingleEmoji extends PureComponent {
     
     return (
       <View >
-        <TouchableHighlight 
+        <TouchableOpacity 
           style={{padding: 5, borderRadius: 10}} 
-          onPress={() => setMessageText(prev=> prev + item.emoji)}>
+          onLongPress={() => setMessageText(prev=> prev + item.emoji)}
+          delayLongPress={10} >
           <Text style={{fontSize: emojiSize}}>{item.emoji}</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
     </View>
     )
   }

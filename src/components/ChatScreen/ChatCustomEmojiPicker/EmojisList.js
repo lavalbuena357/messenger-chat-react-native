@@ -31,7 +31,7 @@ const EmojisList = ({index, setMessageText}) => {
         initialNumToRender={5}
         removeClippedSubviews={true}
         showsVerticalScrollIndicator={false}
-        // windowSize={2}
+        windowSize={2}
         getItemLayout={getItemLayout}
         numColumns={numColumns.current}
         renderItem={renderItem}/>

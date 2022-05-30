@@ -1,13 +1,17 @@
-import { View, TextInput, Keyboard, Pressable, TouchableHighlight } from 'react-native'
+import { View, TextInput, Keyboard, Pressable, TouchableHighlight, Alert, TouchableOpacity } from 'react-native'
 import React, { memo, useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Icon from 'react-native-vector-icons/Ionicons'
+// import Icon from 'react-native-vector-icons/Ionicons'
+import FAwIcon from 'react-native-vector-icons/FontAwesome'
 import { useDispatch, useSelector } from 'react-redux'
-import ChatModalImage from '../ChatModalImage/ChatModalImage'
+// import ChatModalImage from '../ChatModalImage/ChatModalImage'
 import UseKeyboard from '../ChatCustomEmojiPicker/UseKeyboard'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatInputMessage.styles'
 import { getEmojisState, submitChat } from '../../../redux/actions/chats'
+import { requestStoragePermission } from '../../../utils/Permissions'
+import { launchImageLibrary } from 'react-native-image-picker'
+import ModalPreview from '../ChatModalImage/ModalPreview'
 
 const ChatInputMessage = ({
     contact, 
@@ -15,6 +19,7 @@ const ChatInputMessage = ({
     messageText,
     setMessageText}) => {
   const [isModalImage, setIsModalImage] = useState(false)
+  const [mediaData, setMediaData] = useState([])
 
   const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.userReducer.currentUser)
@@ -49,6 +54,20 @@ const ChatInputMessage = ({
     }
   }
 
+  const handleUpload = async(type) => {
+    setMediaData([])
+    const resStorage = await requestStoragePermission()
+    if(resStorage) {
+      const itemSelect = await launchImageLibrary({mediaType: type, maxWidth: 1024, maxHeight: 1024, includeBase64:true})
+      if(itemSelect.assets) {
+        setMediaData([[itemSelect.assets[0]], type])
+        setIsModalImage(true)
+      }
+    } else {
+      Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.')
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={contact.blocked[uid] || currentUser.blocked[contact.uid] ? styles.messageInputDisabled : styles.messageInput}>
@@ -69,22 +88,29 @@ const ChatInputMessage = ({
           onChangeText={handleChange}
           style={styles.text}  />
         <View style={{flexDirection: 'row'}}>
-          <TouchableHighlight 
+          <TouchableOpacity 
             style={styles.iconButton}
-            onPressIn={() => setIsModalImage(true)}
+            onPressIn={() => handleUpload('photo')}
             disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
-            <Icon name='attach' size={26} color={styles.iconColor.color} />
-          </TouchableHighlight>
-          {isModalImage && <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} contact={contact} />}
+            <FAwIcon name='file-photo-o' size={24} color={styles.iconColor.color} />
+          </TouchableOpacity>
+          {/* {isModalImage && <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} contact={contact} />} */}
+          {isModalImage && 
+          <ModalPreview
+            isModalImage={isModalImage} 
+            setIsModalImage={setIsModalImage}
+            mediaData={mediaData}
+            contact={contact} />
+          }
         </View>
       </View>
       {messageText.length ? 
-      <TouchableHighlight 
+      <TouchableOpacity 
         style={styles.micButton} 
         onPressIn={handleSendMessage}
         disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
         <MatIcon name='send' size={22} color={styles.iconColor.color} />
-      </TouchableHighlight>
+      </TouchableOpacity>
       :
       <TouchableHighlight 
         onPress={() => console.log('mic')}

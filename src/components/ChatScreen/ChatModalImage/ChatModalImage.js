@@ -19,7 +19,7 @@ const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
     const resStorage = await requestStoragePermission()
     if(resStorage) {
       if(type === 'photo' || type === 'video') {
-        const itemSelect = await launchImageLibrary({mediaType: type, maxWidth: 1024, maxHeight: 1024, includeBase64:true, videoQuality: 'low'})
+        const itemSelect = await launchImageLibrary({mediaType: type, maxWidth: 1024, maxHeight: 1024, includeBase64:true})
         if(itemSelect.assets) {
           setMediaData([[itemSelect.assets[0]], type])
           setIsModalPreview(true)
@@ -29,6 +29,7 @@ const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
       Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.')
     }
   }
+  console.log('entra')
 
   return (
     <>

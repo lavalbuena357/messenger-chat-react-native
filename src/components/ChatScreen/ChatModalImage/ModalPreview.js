@@ -5,9 +5,12 @@ import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatModalImage.styles'
 import { useSelector } from 'react-redux'
 import { saveMedia } from '../../../redux/actions/chats'
+// import Video from 'react-native-video'
+// import RNFS from 'react-native-fs'
 
-const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData, contact, setIsModalImage}) => {
+const ModalPreview = ({isModalImage, mediaData, contact, setIsModalImage}) => {
   const [isRezise, setIsRezise] = useState(null)
+  const [videoUrl, setVideoUrl] = useState(null)
 
   const { width: screenWidth, height: screenHeight } = useWindowDimensions()
   const styles = useStyles(getStyles)
@@ -24,6 +27,28 @@ const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData, contact, se
     setIsRezise({width: mediaWidth*ratio, height: mediaHeight*ratio})
   }, [])
 
+  // const videoCopy = async() => {
+  //   const destPath = `${RNFS.PicturesDirectoryPath}/test.mp4`
+  //   await RNFS.copyFile(mediaData[0][0].uri, destPath)
+  //   await RNFS.stat(destPath)
+  //   console.log(`file://${destPath}`)
+  //   setVideoUrl(`file://${destPath}`)
+  // }
+
+  // const videoDeleteCopy = async() => {
+  //   try {
+  //     const path = `${RNFS.PicturesDirectoryPath}/test.mp4`
+  //     await RNFS.unlink(path)
+  //     console.log('borrado')
+  //   } catch (error) {console.warn(error)}
+  // }
+
+  // useEffect(() => {
+  //   videoCopy()
+  // }, [videoUrl])
+  // console.log(videoUrl)
+
+
   const uploadFile = async() => {
     const file = mediaData[0][0].base64
     const metadata = {width: `${isRezise.width}`, height: `${isRezise.height}`}
@@ -32,16 +57,15 @@ const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData, contact, se
     const fileExtension = mediaData[0][0].fileName.split('.')[1]
     const filename = `${cate}_${currentUser.uid}-${timestamp}.${fileExtension}`
     saveMedia(file, metadata, filename, cate, currentUser.uid, contact.uid)
-    setIsModalPreview(false)
     setIsModalImage(false)
   }
 
   return (
     <Modal
-      isVisible={isModalPreview}
-      onBackButtonPress={() => setIsModalPreview(false)}
-      onBackdropPress={() => setIsModalPreview(false)}
-      onSwipeComplete={() => setIsModalPreview(false)}
+      isVisible={isModalImage}
+      onBackButtonPress={() => setIsModalImage(false)}
+      onBackdropPress={() => setIsModalImage(false)}
+      onSwipeComplete={() => setIsModalImage(false)}
       backdropTransitionInTiming={1}
       backdropTransitionOutTiming={1}
       animationInTiming={1}
@@ -50,13 +74,25 @@ const ModalPreview = ({setIsModalPreview, isModalPreview, mediaData, contact, se
       style={null} >
       <View style={styles.modalPreview}>
         {mediaData.length && mediaData[0].map((el, i) => (
+          <View key={i} >
+          {mediaData[1] === 'photo' &&
           <Image 
-            key={i} 
+            
             source={{uri: el.uri}}  
             style={{borderRadius: 10, width: isRezise && isRezise.width, height: isRezise&&  isRezise.height}} />
+          // :
+          // videoUrl !== null &&
+          // <Video
+          //   key={i+1}
+          //   paused={true}
+          //   style={{width: isRezise && isRezise.width, height: isRezise&&  isRezise.height}}
+          //   controls={true}
+          //   source={{uri: videoUrl}} />
+          }
+          </View>
         ))}
         <View style={styles.boxButtons}>
-          <TouchableOpacity style={styles.ButtonPreview} onPress={() => setIsModalPreview(false)}>
+          <TouchableOpacity style={styles.ButtonPreview} onPress={() => setIsModalImage(false)}>
             <Text>Cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.ButtonPreview} onPress={() => uploadFile()}>

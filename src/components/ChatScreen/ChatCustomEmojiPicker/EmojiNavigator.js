@@ -32,7 +32,8 @@ const EmojiNavigator = ({setMessageText}) => {
         tabBarShowLabel: false,
         tabBarIndicatorStyle: {backgroundColor: '#ff8400'},
         lazy: true,
-        lazyPreloadDistance: 3,
+        lazyPreloadDistance: 2,
+        lazyPlaceholder: () => LazyComponent()
       }} >
       <Tab.Screen
         name='Smiles'
