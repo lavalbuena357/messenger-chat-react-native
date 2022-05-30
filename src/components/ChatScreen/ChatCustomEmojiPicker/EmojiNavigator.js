@@ -27,6 +27,7 @@ const EmojiNavigator = ({setMessageText}) => {
 
   return (
     <Tab.Navigator
+      backBehavior='none'
       screenOptions={{
         tabBarStyle: styles.categories,
         tabBarShowLabel: false,

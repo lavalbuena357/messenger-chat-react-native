@@ -1,0 +1,71 @@
+// import { View, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
+// import React, { useState } from 'react'
+// import Modal from 'react-native-modal'
+// import FAwIcon from 'react-native-vector-icons/FontAwesome'
+// import { getStyles } from './ChatModalImage.styles'
+// import useStyles from '../../../Hooks/UseStyles'
+// import { requestStoragePermission } from '../../../utils/Permissions'
+// import { launchImageLibrary } from 'react-native-image-picker'
+// import ModalPreview from './ModalPreview'
+
+// const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
+//   const [mediaData, setMediaData] = useState([])
+//   const [isModalPreview, setIsModalPreview] = useState(false)
+
+//   const styles = useStyles(getStyles)
+
+//   const handleUpload = async(type) => {
+//     setMediaData([])
+//     const resStorage = await requestStoragePermission()
+//     if(resStorage) {
+//       if(type === 'photo' || type === 'video') {
+//         const itemSelect = await launchImageLibrary({mediaType: type, maxWidth: 1024, maxHeight: 1024, includeBase64:true})
+//         console.log(itemSelect)
+//         if(itemSelect.assets) {
+//           setMediaData([[itemSelect.assets[0]], type])
+//           setIsModalPreview(true)
+//         }
+//       }
+//     } else {
+//       ToastAndroid.show('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.', ToastAndroid.LONG)
+//     }
+//   }
+  
+//   return (
+//     <>
+//       <Modal
+//         isVisible={isModalImage}
+//         onBackButtonPress={() => setIsModalImage(false)}
+//         onBackdropPress={() => setIsModalImage(false)}
+//         onSwipeComplete={() => setIsModalImage(false)}
+//         animationOutTiming={1}
+//         backdropOpacity={0.5}
+//         backdropColor={styles.iconContainer.backgroundColor}
+//         swipeDirection='down'
+//         animationIn='bounceInRight'
+//         style={styles.modelContentView} >
+//         <View style={styles.contentModal}>
+//           <TouchableOpacity style={styles.iconContainer} onPress={() => handleUpload('photo')}>
+//             <FAwIcon name='file-photo-o' size={25} style={styles.icon} />
+//           </TouchableOpacity>
+//           <TouchableOpacity style={styles.iconContainer} onPress={() => Alert.alert('En desarrollo...', 'Pronto estará disponible esta funcion.\nPor ahora puede enviar fotos.')}>
+//             <FAwIcon name='file-video-o' size={25} style={styles.icon} />
+//           </TouchableOpacity>
+//           <TouchableOpacity style={styles.iconContainer} onPress={() => Alert.alert('En desarrollo...', 'Pronto estará disponible esta funcion.\nPor ahora puede enviar fotos.')}>
+//             <FAwIcon name='camera' size={25} style={styles.icon} />
+//           </TouchableOpacity>
+//           <TextInput autoFocus={true} style={{display: 'none'}} />
+//         </View>
+//         <View style={styles.before}></View>
+//       </Modal>
+//       {isModalPreview && <ModalPreview 
+//         isModalPreview={isModalPreview} 
+//         setIsModalPreview={setIsModalPreview}
+//         mediaData={mediaData}
+//         contact={contact}
+//         setIsModalImage={setIsModalImage} />}
+//     </>
+//   )
+// }
+
+// export default ChatModalImage

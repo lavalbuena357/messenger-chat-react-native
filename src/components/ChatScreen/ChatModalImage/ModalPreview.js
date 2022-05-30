@@ -27,28 +27,6 @@ const ModalPreview = ({isModalImage, mediaData, contact, setIsModalImage}) => {
     setIsRezise({width: mediaWidth*ratio, height: mediaHeight*ratio})
   }, [])
 
-  // const videoCopy = async() => {
-  //   const destPath = `${RNFS.PicturesDirectoryPath}/test.mp4`
-  //   await RNFS.copyFile(mediaData[0][0].uri, destPath)
-  //   await RNFS.stat(destPath)
-  //   console.log(`file://${destPath}`)
-  //   setVideoUrl(`file://${destPath}`)
-  // }
-
-  // const videoDeleteCopy = async() => {
-  //   try {
-  //     const path = `${RNFS.PicturesDirectoryPath}/test.mp4`
-  //     await RNFS.unlink(path)
-  //     console.log('borrado')
-  //   } catch (error) {console.warn(error)}
-  // }
-
-  // useEffect(() => {
-  //   videoCopy()
-  // }, [videoUrl])
-  // console.log(videoUrl)
-
-
   const uploadFile = async() => {
     const file = mediaData[0][0].base64
     const metadata = {width: `${isRezise.width}`, height: `${isRezise.height}`}
@@ -76,18 +54,7 @@ const ModalPreview = ({isModalImage, mediaData, contact, setIsModalImage}) => {
         {mediaData.length && mediaData[0].map((el, i) => (
           <View key={i} >
           {mediaData[1] === 'photo' &&
-          <Image 
-            
-            source={{uri: el.uri}}  
-            style={{borderRadius: 10, width: isRezise && isRezise.width, height: isRezise&&  isRezise.height}} />
-          // :
-          // videoUrl !== null &&
-          // <Video
-          //   key={i+1}
-          //   paused={true}
-          //   style={{width: isRezise && isRezise.width, height: isRezise&&  isRezise.height}}
-          //   controls={true}
-          //   source={{uri: videoUrl}} />
+          <Image source={{uri: el.uri}} style={{borderRadius: 10, width: isRezise && isRezise.width, height: isRezise&&  isRezise.height}} />
           }
           </View>
         ))}
@@ -105,3 +72,36 @@ const ModalPreview = ({isModalImage, mediaData, contact, setIsModalImage}) => {
 }
 
 export default ModalPreview
+
+
+
+  // const videoCopy = async() => {
+  //   const destPath = `${RNFS.PicturesDirectoryPath}/test.mp4`
+  //   await RNFS.copyFile(mediaData[0][0].uri, destPath)
+  //   await RNFS.stat(destPath)
+  //   console.log(`file://${destPath}`)
+  //   setVideoUrl(`file://${destPath}`)
+  // }
+
+  // const videoDeleteCopy = async() => {
+  //   try {
+  //     const path = `${RNFS.PicturesDirectoryPath}/test.mp4`
+  //     await RNFS.unlink(path)
+  //     console.log('borrado')
+  //   } catch (error) {console.warn(error)}
+  // }
+
+  // useEffect(() => {
+  //   videoCopy()
+  // }, [videoUrl])
+  // console.log(videoUrl)
+
+
+  // :
+          // videoUrl !== null &&
+          // <Video
+          //   key={i+1}
+          //   paused={true}
+          //   style={{width: isRezise && isRezise.width, height: isRezise&&  isRezise.height}}
+          //   controls={true}
+          //   source={{uri: videoUrl}} />

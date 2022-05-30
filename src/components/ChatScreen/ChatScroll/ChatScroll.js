@@ -48,7 +48,7 @@ const ChatScroll = () => {
       style={{flex:1}}
       keyboardShouldPersistTaps='always'
       onLayout={() => scrollViewRef.current.scrollToEnd({animated: false})}
-      onContentSizeChange={() => !isLoadMore || chats.length === contactChat.length  && scrollViewRef.current.scrollToEnd({animated: false})} >
+      onContentSizeChange={() => !isLoadMore  && scrollViewRef.current.scrollToEnd({animated: false})} >
       {chats && chats.length > 0 ? 
       <>{chats.length >= offset &&  chats.length === contactChat.length ? null
         :

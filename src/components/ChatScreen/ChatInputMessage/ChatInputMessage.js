@@ -1,5 +1,5 @@
-import { View, TextInput, Keyboard, Pressable, TouchableHighlight, Alert, TouchableOpacity } from 'react-native'
-import React, { memo, useRef, useState } from 'react'
+import { View, TextInput, Keyboard, Pressable, TouchableHighlight, Alert, TouchableOpacity, ToastAndroid } from 'react-native'
+import React, { memo, useCallback, useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 // import Icon from 'react-native-vector-icons/Ionicons'
 import FAwIcon from 'react-native-vector-icons/FontAwesome'
@@ -12,6 +12,7 @@ import { getEmojisState, submitChat } from '../../../redux/actions/chats'
 import { requestStoragePermission } from '../../../utils/Permissions'
 import { launchImageLibrary } from 'react-native-image-picker'
 import ModalPreview from '../ChatModalImage/ModalPreview'
+import ChatRecordAudio from '../ChatRecordAudio/ChatRecordAudio'
 
 const ChatInputMessage = ({
     contact, 
@@ -20,6 +21,7 @@ const ChatInputMessage = ({
     setMessageText}) => {
   const [isModalImage, setIsModalImage] = useState(false)
   const [mediaData, setMediaData] = useState([])
+  const [micSelected, setMicSelected] = useState(false)
 
   const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.userReducer.currentUser)
@@ -28,9 +30,6 @@ const ChatInputMessage = ({
   const inputRef = useRef()
   const keyboardHeight = UseKeyboard()
   const dispatch = useDispatch()
-
-  //temp
-  const micSelected = false
 
   const handleChange = (text) => {
     setMessageText(text)
@@ -41,7 +40,7 @@ const ChatInputMessage = ({
     submitChat(uid, contact.uid, messageText, 'text')
   }
 
-  const changeEmojiKeyboardIcon = () => {
+  const changeEmojiKeyboardIcon = useCallback(() => {
     if(keyboardHeight === 0 && isEmojiOpen) {
       inputRef.current.focus()
       dispatch(getEmojisState(false))
@@ -52,7 +51,7 @@ const ChatInputMessage = ({
       dispatch(getEmojisState(true))
       Keyboard.dismiss()
     }
-  }
+  }, [isEmojiOpen,keyboardHeight])
 
   const handleUpload = async(type) => {
     setMediaData([])
@@ -113,12 +112,14 @@ const ChatInputMessage = ({
       </TouchableOpacity>
       :
       <TouchableHighlight 
-        onPress={() => console.log('mic')}
+        onLongPress={() => setMicSelected(true)}
+        onPress={(() => ToastAndroid.show('Mantenga pulsado para hablar', ToastAndroid.SHORT))}
         style={contact.blocked[uid] || currentUser.blocked[contact.uid] ? styles.micButtonDisabled : styles.micButton}
         disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
-        <MatIcon name={micSelected ? 'microphone' : 'microphone'} size={26} color={styles.iconColor.color} />
+        <MatIcon name={micSelected ? 'microphone' : 'microphone-outline'} size={26} color={styles.iconColor.color} />
       </TouchableHighlight>
       }
+      {micSelected && <ChatRecordAudio setMicSelected={setMicSelected} />}
     </View>
   )
 }
