@@ -1,18 +1,20 @@
 import { View, Image, TouchableOpacity, Text } from 'react-native'
-import React from 'react'
+import React, { memo } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './HeaderChat.styles'
 import { unsubscribeChatContact } from '../../../redux/actions/chats'
 
-const HeaderChat = ({contact, uid}) => {
+const HeaderChat = ({contact}) => {
 
   const styles = useStyles(getStyles)
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.userReducer.currentUser)
+  const uid = currentUser.uid
 
   const handleBack = () => {
     dispatch(unsubscribeChatContact(uid, contact.uid))
@@ -56,4 +58,4 @@ const HeaderChat = ({contact, uid}) => {
   )
 }
 
-export default HeaderChat
+export default memo(HeaderChat)

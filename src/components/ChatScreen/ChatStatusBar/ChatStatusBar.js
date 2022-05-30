@@ -1,11 +1,11 @@
 import { Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { memo } from 'react'
 import useStyles from '../../../screens/ChatScreen/ChatScreen.styles'
 import { useSelector } from 'react-redux'
 import Loader from '../../Loader/Loader'
 import { addContact, unblockContact } from '../../../redux/actions/contacs'
 
-const ChatStatusBar = ({contact, uid, setIsLoading, isLoading}) => {
+const ChatStatusBar = ({contact, setIsLoading, isLoading}) => {
 
   const styles = useStyles()
   const currentUser = useSelector(state => state.userReducer.currentUser)
@@ -13,13 +13,13 @@ const ChatStatusBar = ({contact, uid, setIsLoading, isLoading}) => {
 
   const handleAddContact = async() => {
     setIsLoading(true)
-    await addContact(uid, contact.email)
+    await addContact(currentUser.uid, contact.email)
     setIsLoading(false)
   }
-
+  
   const handleUnblock = async() => {
     setIsLoading(true)
-    await unblockContact(uid, contact.uid)
+    await unblockContact(currentUser.uid, contact.uid)
     setIsLoading(false)
   }
 
@@ -45,4 +45,4 @@ const ChatStatusBar = ({contact, uid, setIsLoading, isLoading}) => {
   )
 }
 
-export default ChatStatusBar
+export default memo(ChatStatusBar)

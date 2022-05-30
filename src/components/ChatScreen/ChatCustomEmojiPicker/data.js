@@ -62,12 +62,6 @@ export const useDataCategories = () => {
 export const UseDataEmojis = () => {
   const _emoji = useMemo(() => {
     let data = emojisByGroup
-    // let data = emojisByGroup.reduce((acc, item) => {
-    //   const { category, items } = item;
-    //   if (!acc[category]) acc[category] = []
-    //   acc[category].push(items)
-    //   return acc
-    // }, {})
     return data
   }, [])
   return _emoji

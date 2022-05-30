@@ -75,11 +75,10 @@ const ChatScreen = ({route}) => {
     <View style={styles.container}>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
       <View>
-        <HeaderChat contact={contact} uid={currentUser.uid} />
+        <HeaderChat contact={contact} />
         <View style={styles.statusContainer}>
           <ChatStatusBar 
             contact={contact} 
-            uid={currentUser.uid}
             setIsLoading={setIsLoading} 
             isLoading={isLoading} />
         </View>

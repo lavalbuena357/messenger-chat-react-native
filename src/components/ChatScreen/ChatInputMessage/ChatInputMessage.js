@@ -1,5 +1,5 @@
 import { View, TextInput, Keyboard, Pressable, TouchableHighlight } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,7 +19,7 @@ const ChatInputMessage = ({
   const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.userReducer.currentUser)
   const isEmojiOpen = useSelector(state => state.chatsReducer.isEmojiOpen)
-  const {uid} = currentUser 
+  const uid = currentUser.uid 
   const inputRef = useRef()
   const keyboardHeight = UseKeyboard()
   const dispatch = useDispatch()
@@ -97,4 +97,4 @@ const ChatInputMessage = ({
   )
 }
 
-export default ChatInputMessage
+export default memo(ChatInputMessage)
