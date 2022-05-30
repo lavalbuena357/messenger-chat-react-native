@@ -46,5 +46,15 @@ export const getStyles = ({colors}) => StyleSheet.create({
   messageTextOnlyEmoji: {
     fontSize: 42,
     alignSelf: 'center',
+  },
+  modalPreview: {
+    alignItems: 'center'
+  },
+  ButtonPreview: {
+    backgroundColor: colors.orange,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    marginTop: 10
   }
 })

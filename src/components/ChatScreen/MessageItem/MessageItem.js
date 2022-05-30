@@ -5,9 +5,10 @@ import ReactTimeAgo from 'react-time-ago'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './MessageItem.styles'
 import { useSelector } from 'react-redux'
+import ModalFullSizeImage from './ModalFullSizeImage'
 
 const MessageItem = ({message}, props) => {
-  const [isLoading, seIsLoading] = useState(false)
+  const [modalImageFull, setModalImageFull] = useState(false)
 
   const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.userReducer.currentUser)
@@ -15,7 +16,8 @@ const MessageItem = ({message}, props) => {
   return (
     <View style={styles.container}>
       <View style={message.from === currentUser.uid ? styles.messageMe : styles.messageContact}>
-        <TouchableOpacity >
+        <TouchableOpacity
+          onPress={() => message.cate === 'photo' && setModalImageFull(true)}>
           {message.cate === 'text' ?
           <Text style={styles.messageText}>{message.message}</Text>
           : message.cate === 'photo' ? 
@@ -27,6 +29,12 @@ const MessageItem = ({message}, props) => {
           <ReactTimeAgo {...props} date={message.createdAt} component={Time} />
         </TouchableOpacity>
       </View>
+      {modalImageFull && 
+      <ModalFullSizeImage 
+      setModalImageFull={setModalImageFull}
+      modalImageFull={modalImageFull}
+      message={message}  />
+      }
     </View>
   )
 }
