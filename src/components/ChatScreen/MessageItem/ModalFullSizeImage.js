@@ -7,7 +7,6 @@ import { getStyles } from './MessageItem.styles'
 const ModalFullSizeImage = ({modalImageFull, setModalImageFull, message}) => {
 
   const styles = useStyles(getStyles)
-  console.log(message)
 
   return (
     <Modal

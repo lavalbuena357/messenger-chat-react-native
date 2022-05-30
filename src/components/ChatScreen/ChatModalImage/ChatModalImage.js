@@ -15,19 +15,18 @@ const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
   const styles = useStyles(getStyles)
 
   const handleUpload = async(type) => {
+    setMediaData([])
     const resStorage = await requestStoragePermission()
-    if(type === 'photo') {
-      setMediaData([])
-      if(resStorage) {
-        const itemSelect = await launchImageLibrary({mediaType: type, maxWidth: 1024, maxHeight: 1024, includeBase64:true})
+    if(resStorage) {
+      if(type === 'photo' || type === 'video') {
+        const itemSelect = await launchImageLibrary({mediaType: type, maxWidth: 1024, maxHeight: 1024, includeBase64:true, videoQuality: 'low'})
         if(itemSelect.assets) {
           setMediaData([[itemSelect.assets[0]], type])
           setIsModalPreview(true)
-          // setIsModalImage(false)
         }
-      } else {
-        Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.')
       }
+    } else {
+      Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.')
     }
   }
 
@@ -48,10 +47,10 @@ const ChatModalImage = ({isModalImage, setIsModalImage, contact}) => {
           <TouchableOpacity style={styles.iconContainer} onPress={() => handleUpload('photo')}>
             <FAwIcon name='file-photo-o' size={25} style={styles.icon} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconContainer} onPress={() => handleUpload('video')}>
+          <TouchableOpacity style={styles.iconContainer} onPress={() => Alert.alert('En desarrollo...', 'Pronto estará disponible esta funcion.\nPor ahora puede enviar fotos.')}>
             <FAwIcon name='file-video-o' size={25} style={styles.icon} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconContainer}>
+          <TouchableOpacity style={styles.iconContainer} onPress={() => Alert.alert('En desarrollo...', 'Pronto estará disponible esta funcion.\nPor ahora puede enviar fotos.')}>
             <FAwIcon name='camera' size={25} style={styles.icon} />
           </TouchableOpacity>
           <TextInput autoFocus={true} style={{display: 'none'}} />
