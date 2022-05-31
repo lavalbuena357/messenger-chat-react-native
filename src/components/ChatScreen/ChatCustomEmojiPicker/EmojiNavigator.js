@@ -1,26 +1,37 @@
 import { View, Text } from 'react-native'
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import EmojisList from './EmojisList'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
 import useStyles from './ChatCustomEmojiPicker.styles'
 import { UIActivityIndicator } from 'react-native-indicators'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Tab = createMaterialTopTabNavigator()
+const storage_key = '@emoji-selector:HISTORY'
 
 const EmojiNavigator = ({setMessageText}) => {
+  // const [history, setHistory] = useState([])
+
+  // const loadHistoryAsync = async() => {
+  //   let result = await AsyncStorage.getItem(storage_key)
+  //   if (result) {
+  //     let history = JSON.parse(result)
+  //     setHistory({history})
+  //   }
+  // }
 
   const styles = useStyles()
 
-  const Smiles = useCallback(() => <EmojisList index={0} setMessageText={setMessageText} />, [])
-  const People = useCallback(() => <EmojisList index={1} setMessageText={setMessageText} />, [])
-  const Animals = useCallback(() => <EmojisList index={2} setMessageText={setMessageText} />, [])
-  const Food = useCallback(() => <EmojisList index={3} setMessageText={setMessageText} />, [])
-  const Travel = useCallback(() => <EmojisList index={4} setMessageText={setMessageText} />, [])
-  const Activities = useCallback(() => <EmojisList index={5} setMessageText={setMessageText} />, [])
-  const Objects = useCallback(() => <EmojisList index={6} setMessageText={setMessageText} />, [])
-  const Symbols = useCallback(() => <EmojisList index={7} setMessageText={setMessageText} />, [])
-  const Flags = useCallback(() => <EmojisList index={8} setMessageText={setMessageText} />, [])
+  const Smiles = useCallback(() => <EmojisList category={'Smileys & Emotion'} setMessageText={setMessageText} />, [])
+  const People = useCallback(() => <EmojisList category={'People & Body'} setMessageText={setMessageText} />, [])
+  const Animals = useCallback(() => <EmojisList category={'Animals & Nature'} setMessageText={setMessageText} />, [])
+  const Food = useCallback(() => <EmojisList category={'Food & Drink'} setMessageText={setMessageText} />, [])
+  const Travel = useCallback(() => <EmojisList category={'Travel & Places'} setMessageText={setMessageText} />, [])
+  const Activities = useCallback(() => <EmojisList category={'Activities'} setMessageText={setMessageText} />, [])
+  const Objects = useCallback(() => <EmojisList category={'Objects'} setMessageText={setMessageText} />, [])
+  const Symbols = useCallback(() => <EmojisList category={'Symbols'} setMessageText={setMessageText} />, [])
+  const Flags = useCallback(() => <EmojisList category={'Flags'} setMessageText={setMessageText} />, [])
 
   const LazyComponent = useCallback(() => <UIActivityIndicator color='#ff8400' size={38} />, [])
 
@@ -72,7 +83,7 @@ const EmojiNavigator = ({setMessageText}) => {
             <IconFAw name='apple-alt' size={20} style={styles.categoryIcon} />
           )
         }} />
-       <Tab.Screen
+      <Tab.Screen
         name='Travel'
         component={Travel}
         options={{
@@ -114,7 +125,7 @@ const EmojiNavigator = ({setMessageText}) => {
         options={{
           tabBarLabel: '',
           tabBarIcon: () => (
-            <IconFAw name='flag' size={20} style={styles.categoryIcon} />
+            <IconFAw name='flag' size={20} style={styles.categoryIcon} /> 
           )
         }} />
     </Tab.Navigator>

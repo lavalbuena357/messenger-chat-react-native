@@ -12,7 +12,6 @@ import ChatCustomEmojiPicker from '../../components/ChatScreen/ChatCustomEmojiPi
 import UseKeyboard from '../../components/ChatScreen/ChatCustomEmojiPicker/UseKeyboard'
 import { getChatContact, getEmojisState, unsubscribeChatContact } from '../../redux/actions/chats'
 import { getUserById } from '../../redux/actions/users'
-import Emojis from '../../components/ChatScreen/Emojis/Emojis'
 
 const ChatScreen = ({route}) => {
   const [isLoading, setIsLoading] = useState(true)

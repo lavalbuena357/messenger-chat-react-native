@@ -3,7 +3,6 @@ import React, { memo } from 'react'
 import useStyles from './ChatCustomEmojiPicker.styles'
 import EmojiNavigator from './EmojiNavigator'
 import { useSelector } from 'react-redux'
-import Emojis from '../Emojis/Emojis'
 
 const ChatCustomEmojiPicker = ({setMessageText}) => {
 
@@ -12,7 +11,7 @@ const ChatCustomEmojiPicker = ({setMessageText}) => {
   
   return (
     <View style={isEmojiOpen ? styles.contentModal : styles.contentModalHidden}>
-      <Emojis setMessageText={setMessageText} />
+      <EmojiNavigator setMessageText={setMessageText} />
     </View> 
   )
 }
