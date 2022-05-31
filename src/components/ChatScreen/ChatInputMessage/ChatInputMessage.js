@@ -1,10 +1,8 @@
 import { View, TextInput, Keyboard, Pressable, TouchableHighlight, Alert, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { memo, useCallback, useRef, useState } from 'react'
 import MatIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-// import Icon from 'react-native-vector-icons/Ionicons'
 import FAwIcon from 'react-native-vector-icons/FontAwesome'
 import { useDispatch, useSelector } from 'react-redux'
-// import ChatModalImage from '../ChatModalImage/ChatModalImage'
 import UseKeyboard from '../ChatCustomEmojiPicker/UseKeyboard'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatInputMessage.styles'
@@ -12,7 +10,7 @@ import { getEmojisState, submitChat } from '../../../redux/actions/chats'
 import { requestStoragePermission } from '../../../utils/Permissions'
 import { launchImageLibrary } from 'react-native-image-picker'
 import ModalPreview from '../ChatModalImage/ModalPreview'
-import ChatRecordAudio from '../ChatRecordAudio/ChatRecordAudio'
+import ButtonMic from './ButtonMic'
 
 const ChatInputMessage = ({
     contact, 
@@ -21,7 +19,6 @@ const ChatInputMessage = ({
     setMessageText}) => {
   const [isModalImage, setIsModalImage] = useState(false)
   const [mediaData, setMediaData] = useState([])
-  const [micSelected, setMicSelected] = useState(false)
 
   const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.userReducer.currentUser)
@@ -93,7 +90,6 @@ const ChatInputMessage = ({
             disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
             <FAwIcon name='file-photo-o' size={24} color={styles.iconColor.color} />
           </TouchableOpacity>
-          {/* {isModalImage && <ChatModalImage isModalImage={isModalImage} setIsModalImage={setIsModalImage} contact={contact} />} */}
           {isModalImage && 
           <ModalPreview
             isModalImage={isModalImage} 
@@ -111,15 +107,8 @@ const ChatInputMessage = ({
         <MatIcon name='send' size={22} color={styles.iconColor.color} />
       </TouchableOpacity>
       :
-      <TouchableHighlight 
-        onLongPress={() => setMicSelected(true)}
-        onPress={(() => ToastAndroid.show('Mantenga pulsado para hablar', ToastAndroid.SHORT))}
-        style={contact.blocked[uid] || currentUser.blocked[contact.uid] ? styles.micButtonDisabled : styles.micButton}
-        disabled={contact.blocked[uid] || currentUser.blocked[contact.uid]} >
-        <MatIcon name={micSelected ? 'microphone' : 'microphone-outline'} size={26} color={styles.iconColor.color} />
-      </TouchableHighlight>
+      <ButtonMic contact={contact} />
       }
-      {micSelected && <ChatRecordAudio setMicSelected={setMicSelected} />}
     </View>
   )
 }

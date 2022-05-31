@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './HeaderChat.styles'
-import { unsubscribeChatContact } from '../../../redux/actions/chats'
+import { getEmojisState, unsubscribeChatContact } from '../../../redux/actions/chats'
 
 const HeaderChat = ({contact}) => {
 
@@ -18,6 +18,7 @@ const HeaderChat = ({contact}) => {
 
   const handleBack = () => {
     dispatch(unsubscribeChatContact(uid, contact.uid))
+    dispatch(getEmojisState(false))
     navigation.goBack()
   }
 
