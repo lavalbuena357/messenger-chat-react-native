@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import React, {PureComponent} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -37,12 +37,12 @@ class SingleEmoji extends PureComponent {
 
     return (
       <View >
-        <TouchableOpacity 
-          style={{padding: 5, borderRadius: 10}} 
-          onLongPress={() => setMessageText(prev=> prev + item.emoji)}
-          delayLongPress={50} >
+        <Pressable 
+          style={{padding: 5, borderRadius: 10}}
+          delayLongPress={70}
+          onLongPress={() => setMessageText(prev=> prev + item.emoji)}>
           <Text style={{fontSize: emojiSize}}>{item.emoji}</Text>
-        </TouchableOpacity>
+        </Pressable>
     </View>
     )
   }
