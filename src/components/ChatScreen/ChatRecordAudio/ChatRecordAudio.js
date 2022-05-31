@@ -2,151 +2,89 @@ import { View, Text, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AudioRecorderPlayer from 'react-native-audio-recorder-player'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { requestAudioPermission } from '../../../utils/Permissions'
+import useStyles from '../../../Hooks/UseStyles'
+import { getStyles } from './ChatRecordAudio.styles'
+import { DotIndicator } from 'react-native-indicators'
+import { readFile } from 'react-native-fs'
+import { useSelector } from 'react-redux'
+import { saveMedia } from '../../../redux/actions/chats'
 
 const audioRecorderPlayer = new AudioRecorderPlayer()
 audioRecorderPlayer.setSubscriptionDuration(0.1)
 
-const ChatRecordAudio = ({setMicSelected}) => {
+const ChatRecordAudio = ({setMicSelected, contact}) => {
   const [recordState, setRecordState] = useState(false)
-  const [playState, setPlayState] = useState('')
   const [audioRecorder, setAudioRecorder] = useState({
     recordSecs: 0,
     recordTime: '00:00:00',
     currentPositionSec: 0,
-    currentDurationSec: 0,
-    playTime: '00:00:00',
-    duration: '00:00:00',
   })
 
+  const styles = useStyles(getStyles)
+  const currentUser = useSelector(state => state.userReducer.currentUser)
+
   useEffect(() => {
-    (async () => {
-      await handlePermissions()
-    })()
+    onStartRecord()
   }, [])
 
-  const handlePermissions = async() => {
-    const resRecord = requestAudioPermission()
-    if(!resRecord) {
-      console.log(resRecord)
-      Alert.alert('Se requieren permisos', 'No se concedieron los permisos para utilizar el micrófono.')
-    }
-  }
-
   const onStartRecord = async() => {
-    setPlayState('')
-    // setAudioRecorder({
-    //   ...audioRecorder,
-    //   recordTime: '00:00:00',
-    //   // duration: '00:00:00',
-    //   playTime: '00:00:00'
-    // })
-    setRecordState(true)
     await audioRecorderPlayer.startRecorder()
     audioRecorderPlayer.addRecordBackListener((e) => {
       setAudioRecorder({
         ...audioRecorder,
         recordSecs: e.currentPosition,
         recordTime: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
-        duration: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition))
       })
       return
     })
   }
 
   const onStopRecord = async() => {
-    setRecordState(false)
-    await audioRecorderPlayer.stopRecorder()
+    const uri = await audioRecorderPlayer.stopRecorder()
     audioRecorderPlayer.removeRecordBackListener()
-    // setAudioPlayerState(true)
     setAudioRecorder({
       ...audioRecorder,
       recordSecs: 0,
     })
+    const file = await readFile(uri, 'base64')
+    const metadata = {type: 'audio/mp3'}
+    const cate = 'audio'
+    const timestamp = Date.now()
+    const filename = `${cate}_${currentUser.uid}-${timestamp}.mp3`
+    await saveMedia(file, metadata, filename, cate, currentUser.uid, contact.uid)
+    setMicSelected(false)
   }
 
   const onCancelRecord = async() => {
     setRecordState(false)
     await audioRecorderPlayer.stopRecorder()
     audioRecorderPlayer.removeRecordBackListener()
-    // setAudioPlayerState(false)
     setAudioRecorder({
       ...audioRecorder, 
       recordSecs: 0, 
       recordTime: '00:00:00',
-      duration: '00:00:00',
-      playTime: '00:00:00'
     })
+    setMicSelected(false)
   }
-
-  const onStartPlay = async() => {
-    setPlayState('play')
-    await audioRecorderPlayer.startPlayer()
-    audioRecorderPlayer.addPlayBackListener((e) => {
-      setAudioRecorder({
-        ...audioRecorder,
-        currentPositionSec: e.currentPosition,
-        currentDurationSec: e.duration,
-        playTime: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
-        duration: audioRecorderPlayer.mmssss(Math.floor(e.duration))
-      })
-      return
-    })
-  }
-
-  const onPausePlay = async() => {
-    setPlayState('pause')
-    await audioRecorderPlayer.pausePlayer()
-  }
-
-  const onStopPlay = async(e) => {
-    setPlayState('stop')
-    audioRecorderPlayer.stopPlayer()
-    audioRecorderPlayer.removePlayBackListener()
-    setAudioRecorder({
-      ...audioRecorder,
-      currentPositionSec: 0,
-      currentDurationSec: e.duration,
-      playTime: '00:00:00',
-    })
-  } 
 
   return (
-    <View style={{ position: 'absolute', backgroundColor: 'red', bottom: 80, right: 10 }}>
-      <Text>{audioRecorder.recordTime}</Text>
-      <TouchableOpacity
-        onPress={!recordState ? onStartRecord :  onStopRecord} 
-        delayLongPress={600}
-        style={{margin: 5, padding: 10}}>
-        <Icon name={recordState ? 'mic' : 'mic-outline'} size={30} />
-      </TouchableOpacity>
-      {recordState && 
-      <TouchableOpacity
-        onPress={onCancelRecord}
-        style={{margin: 5, padding: 10}}>
-        <Icon name='trash-outline' size={30} />
-      </TouchableOpacity>
-      }
-      {/* {audioPlayerState &&  */}
-      <View style={{margin: 10}}>
-        <Text>{audioRecorder.playTime} / {audioRecorder.duration}</Text>
+    <View style={styles.container}>
+      <View style={styles.left}>
         <TouchableOpacity
-          onPress={onStartPlay}
-          style={{margin: 5, padding: 10}}>
-          <Icon name={playState === 'play' ? 'play' : 'play-outline'} size={30} />
+          onPress={onCancelRecord}
+          style={styles.icon} >
+          <Icon name='trash' size={28} color={styles.icon.color} />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onPausePlay}
-          style={{margin: 5, padding: 10}}>
-          <Icon name={playState === 'pause' ? 'pause' : 'pause-outline'} size={30} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onStopPlay}
-          style={{margin: 5, padding: 10}}>
-          <Icon name={playState === 'stop' ? 'stop' : 'stop-outline'} size={30} />
-        </TouchableOpacity>
+        <Text style={styles.icon}>{audioRecorder.recordTime}</Text>
       </View>
-    {/* } */}
+      <View style={styles.right}>
+        <DotIndicator size={8} style={{position: 'absolute', right: 50}} color={styles.inidicator.color} />
+        <TouchableOpacity
+          onPress={onStopRecord}
+          style={styles.icon} >
+          <Icon name='send' size={24} color={styles.icon.color} />
+        </TouchableOpacity>
+      </View> 
   </View>
   )
 }

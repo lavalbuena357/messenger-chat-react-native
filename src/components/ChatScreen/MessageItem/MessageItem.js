@@ -24,6 +24,8 @@ const MessageItem = ({message}, props) => {
           <Image 
             source={{uri: message.message}} 
             style={{borderRadius: 10, margin: 3, width: parseFloat(message.metadata.width) * 0.5, height: parseFloat(message.metadata.height) * 0.5}} />
+          : message.cate === 'audio' ? 
+          <Text>Audio</Text>
           : null
           }
           <ReactTimeAgo {...props} date={message.createdAt} component={Time} />
