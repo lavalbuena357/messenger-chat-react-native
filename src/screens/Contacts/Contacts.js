@@ -45,7 +45,7 @@ const Contacts = ({navigation}) => {
         } return false
       }
       BackHandler.addEventListener('hardwareBackPress', onBack)
-      return BackHandler.removeEventListener('hardwareBackPress', onBack)
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBack)
     }, [setUidSelected, uidSelected])
   )
 

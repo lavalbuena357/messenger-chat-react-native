@@ -22,6 +22,7 @@ const ChatScreen = ({route}) => {
   const styles = useStyles()
   const currentUser = useSelector(state => state.userReducer.currentUser)
   const contacts = useSelector(state => state.contactsReducer.contacts)
+  const contactChat = useSelector(state => state.chatsReducer.contactChat)
   const isEmojiOpen = useSelector(state => state.chatsReducer.isEmojiOpen)
   const dispatch = useDispatch()
   const heightKeyboard = UseKeyboard()
@@ -63,17 +64,19 @@ const ChatScreen = ({route}) => {
           setStyleHidden(false)
           return true
         }
+        setContact(null)
         dispatch(unsubscribeChatContact(currentUser.uid, route.params.contact.uid))
         return false
       }
       BackHandler.addEventListener('hardwareBackPress', onBack)
       return () => BackHandler.removeEventListener('hardwareBackPress', onBack)
-    }, [isEmojiOpen])
+    }, [isEmojiOpen, contactChat])
   )
 
   return (
     <View style={styles.container}>
       {isLoading ? <Loader color={styles.loading.color} size={60} /> :
+      contact && 
       <View>
         <HeaderChat contact={contact} />
         <View style={styles.statusContainer}>
@@ -90,8 +93,8 @@ const ChatScreen = ({route}) => {
             messageText={messageText} 
             setMessageText={setMessageText} />
         </View>
-        <ChatCustomEmojiPicker 
-          setMessageText={setMessageText} />
+        {/* <ChatCustomEmojiPicker 
+          setMessageText={setMessageText} /> */}
       </View>
       }
     </View>

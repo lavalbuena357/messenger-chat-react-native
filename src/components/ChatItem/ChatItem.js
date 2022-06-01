@@ -59,11 +59,17 @@ const ChatItem = ({chat, uidSelected, handleSelected, handleGoToContactChat}, pr
           <Text style={[contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message, {fontSize: 14}]}>
             {`${chat.message.slice(0, 20)}${chat.message.length > 20 ? '...': ''}`}
           </Text>
-          :
+          : chat.cate === 'photo' ?
           <View style={styles.messageMediaContainer}>
-            <MatIcon name='photo' size={24} style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message} />
+            <MatIcon name='photo' size={22} style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message} />
             <Text style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message}>Foto</Text>
           </View>
+          : chat.cate === 'audio' ?
+          <View style={styles.messageMediaContainer}>
+            <MatIcon name='mic' size={20} style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message} />
+            <Text style={contact.blocked[myUid] || currentUser.blocked[contact.uid] ? styles.messageBlocked : styles.message}>{chat.metadata.duration}</Text>
+          </View>
+          : null
           }
         </View>
       </View>

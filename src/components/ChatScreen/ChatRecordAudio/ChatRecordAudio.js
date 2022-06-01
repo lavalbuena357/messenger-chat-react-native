@@ -47,7 +47,7 @@ const ChatRecordAudio = ({setMicSelected, contact}) => {
       recordSecs: 0,
     })
     const file = await readFile(uri, 'base64')
-    const metadata = {type: 'audio/mp3'}
+    const metadata = {type: 'audio/mp3', duration: audioRecorder.recordTime}
     const cate = 'audio'
     const timestamp = Date.now()
     const filename = `${cate}_${currentUser.uid}-${timestamp}.mp3`
