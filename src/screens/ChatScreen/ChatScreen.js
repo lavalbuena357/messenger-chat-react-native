@@ -93,8 +93,8 @@ const ChatScreen = ({route}) => {
             messageText={messageText} 
             setMessageText={setMessageText} />
         </View>
-        {/* <ChatCustomEmojiPicker 
-          setMessageText={setMessageText} /> */}
+        <ChatCustomEmojiPicker 
+          setMessageText={setMessageText} />
       </View>
       }
     </View>
