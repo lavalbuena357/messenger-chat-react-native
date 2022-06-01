@@ -31,16 +31,22 @@ class SingleEmoji extends PureComponent {
   //   AsyncStorage.setItem(storage_key, JSON.stringify(value))
   //   this.setState({history: value})
   // }
+
   
   render() {
     const {item, setMessageText, emojiSize} = this.props
+
+    const handleEmoji = () => {
+      setMessageText(prev=> prev + item.emoji)
+      console.log(item)
+    }
 
     return (
       <View >
         <Pressable 
           style={{padding: 5, borderRadius: 10}}
           delayLongPress={70}
-          onLongPress={() => setMessageText(prev=> prev + item.emoji)}>
+          onPress={handleEmoji}>
           <Text style={{fontSize: emojiSize}}>{item.emoji}</Text>
         </Pressable>
     </View>

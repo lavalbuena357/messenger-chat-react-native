@@ -12,7 +12,7 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     backgroundColor: colors.primary,
     // height: height,
     position: 'absolute',
-    bottom: -height,
+    bottom: -height - 10,
     top: deviceHeight - height
   },
   contentModalHidden: {
@@ -20,7 +20,7 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     // height: height,
     position: 'absolute',
     bottom: 0,
-    top: deviceHeight
+    top: deviceHeight,
   },
   categories: {
     height: 50,
@@ -51,6 +51,11 @@ const getStyles = ({colors, height}) => StyleSheet.create({
     width: '80%',
     backgroundColor: colors.orange,
     bottom: 0
+  },
+  emojisContainer: {
+    paddingHorizontal: 10, 
+    alignItems: 'center', 
+    backgroundColor: colors.primary
   },
   categoryIcon : {
     color: colors.secondary,

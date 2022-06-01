@@ -2,8 +2,11 @@ import { View, FlatList, useWindowDimensions } from 'react-native'
 import React, { memo, useCallback, useRef } from 'react'
 import emoji from '../../../assets/emojis.json'
 import SingleEmoji from './SingleEmoji'
+import useStyles from './ChatCustomEmojiPicker.styles'
 
 const EmojisList = ({category, setMessageText}) => {
+
+  const styles = useStyles()
 
   const renderEmojis = useCallback(() => {
     const filter = emoji.filter(e => e.category === category).sort((a, b) => a.sort_order - b.sort_order)
@@ -27,7 +30,7 @@ const EmojisList = ({category, setMessageText}) => {
   )},[])
 
   return (
-    <View style={{marginHorizontal: 10, alignItems: 'center'}}>
+    <View style={styles.emojisContainer}>
       <FlatList
         data={renderEmojis()}
         keyExtractor={item => item.name}
