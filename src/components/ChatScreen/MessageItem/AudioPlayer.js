@@ -3,11 +3,9 @@ import React, { useRef, useState } from 'react'
 import useStyles from '../../../Hooks/UseStyles'
 import Video from 'react-native-video'
 import Icon from 'react-native-vector-icons/Ionicons'
-import {BallIndicator} from 'react-native-indicators'
 import Slider from "@react-native-community/slider"
 
 const AudioPlayer = ({message}) => {
-  const [currentAudio, setCurrentAudio] = useState('')
   const [paused, setPaused] = useState(true)
   const [totalLength, setTotalLength] = useState(0)
   const [currentPosition, setCurrentPosition] = useState(0)

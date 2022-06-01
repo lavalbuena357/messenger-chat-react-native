@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import ModalFullSizeImage from './ModalFullSizeImage'
 import AudioPlayer from './AudioPlayer'
 
-const MessageItem = ({message, messageId}, props) => {
+const MessageItem = ({message}, props) => {
   const [modalImageFull, setModalImageFull] = useState(false)
 
   const styles = useStyles(getStyles)
