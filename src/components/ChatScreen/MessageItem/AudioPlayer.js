@@ -1,9 +1,8 @@
-import { View, Text, TouchableOpacity, StyleSheet, BackHandler } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useRef, useState } from 'react'
 import useStyles from '../../../Hooks/UseStyles'
 import Video from 'react-native-video'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { useFocusEffect } from '@react-navigation/native'
 import {BallIndicator} from 'react-native-indicators'
 import Slider from "@react-native-community/slider"
 
@@ -12,17 +11,12 @@ const AudioPlayer = ({message}) => {
   const [paused, setPaused] = useState(true)
   const [totalLength, setTotalLength] = useState(0)
   const [currentPosition, setCurrentPosition] = useState(0)
-  const [loading, setLoading] = useState(false)
 
   const styles = useStyles(getStyles)
   const audioRef = useRef(null)
 
-  const onLoad = () => {
-    setLoading(true)
-  }
 
   const fixDuration = (data) => {
-    setLoading(false);
     setTotalLength(data.duration)
   }
 
@@ -38,7 +32,7 @@ const AudioPlayer = ({message}) => {
     time = Math.round(time);
     audioRef && audioRef.current.seek(time)
     setCurrentPosition(time)
-    setPaused(false)
+    setPaused(true)
   }
   
   const resetAudio = () => {
@@ -59,18 +53,14 @@ const AudioPlayer = ({message}) => {
         style={{height: 0, width: 0}}
         onEnd={resetAudio}
         onLoad={fixDuration}
-        // onLoadStart={onLoad}
         onProgress={setTime} />
       <View>
         <View>
-          {loading && <BallIndicator color='red' size={10} />
-          || 
           <View>
             <TouchableOpacity onPress={togglePlay}>
               <Icon name={paused ? 'play' : 'pause'} size={24} color={styles.icon.color} />
             </TouchableOpacity>
           </View>
-           }
         </View>
       </View>
       <Slider
