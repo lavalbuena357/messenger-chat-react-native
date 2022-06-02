@@ -55,5 +55,14 @@ export const getStyles = ({colors}) => StyleSheet.create({
     padding: 8,
     borderRadius: 5,
     marginHorizontal: 10
-  }
+  },
+  statusBarCrop: {
+    color: colors.primary
+  },
+  bottomCrop: {
+    color: colors.secondary
+  },
+  loader: {
+    color: colors.white
+  },
 })

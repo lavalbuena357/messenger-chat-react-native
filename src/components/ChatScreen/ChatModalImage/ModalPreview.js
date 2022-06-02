@@ -5,45 +5,47 @@ import useStyles from '../../../Hooks/UseStyles'
 import { getStyles } from './ChatModalImage.styles'
 import { useSelector } from 'react-redux'
 import { saveMedia } from '../../../redux/actions/chats'
-// import Video from 'react-native-video'
-// import RNFS from 'react-native-fs'
+import Loader from '../../Loader/Loader'
 
-const ModalPreview = ({isModalImage, mediaData, contact, setIsModalImage}) => {
+const ModalPreview = ({setIsModalImage, mediaData, contact, isModalPreview, setIsModalPreview}) => {
   const [isRezise, setIsRezise] = useState(null)
-  const [videoUrl, setVideoUrl] = useState(null)
+  const [isLoading, setIsLoading] = useState(false) 
 
-  const { width: screenWidth, height: screenHeight } = useWindowDimensions()
   const styles = useStyles(getStyles)
   const currentUser = useSelector(state => state.userReducer.currentUser)
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions()
 
   useEffect(() => {
-      resize()
+    resize()
   }, [])
 
   const resize = useCallback(() => {
-    const mediaWidth = mediaData[0][0].width
-    const mediaHeight = mediaData[0][0].height
+    const mediaWidth = mediaData.width
+    const mediaHeight = mediaData.height
     const ratio = Math.min((screenWidth*0.9)/mediaWidth, (screenHeight*0.9)/mediaHeight)
     setIsRezise({width: mediaWidth*ratio, height: mediaHeight*ratio})
   }, [])
 
   const uploadFile = async() => {
-    const file = mediaData[0][0].base64
+    setIsLoading(true)
+    const file = mediaData.data
     const metadata = {width: `${isRezise.width}`, height: `${isRezise.height}`}
-    const cate = mediaData[1]
+    const cate = 'photo'
     const timestamp = Date.now()
-    const fileExtension = mediaData[0][0].fileName.split('.')[1]
+    const fileExtension = mediaData.fileExtension
     const filename = `${cate}_${currentUser.uid}-${timestamp}.${fileExtension}`
-    saveMedia(file, metadata, filename, cate, currentUser.uid, contact.uid)
+    await saveMedia(file, metadata, filename, cate, currentUser.uid, contact.uid)
+    setIsLoading(false)
     setIsModalImage(false)
+    setIsModalPreview(false)
   }
 
   return (
     <Modal
-      isVisible={isModalImage}
-      onBackButtonPress={() => setIsModalImage(false)}
-      onBackdropPress={() => setIsModalImage(false)}
-      onSwipeComplete={() => setIsModalImage(false)}
+      isVisible={isModalPreview}
+      onBackButtonPress={() => setIsModalPreview(false)}
+      onBackdropPress={() => setIsModalPreview(false)}
+      onSwipeComplete={() => setIsModalPreview(false)}
       backdropTransitionInTiming={1}
       backdropTransitionOutTiming={1}
       animationInTiming={1}
@@ -51,13 +53,9 @@ const ModalPreview = ({isModalImage, mediaData, contact, setIsModalImage}) => {
       backdropOpacity={1}
       style={null} >
       <View style={styles.modalPreview}>
-        {mediaData.length && mediaData[0].map((el, i) => (
-          <View key={i} >
-          {mediaData[1] === 'photo' &&
-          <Image source={{uri: el.uri}} style={{borderRadius: 10, width: isRezise && isRezise.width, height: isRezise&&  isRezise.height}} />
-          }
-          </View>
-        ))}
+        <View >
+          <Image source={{uri: mediaData.uri}} style={{borderRadius: 10, width: isRezise && isRezise.width, height: isRezise&&  isRezise.height}} />
+        </View>
         <View style={styles.boxButtons}>
           <TouchableOpacity style={styles.ButtonPreview} onPress={() => setIsModalImage(false)}>
             <Text>Cancelar</Text>
@@ -67,6 +65,7 @@ const ModalPreview = ({isModalImage, mediaData, contact, setIsModalImage}) => {
           </TouchableOpacity>
         </View>
       </View>
+      {isLoading && <Loader color={styles.loader.color} size={60} />}
     </Modal>
   )
 }

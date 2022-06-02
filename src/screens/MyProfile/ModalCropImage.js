@@ -30,8 +30,6 @@ const ModalCropImage = ({isModalImage, setIsModalImage, photo, setModalChangePho
     setIsLoading(true)
     const file = photo.data
     const metadata = {width: `${isRezise.width}`, height: `${isRezise.height}`}
-    const cate = 'photo'
-    const timestamp = Date.now()
     const fileExtension = photo.fileExtension
     const filename = `profile_picture_${currentUser.uid}.${fileExtension}`
     await changeProfilePic(file, metadata, filename, currentUser.uid)

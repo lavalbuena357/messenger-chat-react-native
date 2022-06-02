@@ -5,7 +5,7 @@ import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './MyProfile.styles'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ImagePicker from 'react-native-image-crop-picker'
-import { requestStoragePermission } from '../../utils/Permissions'
+import { requestCameraPermission, requestStoragePermission } from '../../utils/Permissions'
 import ModalCropImage from './ModalCropImage'
 
 const ChangeProfilePicture = ({modalChangePhoto, setModalChangePhoto}) => {
@@ -40,11 +40,11 @@ const ChangeProfilePicture = ({modalChangePhoto, setModalChangePhoto}) => {
           await ImagePicker.clean()
         } catch (error) {console.log(error)}
       } else {
-        Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.')
+        
       }
     } else {
-      const resStorage = await requestStoragePermission()
-      if(resStorage) {
+      const resCamera = await requestCameraPermission()
+      if(resCamera) {
         try {
           const itemSelected = await ImagePicker.openCamera({
             cropping: true, 
@@ -67,7 +67,7 @@ const ChangeProfilePicture = ({modalChangePhoto, setModalChangePhoto}) => {
           await ImagePicker.clean()
         } catch (error) {console.log(error)}
       } else {
-        Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder al almacenamiento interno.')
+        Alert.alert('Se requieren permisos', 'No concedieron los permisos para acceder a la cámara.')
       }
     }
   }
@@ -96,7 +96,6 @@ const ChangeProfilePicture = ({modalChangePhoto, setModalChangePhoto}) => {
         {isModalImage &&
         <ModalCropImage 
         photo={photo} 
-        setPhoto={setPhoto}
         isModalImage={isModalImage}
         setIsModalImage={setIsModalImage}
         setModalChangePhoto={setModalChangePhoto} />
