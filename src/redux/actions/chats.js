@@ -101,6 +101,14 @@ export const getChatContact = (uid, uidContact) => {
    }
  }
 
+//ELIMINAR CHAT
+export const removeChat = async(uid, chatUid) => {
+  try {
+    const chatRef = database().ref(`chats/${uid}/${chatUid}`)
+    await chatRef.remove()
+  } catch (error) {console.warn(error)}
+}
+
 //OBTENER EL ESTADO DE LOS EMOJIS
 export const getEmojisState = (toState) => {
   return async(dispatch) => {

@@ -38,7 +38,6 @@ class SingleEmoji extends PureComponent {
 
     const handleEmoji = () => {
       setMessageText(prev=> prev + item.emoji)
-      console.log(item)
     }
 
     return (

@@ -1,10 +1,11 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, Vibration } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Loader from '../../components/Loader/Loader'
 import ChatItem from '../../components/ChatItem/ChatItem'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './Rooms.styles'
+import ModalMenuChats from '../../components/ModalMenuActions/ModalMenuChats'
 
 const Rooms = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -20,10 +21,17 @@ const Rooms = ({navigation}) => {
     if(currentUser !== null) {
       setIsLoading(false)
     }
-  }, [currentUser])  
+  }, [currentUser])
+
+  useEffect(() => {
+    if(!showActionsModal) {setUidSelected('')}
+  }, [chats, showActionsModal])
 
   const handleSelected = (uid) => {
-
+    Vibration.vibrate(100, false)
+    if(uidSelected.length) {setUidSelected('')} 
+    else {setUidSelected(uid)}
+    setShowActionsModal(true)
   }
 
   const handleGoToContactChat = (contact) => {
@@ -47,6 +55,12 @@ const Rooms = ({navigation}) => {
         }
       </View>
       }
+      <ModalMenuChats
+        showActionsModal={showActionsModal}
+        setShowActionsModal={setShowActionsModal}
+        uidSelected={uidSelected}
+        setIsLoading={setIsLoading}
+        isLoading={isLoading} />
     </View>
   )
 }
