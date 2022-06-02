@@ -40,10 +40,15 @@ export const changeName = async(uid, name) => {
 }
 
 //CAMBIAR FOTO DE USUARIO
-export const changProfilePic = async(uid, photo) => {
+export const changeProfilePic = async(file, metadata, filename, uid ) => {
   try {
-    const photoRef = database().ref(`users/${uid}/photoURL`)
-    await photoRef.set(photo)
+    const storageRef = storage().ref(`profile_pictures/${filename}`)
+    const upload = await storageRef.putString(file, 'base64', {customMetadata: metadata})
+    if(upload.state === 'success') {
+      const url = await storageRef.getDownloadURL()
+      const photoRef = database().ref(`users/${uid}/photoURL`)
+      await photoRef.set(url)
+    }
   } catch (error) {console.warn(error)}
 }
 

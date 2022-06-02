@@ -108,5 +108,26 @@ export const getStyles = ({colors}) => StyleSheet.create({
     textAlign: 'center',
     marginTop: 5,
     fontSize: 12
+  },
+  modalPreview: {
+    flex: 1, 
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginVertical: 10
+  },
+  boxButtons: {
+    flexDirection: 'row',
+  },
+  ButtonPreview: {
+    backgroundColor: colors.orange,
+    padding: 8,
+    borderRadius: 5,
+    marginHorizontal: 10
+  },
+  statusBarCrop: {
+    color: colors.primary
+  },
+  bottomCrop: {
+    color: colors.secondary
   }
 })

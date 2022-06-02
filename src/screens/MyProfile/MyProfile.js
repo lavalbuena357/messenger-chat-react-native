@@ -2,13 +2,13 @@ import { View, Text, Image, TouchableOpacity, TextInput, Alert } from 'react-nat
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IconFAw from 'react-native-vector-icons/FontAwesome5'
-import Icon from 'react-native-vector-icons/Ionicons'
 import ModalTemplate from '../../components/ModalTemplate/ModalTemplate'
 import ModalTouchableCustom from '../../components/ModalTouchableCustom/ModalTouchableCustom'
 import Loader from '../../components/Loader/Loader'
 import useStyles from '../../Hooks/UseStyles'
 import { getStyles } from './MyProfile.styles'
 import { changeName, changeStatus } from '../../redux/actions/users'
+import ChangeProfilePicture from './ChangeProfilePicture'
 
 const MyProfile = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -17,7 +17,6 @@ const MyProfile = ({navigation}) => {
   const [modalChangePhoto, setModalChangePhoto] = useState(false)
   const [name, setName] = useState('')
   const [status, setStatus] = useState('')
-  const [photo, setPhoto] = useState('')
   const [isError, setIsError] = useState({error: false, message: ''})
 
   const styles = useStyles(getStyles)
@@ -75,12 +74,11 @@ const MyProfile = ({navigation}) => {
     }
   }
 
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack(null)}>
-          <Icon name='arrow-back' size={30} color={styles.headerTitle.color} />
+          <IconFAw name='arrow-left' size={20} color={styles.headerTitle.color} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Mi Perfil</Text>
       </View>
@@ -139,27 +137,9 @@ const MyProfile = ({navigation}) => {
         <ModalTouchableCustom handleFunction={handleConfirmName} buttonName='Actualizar' type='text' />
       </ModalTemplate>
       {/* MODAL PARA FOTO */}
-      <ModalTemplate
-        modalVisible={modalChangePhoto}
-        setModalVisible={setModalChangePhoto}
-        swipeDistance={180}
-        titleIcon='person'
-        title='Cambiar foto de perfil' >
-        <View style={styles.photoButtonsContainer}>
-          <View>
-            <TouchableOpacity style={styles.itemPhoto}>
-              <Icon name='image' size={32} color={styles.itemPhoto.color} />
-            </TouchableOpacity>
-            <Text style={styles.itemText}>Galería</Text>
-          </View>
-          <View>
-            <TouchableOpacity style={styles.itemPhoto}>
-              <Icon name='camera' size={32} color={styles.itemPhoto.color} />
-            </TouchableOpacity>
-            <Text style={styles.itemText}>Tomar foto</Text>
-          </View>
-        </View>
-      </ModalTemplate>
+      {modalChangePhoto && <ChangeProfilePicture
+        modalChangePhoto={modalChangePhoto}
+        setModalChangePhoto={setModalChangePhoto} />}
       {isLoading && <Loader color={styles.loader.color} size={60} />}
     </View>
   )
