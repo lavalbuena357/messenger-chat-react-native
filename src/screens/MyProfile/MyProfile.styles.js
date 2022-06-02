@@ -61,6 +61,7 @@ export const getStyles = ({colors}) => StyleSheet.create({
     alignSelf: 'center',
     marginTop: 10,
     backgroundColor: colors.secondary,
+    color: colors.primary,
     padding: 5,
     borderRadius: 10
   },
